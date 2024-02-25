@@ -1,10 +1,5 @@
-import { View } from 'react-native'
-import { Login } from './auth/login'
+import Departament from './employee/departament'
 
 export default function Home() {
-  return (
-    <View className="flex-1 items-center justify-center">
-      <Login />
-    </View>
-  )
+  return <Departament />
 }
