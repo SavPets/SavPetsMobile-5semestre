@@ -48,7 +48,6 @@ export default function Create() {
           maxLength={10}
           placeholder="DD/MM/YYYY"
           placeholderTextColor={colors.white}
-          value={manufactureDate}
           onChangeText={handleManufactureDateChange}
         />
 
@@ -58,7 +57,6 @@ export default function Create() {
           maxLength={10}
           placeholder="DD/MM/YYYY"
           placeholderTextColor={colors.white}
-          value={dueDate}
           onChangeText={handleDueDateChange}
         />
       </View>
