@@ -34,7 +34,7 @@ export default function CreateAnimalCategory() {
     <NativeBaseProvider>
       <Box className="mx-5 mt-16 flex-1">
         <ReturnHeader title="Nova categoria" />
-        <Box className=" mb-24 " style={{ gap: 16 }}>
+        <Box className=" mb-24   " style={{ gap: 16 }}>
           <Input title="Nome" />
 
           <Input title="Cor" />

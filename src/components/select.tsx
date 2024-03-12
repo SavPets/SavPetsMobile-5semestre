@@ -1,50 +1,52 @@
-import React, { useState } from 'react'
-import { NativeBaseProvider, Box, Pressable, Text } from 'native-base'
-import { Ionicons } from '@expo/vector-icons'
-import DropdownModal from './modal'
+import React from 'react'
+import { Box, Select, ChevronDownIcon, Text, Center } from 'native-base'
 
 interface SelectProps {
   title: string
   options: { label: string; value: string }[]
+  value: string | null
 }
 
-const Select = ({ title, options }: SelectProps) => {
-  const [service, setService] = useState('')
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+export default function SelectComponent({
+  title,
+  options,
+  value,
+}: SelectProps) {
+  const [service, setService] = React.useState('')
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen)
-  }
+  /* React.useEffect(() => {
+    setService(value || '')
+  }, [value])
+*/
 
   return (
-    <NativeBaseProvider>
-      <Box className=" flex-cow mb-4 h-16">
+    <Center>
+      <Box position="relative">
         <Text className="text-base font-semibold leading-short text-slate-300">
           {title}
         </Text>
-        <Pressable onPress={toggleDropdown}>
-          <Box
-            className=" h-12 rounded-md border border-slate-700 bg-slate-800 font-body text-sm leading-short text-slate-300"
-            borderWidth={1}
-            p={2}
-            flexDirection="row"
-            alignItems="center"
-            justifyContent="space-between"
-          >
-            <Text className="text-slate-100">{service}</Text>
-            <Ionicons name="chevron-down" size={20} color="gray" />
-          </Box>
-        </Pressable>
-
-        <DropdownModal
-          options={options}
-          onValueChange={(value) => setService(value)}
-          isOpen={isDropdownOpen}
-          onClose={toggleDropdown}
+        <Select
+          selectedValue={service}
+          minWidth="full"
+          dropdownIcon={<ChevronDownIcon size={0} />}
+          onValueChange={(itemValue) => setService(itemValue)}
+          zIndex={1}
+          variant="unstyled"
+          className="h-12 rounded-md border border-slate-700 bg-slate-800 px-3 py-3.5 font-body text-sm leading-short text-slate-100"
+        >
+          {options.map((option, index) => (
+            <Select.Item key={index} label={option.label} value="" />
+          ))}
+        </Select>
+        <ChevronDownIcon
+          size="4"
+          position="absolute"
+          color="white"
+          right="4"
+          zIndex={2}
+          bottom="3.5"
         />
       </Box>
-    </NativeBaseProvider>
+    </Center>
   )
 }
-
-export default Select

@@ -1,25 +1,72 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ReturnHeader } from '@/src/components/return-header'
 import { View } from 'react-native'
+import { Input } from '@/src/components/input'
+import React from 'react'
+import SelectComponent from '@/src/components/select'
+import { NativeBaseProvider } from 'native-base'
 import * as Button from '@/src/components/button'
 import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
-import { Input } from '@/src/components/input'
-import React from 'react'
-import ButtonSelect from '@/src/components/button-select'
+
+import { OCCUPATIONS } from '@/src/utils/data/seed'
+import { ANIMALS_CATEGORY } from '@/src/utils/data/animals'
+
+export const occupationOptions = OCCUPATIONS.map((item) => ({
+  label: item.name,
+  value: '',
+}))
+
+export const categoryOptions = ANIMALS_CATEGORY.map(
+  (item: {
+    name: string
+    race: string
+    gender: string
+    size: string
+    coatColor: string
+  }) => ({
+    label: `${item.name}-${item.race}-${item.gender}-${item.size}-${item.coatColor}`,
+    value: item.name,
+  }),
+)
 
 export default function CreateAnimalReport() {
   return (
-    <View className="mx-5 mt-16 flex-1">
-      <ReturnHeader title="Novo Relatório" />
+    <NativeBaseProvider>
+      <View className="mx-5 mt-16 flex-1">
+        <ReturnHeader title="Novo Relatório" />
 
-      <View className="mb-12" style={{ gap: 16 }}>
-        <Input title="Nome do animal" />
+        <View className="mb-12" style={{ gap: 16 }}>
+          <Input title="Nome do animal" />
 
-        <Input title="Local Encontrado" />
-        {/* <Select title="Categoria" options={RaceOptions} /> */}
+          <SelectComponent
+            title={'Categoria'}
+            options={categoryOptions}
+            value={''}
+          />
 
-        {/* <Select title="Medicamento" options={RaceOptions} /> */}
+          <Input title="Local encontrado" />
+
+          <Input title="Data de chegada" />
+
+          <SelectComponent
+            title={'Medicamento'}
+            options={occupationOptions}
+            value={''}
+          />
+
+          <Input title="Descrição" multiline={true} />
+        </View>
+
+        <View className="">
+          <Button.Root>
+            <Button.Icon>
+              <Feather name="plus-square" size={18} color={colors.slate[950]} />
+            </Button.Icon>
+            <Button.Title>Cadastrar relatório</Button.Title>
+          </Button.Root>
+        </View>
       </View>
-    </View>
+    </NativeBaseProvider>
   )
 }
