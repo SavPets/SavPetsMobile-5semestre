@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ReturnHeader } from '@/src/components/return-header'
-import { View } from 'react-native'
+import { View, ScrollView } from 'react-native'
 import { Input } from '@/src/components/input'
 import React from 'react'
 import SelectComponent from '@/src/components/select'
@@ -25,7 +25,7 @@ export const categoryOptions = ANIMALS_CATEGORY.map(
     size: string
     coatColor: string
   }) => ({
-    label: `${item.name}-${item.race}-${item.gender}-${item.size}-${item.coatColor}`,
+    label: `${item.name}, ${item.race}, ${item.gender}, ${item.size}, ${item.coatColor}`,
     value: item.name,
   }),
 )
@@ -36,36 +36,42 @@ export default function CreateAnimalReport() {
       <View className="mx-5 mt-16 flex-1">
         <ReturnHeader title="Novo Relatório" />
 
-        <View className="mb-12" style={{ gap: 16 }}>
-          <Input title="Nome do animal" />
+        <ScrollView contentContainerStyle={{ paddingVertical: 32 }}>
+          <View className="mb-12" style={{ gap: 16 }}>
+            <Input title="Nome do animal" />
 
-          <SelectComponent
-            title={'Categoria'}
-            options={categoryOptions}
-            value={''}
-          />
+            <SelectComponent
+              title={'Categoria'}
+              options={categoryOptions}
+              value={''}
+            />
 
-          <Input title="Local encontrado" />
+            <Input title="Local encontrado" />
 
-          <Input title="Data de chegada" />
+            <Input title="Data de chegada" />
 
-          <SelectComponent
-            title={'Medicamento'}
-            options={occupationOptions}
-            value={''}
-          />
+            <SelectComponent
+              title={'Medicamento'}
+              options={occupationOptions}
+              value={''}
+            />
 
-          <Input title="Descrição" multiline={true} />
-        </View>
+            <Input title="Descrição" multiline={true} />
+          </View>
 
-        <View className="">
-          <Button.Root>
-            <Button.Icon>
-              <Feather name="plus-square" size={18} color={colors.slate[950]} />
-            </Button.Icon>
-            <Button.Title>Cadastrar relatório</Button.Title>
-          </Button.Root>
-        </View>
+          <View>
+            <Button.Root>
+              <Button.Icon>
+                <Feather
+                  name="plus-square"
+                  size={18}
+                  color={colors.slate[950]}
+                />
+              </Button.Icon>
+              <Button.Title>Cadastrar relatório</Button.Title>
+            </Button.Root>
+          </View>
+        </ScrollView>
       </View>
     </NativeBaseProvider>
   )

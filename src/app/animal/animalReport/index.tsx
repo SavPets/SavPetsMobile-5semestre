@@ -38,7 +38,7 @@ export default function AnimalReport() {
               </View>
 
               <Text className="font-body text-sm leading-relaxed text-slate-300">
-                {item.animalCategory}
+                Categoria: {item.animalCategory}
               </Text>
             </TouchableOpacity>
           </Link>

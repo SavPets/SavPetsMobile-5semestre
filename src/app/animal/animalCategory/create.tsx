@@ -6,7 +6,7 @@ import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
 import { Input } from '@/src/components/input'
 import React from 'react'
-import { Box, NativeBaseProvider } from 'native-base'
+import { NativeBaseProvider } from 'native-base'
 import ButtonSelect from '@/src/components/button-select'
 
 export const GenderOptions = [
@@ -30,33 +30,39 @@ export default function CreateAnimalCategory() {
   ]
 
   return (
-    // Arrumar
     <NativeBaseProvider>
-      <Box className="mx-5 mt-16 flex-1">
+      <View className="mx-5 mt-16 flex-1">
         <ReturnHeader title="Nova categoria" />
-        <Box className=" mb-24   " style={{ gap: 16 }}>
-          <Input title="Nome" />
 
-          <Input title="Cor" />
+        <View className="py-8">
+          <View className="mb-12" style={{ gap: 16 }}>
+            <Input title="Nome" />
 
-          <Input title="Raça" />
+            <Input title="Cor" />
 
-          <ButtonSelect title={'Gênero'} options={GenderOptions} value={''} />
+            <Input title="Raça" />
 
-          <ButtonSelect title={'Porte'} options={SizeOptions} value={''} />
+            <ButtonSelect title={'Gênero'} options={GenderOptions} value={''} />
 
-          {/* <Select title="Raça" options={RaceOptions} /> */}
-        </Box>
+            <ButtonSelect title={'Porte'} options={SizeOptions} value={''} />
 
-        <View className="">
-          <Button.Root>
-            <Button.Icon>
-              <Feather name="plus-square" size={18} color={colors.slate[950]} />
-            </Button.Icon>
-            <Button.Title>Cadastrar categoria</Button.Title>
-          </Button.Root>
+            {/* <ButtonSelect title="Raça" options={RaceOptions} value={''} /> */}
+          </View>
+
+          <View>
+            <Button.Root>
+              <Button.Icon>
+                <Feather
+                  name="plus-square"
+                  size={18}
+                  color={colors.slate[950]}
+                />
+              </Button.Icon>
+              <Button.Title>Cadastrar categoria</Button.Title>
+            </Button.Root>
+          </View>
         </View>
-      </Box>
+      </View>
     </NativeBaseProvider>
   )
 }

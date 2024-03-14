@@ -10,26 +10,28 @@ export default function CreateProvider() {
     <View className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Novo Fornecedor" />
 
-      <View className="mb-12" style={{ gap: 16 }}>
-        <Input title="Razão Social" />
+      <View className="py-8">
+        <View className="mb-12" style={{ gap: 16 }}>
+          <Input title="Razão Social" />
 
-        <Input title="CNPJ" />
+          <Input title="CNPJ" />
 
-        <Input title="CEP" />
+          <Input title="CEP" />
 
-        <Input title="Endereço" />
+          <Input title="Endereço" />
 
-        <Input title="Número do Endereço" keyboardType="numeric" />
+          <Input title="Número do Endereço" keyboardType="numeric" />
 
-        <Input title="Complemento" />
+          <Input title="Complemento" />
+        </View>
+
+        <Button.Root>
+          <Button.Icon>
+            <Feather name="plus-square" size={18} color={colors.slate[950]} />
+          </Button.Icon>
+          <Button.Title>Cadastrar Fornecedor</Button.Title>
+        </Button.Root>
       </View>
-
-      <Button.Root>
-        <Button.Icon>
-          <Feather name="plus-square" size={18} color={colors.slate[950]} />
-        </Button.Icon>
-        <Button.Title>Cadastrar Fornecedor</Button.Title>
-      </Button.Root>
     </View>
   )
 }

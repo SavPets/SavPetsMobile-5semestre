@@ -8,7 +8,7 @@ import React from 'react'
 import { FlatList, Text, TouchableOpacity, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 
-export function Category() {
+export default function AnimalCategory() {
   return (
     <View className="mx-5 mt-8 flex-1">
       <View className="flex-row items-center justify-between">

@@ -10,7 +10,7 @@ import { NativeBaseProvider } from 'native-base'
 import ButtonSelect from '@/src/components/button-select'
 import { DepartamentOptions, OccupationOptions } from '../create'
 
-export default function UpdateEmployeeByID() {
+export default function UpdateEmployeeById() {
   const { id } = useLocalSearchParams()
 
   const employee = EMPLOYEES.find((item) => item.id === id)

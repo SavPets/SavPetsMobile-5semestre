@@ -6,7 +6,7 @@ import { Link, Redirect, useLocalSearchParams } from 'expo-router'
 import { ScrollView, Text, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 
-export default function EmployeeByID() {
+export default function EmployeeById() {
   const { id } = useLocalSearchParams()
 
   const employee = EMPLOYEES.find((item) => item.id === id)

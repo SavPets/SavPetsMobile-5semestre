@@ -7,7 +7,6 @@ import React from 'react'
 import { FlatList, Text, TouchableOpacity, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 
-
 export default function Food() {
   return (
     <View className="mx-5 mt-12 flex-1">
@@ -33,35 +32,18 @@ export default function Food() {
                 <Text className="text-base font-semibold leading-short text-slate-100">
                   {item.name}
                 </Text>
-              </View>
-
-              <View className="mb-0.5 flex-row items-center justify-between">
-                <Text className="text-base font-semibold leading-short text-slate-100">
-                  Calorias: {item.calories}
-                </Text>
-                <Text className="text-base font-semibold leading-short text-slate-100">
-                  Quantidade: {item.amount}
+                <Text className="font-body text-sm leading-short text-slate-100">
+                  {item.amount} Un
                 </Text>
               </View>
 
-              <View className="mb-0.5 flex-row items-center justify-between">
-                <Text className="text-base font-semibold leading-short text-slate-100">
-                  Proteínas: {item.proteins}g
-                </Text>
-                <Text className="text-base font-semibold leading-short text-slate-100">
-                  Gorduras: {item.fats}g
-                </Text>
-              </View>
-              <View className="mb-0.5 flex-row items-center justify-between">
-                <Text className="text-base font-semibold leading-short text-slate-100">
-                  Fabricação: {item.manufacturingdate}
-                </Text>
-                <Text className="text-base font-semibold leading-short text-slate-100">
-                  Vencimento: {item.duedate}
-                </Text>
-              </View>
+              <Text className="font-body text-sm leading-relaxed text-slate-300">
+                Data de Fabricação: {item.manufacturingdate}
+              </Text>
 
-
+              <Text className="font-body text-sm leading-relaxed text-slate-300">
+                Data de Fabricação: {item.duedate}
+              </Text>
             </TouchableOpacity>
           </Link>
         )}

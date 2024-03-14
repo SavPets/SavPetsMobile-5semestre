@@ -7,7 +7,6 @@ import React from 'react'
 import { FlatList, Text, TouchableOpacity, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 
-
 export default function Equipment() {
   return (
     <View className="mx-5 mt-12 flex-1">

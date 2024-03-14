@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react'
-import { Category } from './animal/animalCategory'
-import Departament from './employee/departament'
-import Equipment from './equipment'
+import AnimalCategory from './animal/animalCategory'
 import AnimalReport from './animal/animalReport'
-import Provider from './provider'
 import Employee from './employee'
+import EmployeeDepartament from './employee/departament'
+import EmployeeOccupation from './employee/occupation'
+import Equipment from './equipment'
+import Food from './food'
+import Provider from './provider'
 
 export default function Home() {
-  return <Employee />
+  return <Provider />
 }

@@ -7,7 +7,7 @@ import React from 'react'
 import { FlatList, Text, TouchableOpacity, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 
-export default function Departament() {
+export default function EmployeeDepartament() {
   return (
     <View className="mx-5 mt-8 flex-1">
       <View className="flex-row items-center justify-between">
@@ -38,7 +38,7 @@ export default function Departament() {
               </View>
 
               <Text className="font-body text-sm leading-relaxed text-slate-300">
-                {item.initials}
+                Sigla: {item.initials}
               </Text>
             </TouchableOpacity>
           </Link>

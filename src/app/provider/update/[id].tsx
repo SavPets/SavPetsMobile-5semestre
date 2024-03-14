@@ -20,29 +20,35 @@ export default function UpdateProviderByID() {
       <View className="mx-5 mt-16 flex-1">
         <ReturnHeader title="Editar fornecedor" />
 
-        <View className="mb-12" style={{ gap: 16 }}>
-          <Input title="Razão Social" value={provider.name} />
+        <View className="py-8">
+          <View className="mb-12" style={{ gap: 16 }}>
+            <Input title="Razão Social" defaultValue={provider.name} />
 
-          <Input title="CNPJ" value={provider.cnpj} />
+            <Input title="CNPJ" defaultValue={provider.cnpj} />
 
-          <Input title="CEP" value={provider.cep} />
+            <Input title="CEP" defaultValue={provider.cep} />
 
-          <Input title="Endereço" value={provider.address} />
+            <Input title="Endereço" defaultValue={provider.address} />
 
-          <Input
-            title="Número do Endereço"
-            value={provider.locationNumber.toString()}
-          />
+            <Input
+              title="Número do Endereço"
+              defaultValue={provider.locationNumber.toString()}
+            />
 
-          <Input title="Complemento" value={provider.complement} />
+            <Input title="Complemento" defaultValue={provider.complement} />
+          </View>
+
+          <Button.Root>
+            <Button.Icon>
+              <Feather
+                name="check-square"
+                size={18}
+                color={colors.slate[950]}
+              />
+            </Button.Icon>
+            <Button.Title>Salvar alterações</Button.Title>
+          </Button.Root>
         </View>
-
-        <Button.Root>
-          <Button.Icon>
-            <Feather name="check-square" size={18} color={colors.slate[950]} />
-          </Button.Icon>
-          <Button.Title>Salvar alterações</Button.Title>
-        </Button.Root>
       </View>
     </NativeBaseProvider>
   )

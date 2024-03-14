@@ -7,7 +7,7 @@ import { Redirect, useLocalSearchParams } from 'expo-router'
 import { DEPARTAMENTS } from '@/src/utils/data/seed'
 import { Input } from '@/src/components/input'
 
-export default function Update() {
+export default function UpdateEmployeeDepartamentById() {
   const { id } = useLocalSearchParams()
 
   const departament = DEPARTAMENTS.find((item) => item.id === id)
@@ -18,18 +18,20 @@ export default function Update() {
     <View className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Editar departamento" />
 
-      <View className="mb-12" style={{ gap: 16 }}>
-        <Input title="Nome" value={departament.name} />
+      <View className="py-8">
+        <View className="mb-12" style={{ gap: 16 }}>
+          <Input title="Nome" value={departament.name} />
 
-        <Input title="Iniciais" value={departament.initials} />
+          <Input title="Iniciais" value={departament.initials} />
+        </View>
+
+        <Button.Root>
+          <Button.Icon>
+            <Feather name="check-square" size={18} color={colors.slate[950]} />
+          </Button.Icon>
+          <Button.Title>Salvar alterações</Button.Title>
+        </Button.Root>
       </View>
-
-      <Button.Root>
-        <Button.Icon>
-          <Feather name="check-square" size={18} color={colors.slate[950]} />
-        </Button.Icon>
-        <Button.Title>Salvar alterações</Button.Title>
-      </Button.Root>
     </View>
   )
 }
