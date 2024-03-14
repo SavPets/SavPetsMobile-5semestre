@@ -1,4 +1,11 @@
-export const OCCUPATIONS = [
+interface Occupations {
+  id: string
+  name: string
+  description: string
+  createdAt: string
+}
+
+export const OCCUPATIONS: Occupations[] = [
   {
     id: '1',
     name: 'Gerente',
@@ -10,7 +17,7 @@ export const OCCUPATIONS = [
     id: '2',
     name: 'Atendente',
     description:
-      'acolher bem os clientes, orientá-los sobre os produtos e serviços oferecidos, resolver problemas, esclarecer dúvidas, prestar informações, realizar vendas e emitir notas fiscais.',
+      'Acolher bem os clientes, orientá-los sobre os produtos e serviços oferecidos, resolver problemas, esclarecer dúvidas, prestar informações, realizar vendas e emitir notas fiscais.',
     createdAt: '19/02/2024',
   },
   {
@@ -71,7 +78,14 @@ export const OCCUPATIONS = [
   },
 ]
 
-export const DEPARTAMENTS = [
+interface Departament {
+  id: string
+  name: string
+  initials: string
+  createdAt: string
+}
+
+export const DEPARTAMENTS: Departament[] = [
   {
     id: '1',
     name: 'Marketing',

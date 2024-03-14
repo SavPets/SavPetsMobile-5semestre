@@ -1,6 +1,6 @@
 import * as Button from '@/src/components/button'
 import { ListEmpty } from '@/src/components/list-empty'
-import { EQUIPMENTS } from '@/src/utils/data/equipment'
+import { EQUIPMENTS } from '@/src/utils/data/equipments'
 import { Feather } from '@expo/vector-icons'
 import { Link } from 'expo-router'
 import React from 'react'

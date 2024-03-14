@@ -1,6 +1,6 @@
 import * as Button from '@/src/components/button'
 import { ReturnHeader } from '@/src/components/return-header'
-import { FOODS } from '@/src/utils/data/equipment'
+import { FOODS } from '@/src/utils/data/foods'
 import { Feather } from '@expo/vector-icons'
 import { Link, Redirect, useLocalSearchParams } from 'expo-router'
 import { Text, View } from 'react-native'
@@ -15,7 +15,7 @@ export default function FoodById() {
 
   return (
     <View className="mx-5 mt-16 flex-1">
-      <ReturnHeader title="Alimentos" />
+      <ReturnHeader title="Alimento" />
 
       <View className="py-8">
         <View className="mb-12 gap-4">
@@ -69,7 +69,7 @@ export default function FoodById() {
               Data de Fabricação
             </Text>
             <Text className="font-body text-base leading-relaxed text-slate-100">
-              {food.manufacturingdate}
+              {food.manufacturingDate}
             </Text>
           </View>
 
@@ -78,7 +78,7 @@ export default function FoodById() {
               Data de Vencimento
             </Text>
             <Text className="font-body text-base leading-relaxed text-slate-100">
-              {food.duedate}
+              {food.dueDate}
             </Text>
           </View>
         </View>

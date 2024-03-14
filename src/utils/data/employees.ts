@@ -1,4 +1,4 @@
-interface EmployeeProps {
+interface Employee {
   id: string
   name: string
   surname: string
@@ -15,7 +15,7 @@ interface EmployeeProps {
   occupation: string
 }
 
-export const EMPLOYEES: EmployeeProps[] = [
+export const EMPLOYEES: Employee[] = [
   {
     id: '2',
     name: 'Fernanda',

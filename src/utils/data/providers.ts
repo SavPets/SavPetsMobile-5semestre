@@ -1,4 +1,4 @@
-interface ProviderProps {
+interface Provider {
   id: string
   name: string
   cnpj: string
@@ -8,7 +8,7 @@ interface ProviderProps {
   complement?: string
 }
 
-export const PROVIDERS: ProviderProps[] = [
+export const PROVIDERS: Provider[] = [
   {
     id: '1',
     name: 'Pedigree Indústria e Comércio LTDA',

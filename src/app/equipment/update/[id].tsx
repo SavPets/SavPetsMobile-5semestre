@@ -4,7 +4,7 @@ import * as Button from '@/src/components/button'
 import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
 import { Redirect, useLocalSearchParams } from 'expo-router'
-import { EQUIPMENTS } from '@/src/utils/data/equipment'
+import { EQUIPMENTS } from '@/src/utils/data/equipments'
 import { Input } from '@/src/components/input'
 
 export default function UpdateEquipamentById() {

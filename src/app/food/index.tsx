@@ -1,6 +1,6 @@
 import * as Button from '@/src/components/button'
 import { ListEmpty } from '@/src/components/list-empty'
-import { FOODS } from '@/src/utils/data/equipment'
+import { FOODS } from '@/src/utils/data/foods'
 import { Feather } from '@expo/vector-icons'
 import { Link } from 'expo-router'
 import React from 'react'
@@ -38,11 +38,11 @@ export default function Food() {
               </View>
 
               <Text className="font-body text-sm leading-relaxed text-slate-300">
-                Data de Fabricação: {item.manufacturingdate}
+                Data de Fabricação: {item.manufacturingDate}
               </Text>
 
               <Text className="font-body text-sm leading-relaxed text-slate-300">
-                Data de Fabricação: {item.duedate}
+                Data de Fabricação: {item.dueDate}
               </Text>
             </TouchableOpacity>
           </Link>

@@ -1,4 +1,14 @@
-export const ANIMALS_CATEGORY = [
+interface AnimalCategory {
+  id: string
+  name: string
+  race: string
+  gender: 'Macho' | 'Fêmea'
+  size: 'Pequeno' | 'Médio' | 'Grande'
+  coatColor: string
+  createdAt: string
+}
+
+export const ANIMALS_CATEGORY: AnimalCategory[] = [
   {
     id: '1',
     name: 'Gato',
@@ -28,7 +38,18 @@ export const ANIMALS_CATEGORY = [
   },
 ]
 
-export const ANIMAL_REPORT = [
+interface AnimalReport {
+  id: string
+  animalName: string
+  medicine: string
+  animalCategory: string
+  arrivalDate: string
+  local: string
+  description: string
+  createdAt: string
+}
+
+export const ANIMAL_REPORT: AnimalReport[] = [
   {
     id: '1',
     animalName: 'Hermione',

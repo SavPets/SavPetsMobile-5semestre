@@ -1,6 +1,6 @@
 import * as Button from '@/src/components/button'
 import { ReturnHeader } from '@/src/components/return-header'
-import { EQUIPMENTS } from '@/src/utils/data/equipment'
+import { EQUIPMENTS } from '@/src/utils/data/equipments'
 import { Feather } from '@expo/vector-icons'
 import { Link, Redirect, useLocalSearchParams } from 'expo-router'
 import { Text, View } from 'react-native'

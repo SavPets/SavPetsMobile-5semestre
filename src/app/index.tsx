@@ -10,5 +10,5 @@ import Food from './food'
 import Provider from './provider'
 
 export default function Home() {
-  return <Provider />
+  return <Food />
 }

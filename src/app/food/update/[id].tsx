@@ -4,7 +4,7 @@ import * as Button from '@/src/components/button'
 import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
 import { Redirect, useLocalSearchParams } from 'expo-router'
-import { FOODS } from '@/src/utils/data/equipment'
+import { FOODS } from '@/src/utils/data/foods'
 import { Input } from '@/src/components/input'
 
 export default function UpdateFoodById() {
@@ -22,18 +22,18 @@ export default function UpdateFoodById() {
         <View className="mb-12" style={{ gap: 16 }}>
           <Input title="Nome" defaultValue={food.name} />
 
-          <Input title="Calorias" defaultValue={food.calories} />
+          <Input title="Calorias" defaultValue={food.calories.toString()} />
 
-          <Input title="Gorduras" defaultValue={food.fats} />
+          <Input title="Gorduras" defaultValue={food.fats.toString()} />
 
-          <Input title="Proteínas" defaultValue={food.proteins} />
+          <Input title="Proteínas" defaultValue={food.proteins.toString()} />
 
           <Input
             title="Data de Fabricação"
             keyboardType="numeric"
             maxLength={10}
             placeholder="DD/MM/YYYY"
-            defaultValue={food.manufacturingdate}
+            defaultValue={food.manufacturingDate}
           />
 
           <Input
@@ -41,10 +41,10 @@ export default function UpdateFoodById() {
             keyboardType="numeric"
             maxLength={10}
             placeholder="DD/MM/YYYY"
-            defaultValue={food.duedate}
+            defaultValue={food.dueDate}
           />
 
-          <Input title="Quantidade" defaultValue={food.amount} />
+          <Input title="Quantidade" defaultValue={food.amount.toString()} />
         </View>
 
         <Button.Root>
