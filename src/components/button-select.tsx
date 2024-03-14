@@ -13,10 +13,10 @@ const SelectButton: FC<SelectButtonProps> = ({
   onToggle,
   isSelected,
 }) => (
-  <View className="">
+  <View>
     <Pressable
       className={clsx(
-        'mr-5 h-12 rounded-md border border-slate-700 bg-slate-800 px-4 pt-3 font-body text-sm leading-short',
+        'h-12 rounded-md border border-slate-700 bg-slate-800 px-4 pt-3 font-body text-sm leading-short',
         isSelected && 'border-sky-300',
       )}
       onPress={onToggle}
@@ -55,7 +55,7 @@ const ButtonSelect: FC<ButtonSelectProps> = ({ title, options, value }) => {
       <Text className="text-base font-semibold leading-short text-slate-300">
         {title}
       </Text>
-      <View className="flex-row flex-wrap">
+      <View className="flex-row flex-wrap" style={{ gap: 12 }}>
         {options.map((option) => (
           <SelectButton
             key={option.label}

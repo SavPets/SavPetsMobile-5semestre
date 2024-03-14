@@ -11,7 +11,7 @@ export function ReturnHeader({ title }: ReturnHeaderProps) {
   const { goBack } = useNavigation()
 
   return (
-    <View className="mb-8 flex-row items-center justify-center border-b border-slate-700 pb-6">
+    <View className="flex-row items-center justify-center border-b border-slate-700 pb-6">
       <TouchableOpacity
         onPress={() => goBack()}
         className="absolute left-0 top-0"

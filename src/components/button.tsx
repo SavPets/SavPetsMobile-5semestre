@@ -7,13 +7,30 @@ import {
   View,
   ViewProps,
 } from 'react-native'
+import { tv, VariantProps } from 'tailwind-variants'
 
-interface RootProps extends TouchableOpacityProps {
-  isFloat?: boolean
-}
+const button = tv({
+  base: 'flex-row items-center justify-center rounded-md',
+  variants: {
+    isFloat: {
+      true: 'h-16 w-16',
+      false: 'h-[50]',
+    },
+    variant: {
+      default: 'bg-sky-400',
+      delete: 'bg-rose-400',
+    },
+  },
+  defaultVariants: {
+    isFloat: false,
+    variant: 'default',
+  },
+})
+
+type RootProps = TouchableOpacityProps & VariantProps<typeof button>
 
 const Root = forwardRef<TouchableOpacity, RootProps>(function Root(
-  { isFloat, ...props },
+  { isFloat, variant, ...props },
   ref,
 ) {
   return (
@@ -22,7 +39,7 @@ const Root = forwardRef<TouchableOpacity, RootProps>(function Root(
       ref={ref}
       {...props}
       style={{ gap: 12 }}
-      className={`${isFloat ? 'h-16 w-16' : 'h-[50]'} flex-row items-center justify-center rounded-md bg-sky-400`}
+      className={button({ variant, isFloat })}
     />
   )
 })
