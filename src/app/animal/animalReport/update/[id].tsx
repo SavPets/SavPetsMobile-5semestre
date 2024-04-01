@@ -38,8 +38,8 @@ export default function UpdateAnimalReportById() {
 
             <SelectComponent
               title="Medicamento"
-              value={report.medicine}
               options={occupationOptions}
+              value={report.medicine}
             />
 
             <Input

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box, Select, ChevronDownIcon, Text, Center } from 'native-base'
 
 interface SelectProps {
@@ -14,10 +14,9 @@ export default function SelectComponent({
 }: SelectProps) {
   const [service, setService] = React.useState('')
 
-  /* React.useEffect(() => {
+  useEffect(() => {
     setService(value || '')
   }, [value])
-*/
 
   return (
     <Center>
@@ -35,7 +34,11 @@ export default function SelectComponent({
           className="h-12 rounded-md border border-slate-700 bg-slate-800 px-3 py-3.5 font-body text-sm leading-short text-slate-100"
         >
           {options.map((option, index) => (
-            <Select.Item key={index} label={option.label} value="" />
+            <Select.Item
+              key={index}
+              label={option.label}
+              value={option.value}
+            />
           ))}
         </Select>
         <ChevronDownIcon

@@ -14,19 +14,22 @@ import { ANIMALS_CATEGORY } from '@/src/utils/data/animals'
 
 export const occupationOptions = OCCUPATIONS.map((item) => ({
   label: item.name,
-  value: '',
+  value: item.name,
 }))
 
 export const categoryOptions = ANIMALS_CATEGORY.map(
-  (item: {
-    name: string
-    race: string
-    gender: string
-    size: string
-    coatColor: string
-  }) => ({
+  (
+    item: {
+      name: string
+      race: string
+      gender: string
+      size: string
+      coatColor: string
+    },
+    index,
+  ) => ({
     label: `${item.name}, ${item.race}, ${item.gender}, ${item.size}, ${item.coatColor}`,
-    value: item.name,
+    value: `${item.name}_${index}`, // Aqui você concatena o nome com o índice para tornar único
   }),
 )
 
