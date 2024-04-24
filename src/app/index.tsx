@@ -8,7 +8,7 @@ import EmployeeOccupation from './employee/occupation'
 import Equipment from './equipment'
 import Food from './food'
 import Provider from './provider'
-
+import Campaign from './campaign'
 export default function Home() {
-  return <Food />
+  return <Campaign/>
 }
