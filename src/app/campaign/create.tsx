@@ -1,5 +1,5 @@
 import { ReturnHeader } from '@/src/components/return-header'
-import { View } from 'react-native'
+import { ScrollView,View } from 'react-native'
 import * as Button from '@/src/components/button'
 import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
@@ -10,6 +10,8 @@ export default function CreatecAMPAIGN() {
     <View className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Nova Campanha" />
 
+
+    <ScrollView contentContainerStyle={{ paddingVertical: 32 }}>
       <View className="py-8">
         <View className="mb-12" style={{ gap: 16 }}>
           <Input title="Nome" />
@@ -31,6 +33,7 @@ export default function CreatecAMPAIGN() {
           <Button.Title>Cadastrar Campanha</Button.Title>
         </Button.Root>
       </View>
+      </ScrollView>
     </View>
   )
 }
