@@ -19,6 +19,7 @@ const button = tv({
     variant: {
       default: 'bg-sky-400',
       delete: 'bg-rose-400',
+      cancel: 'bg-transparent border border-slate-300',
     },
   },
   defaultVariants: {

@@ -5,12 +5,23 @@ import { Feather } from '@expo/vector-icons'
 import { Link, Redirect, useLocalSearchParams } from 'expo-router'
 import { Text, View } from 'react-native'
 import colors from 'tailwindcss/colors'
+import DeleteModal from '@/src/components/delete-modal'
+import { NativeBaseProvider } from 'native-base'
+import { useState } from 'react'
 
 export default function CampaignByID() {
   const { id } = useLocalSearchParams()
 
   const campaign = CAMPAIGN.find((item) => item.id === id)
+  const [isModalVisible, setIsModalVisible] = useState(false)
 
+  const openModal = () => {
+    setIsModalVisible(true)
+  }
+
+  const closeModal = () => {
+    setIsModalVisible(false)
+  }
   if (!campaign) return <Redirect href="/campaign/" />
 
   return (
@@ -63,8 +74,6 @@ export default function CampaignByID() {
               {campaign.description}
             </Text>
           </View>
-
-
         </View>
 
         <View style={{ gap: 12 }}>
@@ -77,7 +86,7 @@ export default function CampaignByID() {
             </Button.Root>
           </Link>
 
-          <Button.Root variant="delete">
+          <Button.Root variant="delete" onPress={openModal}>
             <Button.Icon>
               <Feather name="trash-2" size={18} color={colors.slate[950]} />
             </Button.Icon>
@@ -85,6 +94,19 @@ export default function CampaignByID() {
           </Button.Root>
         </View>
       </View>
+
+      <NativeBaseProvider>
+        <DeleteModal
+          isVisible={isModalVisible}
+          onClose={closeModal}
+          item={campaign}
+          isOpen={isModalVisible}
+          itemName="o registro de patas em busca de lar"
+          onDelete={function (item: any): void {
+            console.log('N pegou.' + item)
+          }}
+        />
+      </NativeBaseProvider>
     </View>
   )
 }
