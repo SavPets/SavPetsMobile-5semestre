@@ -40,9 +40,13 @@ export default function UpdateCampaignById() {
           </View>
 
           <Button.Root>
-          <Button.Icon>
-            <Feather name="check-square" size={18} color={colors.slate[950]} />
-          </Button.Icon>
+            <Button.Icon>
+              <Feather
+                name="check-square"
+                size={18}
+                color={colors.slate[950]}
+              />
+            </Button.Icon>
             <Button.Title>Salvar alterações</Button.Title>
           </Button.Root>
         </ScrollView>

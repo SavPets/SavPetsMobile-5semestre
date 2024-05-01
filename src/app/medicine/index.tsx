@@ -1,29 +1,30 @@
+/* eslint-disable prettier/prettier */
 import * as Button from '@/src/components/button'
 import { ListEmpty } from '@/src/components/list-empty'
-import { CAMPAIGN } from '@/src/utils/data/campaign'
+import { MEDICINE } from '@/src/utils/data/medicine'
 import { Feather } from '@expo/vector-icons'
 import { Link } from 'expo-router'
 import React from 'react'
 import { FlatList, Text, TouchableOpacity, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 
-export default function Campaign() {
+export default function Medicine() {
   return (
     <View className="mx-5 mt-12 flex-1">
       <View className="flex-row items-center justify-between">
         <Text className="text-lg font-semibold leading-short text-white">
-          Campanhas
+          Medicamentos
         </Text>
         <Text className="font-body text-sm leading-short text-slate-300">
-          Total de {CAMPAIGN.length}
+          Total de {MEDICINE.length}
         </Text>
       </View>
 
       <FlatList
-        data={CAMPAIGN}
+        data={MEDICINE}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <Link href={`/campaign/${item.id}`} asChild>
+          <Link href={`/medicine/${item.id}`} asChild>
             <TouchableOpacity
               activeOpacity={0.8}
               className="border-b border-slate-700 py-4"
@@ -33,15 +34,31 @@ export default function Campaign() {
                   {item.name}
                 </Text>
                 <Text className="font-body text-sm leading-short text-slate-100">
-                  {item.date}
+                  {item.manufacturingDate}
                 </Text>
               </View>
               <Text className="font-body text-sm leading-relaxed text-slate-300">
-                {item.location}
+                  {item.expirationDate}
+                </Text>
+                <Text className="font-body text-sm leading-relaxed text-slate-300">
+                  {item.utility}
+                </Text>
+
+              <Text className="font-body text-sm leading-relaxed text-slate-300">
+                {item.observation}
               </Text>
               <Text className="font-body text-sm leading-relaxed text-slate-300">
-                {item.description}
-              </Text>
+                  {item.amount}
+                </Text>
+                <Text className="font-body text-sm leading-relaxed text-slate-300">
+                  {item.arrivalDate}
+                </Text>
+                <Text className="font-body text-sm leading-relaxed text-slate-300">
+                  {item.leaflet}
+                </Text>
+                <Text className="font-body text-sm leading-relaxed text-slate-300">
+                  {item.provider}
+                </Text>
             </TouchableOpacity>
           </Link>
         )}
@@ -51,7 +68,7 @@ export default function Campaign() {
       />
 
       <View style={{ position: 'absolute', right: 0, bottom: 80 }}>
-        <Link href="/campaign/create" asChild>
+        <Link href="/medicine/create" asChild>
           {/* usando o princípio da composição selecionando apenas os itens que serão usados - ícone | texto */}
 
           <Button.Root isFloat>
