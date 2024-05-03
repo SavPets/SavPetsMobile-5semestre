@@ -9,6 +9,7 @@ import Equipment from './equipment'
 import Food from './food'
 import Provider from './provider'
 import Medicine from './medicine'
+import Campaign from './campaign'
 export default function Home() {
-  return <Medicine />
+  return <Campaign />
 }

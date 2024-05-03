@@ -102,6 +102,7 @@ export default function CampaignByID() {
           item={campaign}
           isOpen={isModalVisible}
           itemName="o registro de patas em busca de lar"
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           onDelete={function (item: any): void {
             console.log('N pegou.' + item)
           }}

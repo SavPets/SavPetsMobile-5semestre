@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { VStack, Box, Modal, Pressable, Text } from 'native-base'
+import { VStack, Modal, Pressable, Text, HStack, View, Box } from 'native-base'
 import React, { useState } from 'react'
 import * as Button from '@/src/components/button'
 
@@ -33,37 +33,36 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
   }
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      <Modal.Content bg="#1e293b" className="">
-        <VStack className="pb-8 pl-6 pr-6 pt-8 ">
+    <Modal isOpen={isOpen} onClose={onClose} style={{ width: 450 }}>
+      <Modal.Content bg="#1e293b" className="mr-8">
+        <VStack className="px-8 py-8">
           <Box>
             <Text
               color="#FFFFFF"
-              className="mt-3  pb-7 text-center align-top text-lg font-semibold leading-short"
+              className="mb-7 mt-3 text-center align-top text-lg font-semibold leading-short"
             >
               Deseja realmente excluir {itemName}?{' '}
             </Text>
           </Box>
-          <Box className=" flex-row ">
+          <HStack
+            style={{
+              gap: 6,
+              justifyContent: 'center',
+            }}
+          >
             <Button.Root
               // variant cancelar
               variant="cancel"
               onPress={onClose}
-              className="  "
             >
-              <Button.Title className="w-32 text-slate-300">
+              <Button.Title className=" px-10 text-slate-300">
                 Cancelar
               </Button.Title>
             </Button.Root>
-
-            <Button.Root
-              variant="delete"
-              onPress={handleDelete}
-              className="w-32"
-            >
-              <Button.Title className=" w-32 ">Sim, excluir</Button.Title>
+            <Button.Root variant="delete" onPress={handleDelete}>
+              <Button.Title className="px-8">Sim, excluir</Button.Title>
             </Button.Root>
-          </Box>
+          </HStack>
         </VStack>
       </Modal.Content>
     </Modal>
