@@ -24,11 +24,7 @@ export default function CreateClient() {
           </View>
           <Button.Root>
             <Button.Icon>
-              <Feather
-                name="check-square"
-                size={18}
-                color={colors.slate[950]}
-              />
+              <Feather name="plus-square" size={18} color={colors.slate[950]} />
             </Button.Icon>
             <Button.Title>Cadastrar cliente</Button.Title>
           </Button.Root>
