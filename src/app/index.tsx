@@ -11,6 +11,7 @@ import Provider from './provider'
 import Medicine from './medicine'
 import Campaign from './campaign'
 import Client from './client'
+import Adoption from './adoption'
 export default function Home() {
-  return <Client />
+  return <Adoption />
 }
