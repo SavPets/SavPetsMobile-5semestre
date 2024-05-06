@@ -10,6 +10,7 @@ import Food from './food'
 import Provider from './provider'
 import Medicine from './medicine'
 import Campaign from './campaign'
+import Client from './client'
 export default function Home() {
-  return <Campaign />
+  return <Client />
 }
