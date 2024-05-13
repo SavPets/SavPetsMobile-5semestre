@@ -8,7 +8,7 @@ import { ANIMAL_REPORT } from '@/src/utils/data/animals'
 import { Input } from '@/src/components/input'
 import { NativeBaseProvider } from 'native-base'
 import SelectComponent from '@/src/components/select'
-import { categoryOptions, occupationOptions } from '../create'
+import { categoryOptions, medicineOptions } from '../create'
 
 export default function UpdateAnimalReportById() {
   const { id } = useLocalSearchParams()
@@ -38,7 +38,7 @@ export default function UpdateAnimalReportById() {
 
             <SelectComponent
               title="Medicamento"
-              options={occupationOptions}
+              options={medicineOptions}
               value={report.medicine}
             />
 

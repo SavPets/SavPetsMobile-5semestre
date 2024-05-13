@@ -12,6 +12,13 @@ import Medicine from './medicine'
 import Campaign from './campaign'
 import Client from './client'
 import Adoption from './adoption'
+import Header from '@/src/components/header'
+
 export default function Home() {
-  return <Adoption />
+  return (
+    <>
+      <Header userName={'Matheus Carvalho'} />
+      <Campaign />
+    </>
+  )
 }

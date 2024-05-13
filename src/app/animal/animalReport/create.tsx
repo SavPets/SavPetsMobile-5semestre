@@ -9,10 +9,10 @@ import * as Button from '@/src/components/button'
 import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
 
-import { OCCUPATIONS } from '@/src/utils/data/seed'
+import { MEDICINE } from '@/src/utils/data/medicine'
 import { ANIMALS_CATEGORY } from '@/src/utils/data/animals'
 
-export const occupationOptions = OCCUPATIONS.map((item) => ({
+export const medicineOptions = MEDICINE.map((item) => ({
   label: item.name,
   value: item.name,
 }))
@@ -55,7 +55,7 @@ export default function CreateAnimalReport() {
 
             <SelectComponent
               title={'Medicamento'}
-              options={occupationOptions}
+              options={medicineOptions}
               value={''}
             />
 

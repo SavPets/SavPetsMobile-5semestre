@@ -21,14 +21,6 @@ export const SizeOptions = [
 ]
 
 export default function CreateAnimalCategory() {
-  const RaceOptions = [
-    { label: 'Pitbull', value: 'pitbull' },
-    { label: 'Vira-Lata', value: 'vira-lata' },
-    { label: 'Poodle', value: 'poodle' },
-    { label: 'Pastor Alemão', value: 'pastor-alemao' },
-    { label: 'Salsicha', value: 'salsicha' },
-  ]
-
   return (
     <NativeBaseProvider>
       <View className="mx-5 mt-16 flex-1">
@@ -45,8 +37,6 @@ export default function CreateAnimalCategory() {
             <ButtonSelect title={'Gênero'} options={GenderOptions} value={''} />
 
             <ButtonSelect title={'Porte'} options={SizeOptions} value={''} />
-
-            {/* <ButtonSelect title="Raça" options={RaceOptions} value={''} /> */}
           </View>
 
           <View>
