@@ -12,10 +12,13 @@ import colors from 'tailwindcss/colors'
 import { MEDICINE } from '@/src/utils/data/medicine'
 import { ANIMALS_CATEGORY } from '@/src/utils/data/animals'
 
-export const medicineOptions = MEDICINE.map((item) => ({
-  label: item.name,
-  value: item.name,
-}))
+export const medicineOptions = [
+  { label: 'Não Medicado', value: 'nao_medicado' },
+  ...MEDICINE.map((item) => ({
+    label: item.name,
+    value: item.name,
+  })),
+]
 
 export const categoryOptions = ANIMALS_CATEGORY.map(
   (

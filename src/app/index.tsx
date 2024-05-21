@@ -15,10 +15,5 @@ import Adoption from './adoption'
 import Header from '@/src/components/header'
 
 export default function Home() {
-  return (
-    <>
-      <Header userName={'Matheus Carvalho'} />
-      <Campaign />
-    </>
-  )
+  return <AnimalReport />
 }

@@ -3,13 +3,25 @@ import { ReturnHeader } from '@/src/components/return-header'
 import { ANIMALS_CATEGORY } from '@/src/utils/data/animals'
 import { Feather } from '@expo/vector-icons'
 import { Link, Redirect, useLocalSearchParams } from 'expo-router'
+import React, { useState } from 'react'
 import { Text, View } from 'react-native'
 import colors from 'tailwindcss/colors'
+import DeleteModal from '@/src/components/delete-modal'
 
 export default function AnimalCategoryById() {
   const { id } = useLocalSearchParams()
 
   const category = ANIMALS_CATEGORY.find((item) => item.id === id)
+
+  const [isModalVisible, setIsModalVisible] = useState(false)
+
+  const openModal = () => {
+    setIsModalVisible(true)
+  }
+
+  const closeModal = () => {
+    setIsModalVisible(false)
+  }
 
   if (!category) return <Redirect href="/animal/animalCategory/" />
 
@@ -75,7 +87,7 @@ export default function AnimalCategoryById() {
             </Button.Root>
           </Link>
 
-          <Button.Root variant="delete">
+          <Button.Root variant="delete" onPress={openModal}>
             <Button.Icon>
               <Feather name="trash-2" size={18} color={colors.slate[950]} />
             </Button.Icon>
@@ -83,6 +95,18 @@ export default function AnimalCategoryById() {
           </Button.Root>
         </View>
       </View>
+
+      <DeleteModal
+        isVisible={isModalVisible}
+        onClose={closeModal}
+        item={category}
+        isOpen={isModalVisible}
+        itemName="o registro de Magnos"
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        onDelete={function (item: any): void {
+          console.log('N pegou.' + item)
+        }}
+      />
     </View>
   )
 }
