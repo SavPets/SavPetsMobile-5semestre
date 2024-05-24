@@ -20,6 +20,7 @@ const button = tv({
       default: 'bg-sky-400',
       delete: 'bg-rose-400',
       cancel: 'bg-transparent border border-slate-300',
+      ghost: 'bg-transparent',
     },
   },
   defaultVariants: {
@@ -31,16 +32,16 @@ const button = tv({
 type RootProps = TouchableOpacityProps & VariantProps<typeof button>
 
 const Root = forwardRef<TouchableOpacity, RootProps>(function Root(
-  { isFloat, variant, ...props },
+  { isFloat, variant, className, ...props },
   ref,
 ) {
   return (
     <TouchableOpacity
       activeOpacity={0.8}
       ref={ref}
-      {...props}
       style={{ gap: 12 }}
-      className={button({ variant, isFloat })}
+      className={button({ variant, isFloat, className })}
+      {...props}
     />
   )
 })

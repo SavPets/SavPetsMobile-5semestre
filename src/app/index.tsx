@@ -1,19 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React from 'react'
-import AnimalCategory from './animal/animalCategory'
-import AnimalReport from './animal/animalReport'
-import Employee from './employee'
-import EmployeeDepartament from './employee/departament'
-import EmployeeOccupation from './employee/occupation'
-import Equipment from './equipment'
-import Food from './food'
-import Provider from './provider'
-import Medicine from './medicine'
-import Campaign from './campaign'
-import Client from './client'
-import Adoption from './adoption'
-import Header from '@/src/components/header'
+import Login from './auth/login'
 
 export default function Home() {
-  return <AnimalReport />
+  return <Login />
 }

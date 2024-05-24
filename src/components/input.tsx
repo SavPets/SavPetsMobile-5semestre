@@ -2,11 +2,12 @@ import { View, TextInput, Text, TextInputProps } from 'react-native'
 
 interface InputProps extends TextInputProps {
   title: string
+  variant?: 'medium' | 'small'
 }
 
-export function Input({ title, ...props }: InputProps) {
+export function Input({ title, variant = 'medium', ...props }: InputProps) {
   return (
-    <View className="gap-0.5">
+    <View style={[variant === 'small' && { flex: 1 }, { gap: 2 }]}>
       <Text className="text-base font-semibold leading-short text-slate-300">
         {title}
       </Text>
