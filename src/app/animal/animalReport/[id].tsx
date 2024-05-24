@@ -4,7 +4,7 @@ import { ReturnHeader } from '@/src/components/return-header'
 import { ANIMAL_REPORT } from '@/src/utils/data/animals'
 import { Feather } from '@expo/vector-icons'
 import { Link, Redirect, useLocalSearchParams } from 'expo-router'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Text, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 

@@ -3,7 +3,6 @@ import { ListEmpty } from '@/src/components/list-empty'
 import { FOODS } from '@/src/utils/data/foods'
 import { Feather } from '@expo/vector-icons'
 import { Link } from 'expo-router'
-import React from 'react'
 import { FlatList, Text, TouchableOpacity, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 

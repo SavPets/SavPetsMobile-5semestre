@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { Box, Select, ChevronDownIcon, Text, Center } from 'native-base'
 
 interface SelectProps {

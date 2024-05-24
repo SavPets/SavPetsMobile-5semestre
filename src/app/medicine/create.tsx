@@ -5,11 +5,9 @@ import * as Button from '@/src/components/button'
 import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
 import { Input } from '@/src/components/input'
-import { NativeBaseProvider } from 'native-base'
 
 export default function CreateMedicine() {
   return (
-    <NativeBaseProvider>
       <View className="mx-5 mt-16 flex-1">
         <ReturnHeader title="Novo medicamento" />
 
@@ -44,6 +42,5 @@ export default function CreateMedicine() {
           </View>
         </ScrollView>
       </View>
-    </NativeBaseProvider>
   )
 }

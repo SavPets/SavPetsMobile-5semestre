@@ -7,7 +7,6 @@ import colors from 'tailwindcss/colors'
 import { Redirect, useLocalSearchParams } from 'expo-router'
 import { MEDICINE } from '@/src/utils/data/medicine'
 import { Input } from '@/src/components/input'
-import { NativeBaseProvider } from 'native-base'
 
 export default function UpdateMedicineById() {
   const { id } = useLocalSearchParams()
@@ -17,7 +16,6 @@ export default function UpdateMedicineById() {
   if (!medicine) return <Redirect href="/medicine/" />
 
   return (
-    <NativeBaseProvider>
       <View className="mx-5 mt-16 flex-1">
         <ReturnHeader title="Editar medicamento" />
 
@@ -55,6 +53,5 @@ export default function UpdateMedicineById() {
           </Button.Root>
         </ScrollView>
       </View>
-    </NativeBaseProvider>
   )
 }

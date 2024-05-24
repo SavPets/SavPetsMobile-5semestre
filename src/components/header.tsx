@@ -1,7 +1,6 @@
 import { Feather } from '@expo/vector-icons'
-import React from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
-import userProfilerImage from '@/assets/images/user-profile.png'
+import userProfilerImage from '@/src/assets/user-profile.png'
 
 // Verificar import da imagem dps
 // const [userName, setUserName] = useState('');
@@ -10,7 +9,7 @@ import userProfilerImage from '@/assets/images/user-profile.png'
 // Verificar uso do useState e useEffect
 
 const handleOpenMenu = () => {
-  console.log('👌')
+  console.log('')
 }
 
 const Header = ({ userName }: { userName: string }) => {

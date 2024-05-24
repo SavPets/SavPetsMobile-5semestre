@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Feather } from '@expo/vector-icons'
-import React from 'react'
 import { Modal, View, Text, TouchableOpacity, StatusBar } from 'react-native'
 import * as Button from '@/src/components/button'
 import colors from 'tailwindcss/colors'

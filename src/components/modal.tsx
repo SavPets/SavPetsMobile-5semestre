@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import { Modal, VStack, Pressable, Box, Text } from 'native-base'
 
 interface Option {

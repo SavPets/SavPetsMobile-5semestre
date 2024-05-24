@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { ReturnHeader } from '@/src/components/return-header'
 import { ScrollView, View } from 'react-native'
 import * as Button from '@/src/components/button'

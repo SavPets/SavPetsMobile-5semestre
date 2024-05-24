@@ -6,7 +6,6 @@ import { Link, Redirect, useLocalSearchParams } from 'expo-router'
 import { Text, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 import DeleteModal from '@/src/components/delete-modal'
-import { NativeBaseProvider } from 'native-base'
 import { useState } from 'react'
 
 export default function CampaignByID() {
@@ -95,19 +94,17 @@ export default function CampaignByID() {
         </View>
       </View>
 
-      <NativeBaseProvider>
-        <DeleteModal
-          isVisible={isModalVisible}
-          onClose={closeModal}
-          item={campaign}
-          isOpen={isModalVisible}
-          itemName="o registro de patas em busca de lar"
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          onDelete={function (item: any): void {
-            console.log('N pegou.' + item)
-          }}
-        />
-      </NativeBaseProvider>
+      <DeleteModal
+        isVisible={isModalVisible}
+        onClose={closeModal}
+        item={campaign}
+        isOpen={isModalVisible}
+        itemName="o registro de patas em busca de lar"
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        onDelete={function (item: any): void {
+          console.log('N pegou.' + item)
+        }}
+      />
     </View>
   )
 }

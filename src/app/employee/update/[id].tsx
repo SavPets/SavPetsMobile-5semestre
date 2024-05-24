@@ -6,7 +6,6 @@ import colors from 'tailwindcss/colors'
 import { Redirect, useLocalSearchParams } from 'expo-router'
 import { EMPLOYEES } from '@/src/utils/data/employees'
 import { Input } from '@/src/components/input'
-import { NativeBaseProvider } from 'native-base'
 import ButtonSelect from '@/src/components/button-select'
 import { DepartamentOptions, OccupationOptions } from '../create'
 
@@ -18,63 +17,57 @@ export default function UpdateEmployeeById() {
   if (!employee) return <Redirect href="/provider/" />
 
   return (
-    <NativeBaseProvider>
-      <View className="mx-5 mt-16 flex-1">
-        <ReturnHeader title="Editar funcionário" />
+    <View className="mx-5 mt-16 flex-1">
+      <ReturnHeader title="Editar funcionário" />
 
-        <ScrollView contentContainerStyle={{ paddingVertical: 32 }}>
-          <View className="mb-12" style={{ gap: 16 }}>
-            <Input title="Nome" defaultValue={employee.name} />
+      <ScrollView contentContainerStyle={{ paddingVertical: 32 }}>
+        <View className="mb-12" style={{ gap: 16 }}>
+          <Input title="Nome" defaultValue={employee.name} />
 
-            <Input title="Sobrenome" defaultValue={employee.surname} />
+          <Input title="Sobrenome" defaultValue={employee.surname} />
 
-            <Input
-              title="Email"
-              keyboardType="email-address"
-              defaultValue={employee.email}
-            />
+          <Input
+            title="Email"
+            keyboardType="email-address"
+            defaultValue={employee.email}
+          />
 
-            <Input
-              title="CEP"
-              keyboardType="numeric"
-              defaultValue={employee.cep}
-            />
+          <Input
+            title="CEP"
+            keyboardType="numeric"
+            defaultValue={employee.cep}
+          />
 
-            <Input title="Endereço" defaultValue={employee.address} />
+          <Input title="Endereço" defaultValue={employee.address} />
 
-            <Input
-              title="Número do Local"
-              keyboardType="numeric"
-              defaultValue={employee.locationNumber.toString()}
-            />
+          <Input
+            title="Número do Local"
+            keyboardType="numeric"
+            defaultValue={employee.locationNumber.toString()}
+          />
 
-            <Input title="Complemento" defaultValue={employee.complement} />
+          <Input title="Complemento" defaultValue={employee.complement} />
 
-            <ButtonSelect
-              title="Departamento"
-              options={DepartamentOptions}
-              value={employee.departament}
-            />
+          <ButtonSelect
+            title="Departamento"
+            options={DepartamentOptions}
+            value={employee.departament}
+          />
 
-            <ButtonSelect
-              title="Ocupação"
-              options={OccupationOptions}
-              value={employee.occupation}
-            />
-          </View>
+          <ButtonSelect
+            title="Ocupação"
+            options={OccupationOptions}
+            value={employee.occupation}
+          />
+        </View>
 
-          <Button.Root>
-            <Button.Icon>
-              <Feather
-                name="check-square"
-                size={18}
-                color={colors.slate[950]}
-              />
-            </Button.Icon>
-            <Button.Title>Salvar alterações</Button.Title>
-          </Button.Root>
-        </ScrollView>
-      </View>
-    </NativeBaseProvider>
+        <Button.Root>
+          <Button.Icon>
+            <Feather name="check-square" size={18} color={colors.slate[950]} />
+          </Button.Icon>
+          <Button.Title>Salvar alterações</Button.Title>
+        </Button.Root>
+      </ScrollView>
+    </View>
   )
 }
