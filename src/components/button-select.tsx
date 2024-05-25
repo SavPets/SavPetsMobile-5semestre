@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react'
 import { Pressable, Text, View } from 'react-native'
 import { clsx } from 'clsx'
+import { FormControl } from 'native-base'
 
 interface SelectButtonProps {
   label: string
@@ -37,9 +38,15 @@ interface ButtonSelectProps {
   title: string
   options: { label: string; value: string }[]
   value: string | null
+  errorMessage?: string | null
 }
 
-const ButtonSelect: FC<ButtonSelectProps> = ({ title, options, value }) => {
+const ButtonSelect: FC<ButtonSelectProps> = ({
+  title,
+  errorMessage = null,
+  options,
+  value,
+}) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(value)
 
   const handleOptionToggle = (label: string) => {
@@ -55,16 +62,19 @@ const ButtonSelect: FC<ButtonSelectProps> = ({ title, options, value }) => {
       <Text className="text-base font-semibold leading-short text-slate-300">
         {title}
       </Text>
-      <View className="flex-row flex-wrap" style={{ gap: 12 }}>
-        {options.map((option) => (
-          <SelectButton
-            key={option.label}
-            label={option.label}
-            onToggle={() => handleOptionToggle(option.label)}
-            isSelected={selectedOption === option.label}
-          />
-        ))}
-      </View>
+      <FormControl>
+        <View className="flex-row flex-wrap" style={{ gap: 12 }}>
+          {options.map((option) => (
+            <SelectButton
+              key={option.label}
+              label={option.label}
+              onToggle={() => handleOptionToggle(option.label)}
+              isSelected={selectedOption === option.label}
+            />
+          ))}
+        </View>
+        <FormControl.ErrorMessage>{errorMessage}</FormControl.ErrorMessage>
+      </FormControl>
     </View>
   )
 }

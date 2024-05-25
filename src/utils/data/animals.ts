@@ -1,11 +1,11 @@
-interface AnimalCategory {
+export interface AnimalCategory {
   id: string
   name: string
   race: string
   gender: 'Macho' | 'Fêmea'
   size: 'Pequeno' | 'Médio' | 'Grande'
   coatColor: string
-  createdAt: string
+  animalCategoryFull: string
 }
 
 export const ANIMALS_CATEGORY: AnimalCategory[] = [
@@ -16,7 +16,7 @@ export const ANIMALS_CATEGORY: AnimalCategory[] = [
     gender: 'Macho',
     size: 'Pequeno',
     coatColor: 'Branco',
-    createdAt: '29/02/2024',
+    animalCategoryFull: 'Gato - Persa - Macho - Pequeno - Branco',
   },
   {
     id: '2',
@@ -25,7 +25,7 @@ export const ANIMALS_CATEGORY: AnimalCategory[] = [
     gender: 'Macho',
     size: 'Grande',
     coatColor: 'Preto',
-    createdAt: '29/02/2024',
+    animalCategoryFull: 'Cachorro - Vira-lata - Macho - Grande - Preto',
   },
   {
     id: '3',
@@ -34,7 +34,7 @@ export const ANIMALS_CATEGORY: AnimalCategory[] = [
     gender: 'Fêmea',
     size: 'Médio',
     coatColor: 'Branco',
-    createdAt: '29/02/2024',
+    animalCategoryFull: 'Cachorro - Poodle - Fêmea - Médio - Branco',
   },
 ]
 

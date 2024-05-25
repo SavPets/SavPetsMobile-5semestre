@@ -6,6 +6,12 @@ import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
 import { Input } from '@/src/components/input'
 import ButtonSelect from '@/src/components/button-select'
+import { useForm } from 'react-hook-form'
+import {
+  AnimalCategorySchema,
+  animalCategorySchema,
+} from '@/src/schemas/animalCategorySchema'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 export const GenderOptions = [
   { label: 'Macho', value: 'macho' },
@@ -19,32 +25,51 @@ export const SizeOptions = [
 ]
 
 export default function CreateAnimalCategory() {
+  const { register } = useForm<AnimalCategorySchema>({
+    resolver: zodResolver(animalCategorySchema),
+  })
+
   return (
-    <View className="mx-5 mt-16 flex-1">
-      <ReturnHeader title="Nova categoria" />
+      <View className="mx-5 mt-16 flex-1">
+        <ReturnHeader title="Nova categoria" />
+        <View className="py-8">
+          <View className="mb-12" style={{ gap: 16 }}>
+            <Input title="Nome" {...register('name')} />
 
-      <View className="py-8">
-        <View className="mb-12" style={{ gap: 16 }}>
-          <Input title="Nome" />
+            <Input title="Cor" {...register('coatColor')} />
 
-          <Input title="Cor" />
+            <Input title="Raça" {...register('race')} />
 
-          <Input title="Raça" />
+            <ButtonSelect
+              title={'Gênero'}
+              options={GenderOptions}
+              value={''}
+              {...register('gender')}
+            />
 
-          <ButtonSelect title={'Gênero'} options={GenderOptions} value={''} />
+            <ButtonSelect
+              title={'Porte'}
+              options={SizeOptions}
+              value={''}
+              {...register('size')}
+            />
 
-          <ButtonSelect title={'Porte'} options={SizeOptions} value={''} />
-        </View>
+            {/* <ButtonSelect title="Raça" options={RaceOptions} value={''} /> */}
+          </View>
 
-        <View>
-          <Button.Root>
-            <Button.Icon>
-              <Feather name="plus-square" size={18} color={colors.slate[950]} />
-            </Button.Icon>
-            <Button.Title>Cadastrar categoria</Button.Title>
-          </Button.Root>
+          <View>
+            <Button.Root>
+              <Button.Icon>
+                <Feather
+                  name="plus-square"
+                  size={18}
+                  color={colors.slate[950]}
+                />
+              </Button.Icon>
+              <Button.Title>Cadastrar categoria</Button.Title>
+            </Button.Root>
+          </View>
         </View>
       </View>
-    </View>
   )
 }

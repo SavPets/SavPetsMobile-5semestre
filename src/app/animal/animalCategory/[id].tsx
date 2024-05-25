@@ -1,17 +1,22 @@
 import * as Button from '@/src/components/button'
 import { ReturnHeader } from '@/src/components/return-header'
-import { ANIMALS_CATEGORY } from '@/src/utils/data/animals'
 import { Feather } from '@expo/vector-icons'
 import { Link, Redirect, useLocalSearchParams } from 'expo-router'
 import { useState } from 'react'
 import { Text, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 import DeleteModal from '@/src/components/delete-modal'
+import { useGETAnimalCategory } from '@/src/hooks/animalCategory/useGETAnimalCategory'
+import { Loading } from '@/src/components/loading'
+import { useDELETEAnimalCategory } from '@/src/hooks/animalCategory/useDELETEAnimalCategory'
 
 export default function AnimalCategoryById() {
   const { id } = useLocalSearchParams()
+  const {
+    query: { data: category, isLoading },
+  } = useGETAnimalCategory(id)
 
-  const category = ANIMALS_CATEGORY.find((item) => item.id === id)
+  const { mutation } = useDELETEAnimalCategory()
 
   const [isModalVisible, setIsModalVisible] = useState(false)
 
@@ -22,6 +27,14 @@ export default function AnimalCategoryById() {
   const closeModal = () => {
     setIsModalVisible(false)
   }
+
+  function handleDeleteAnimalCategory() {
+    mutation.mutate(id)
+
+    return <Redirect href="/animal/animalCategory/" />
+  }
+
+  if (isLoading) return <Loading />
 
   if (!category) return <Redirect href="/animal/animalCategory/" />
 
@@ -75,6 +88,15 @@ export default function AnimalCategoryById() {
               {category?.gender}
             </Text>
           </View>
+
+          <View className="gap-0.5">
+            <Text className="text-base font-semibold uppercase leading-short text-slate-300">
+              Nome completo
+            </Text>
+            <Text className="font-body text-base leading-relaxed text-slate-100">
+              {category?.animalCategoryFull}
+            </Text>
+          </View>
         </View>
 
         <View style={{ gap: 12 }}>
@@ -102,10 +124,7 @@ export default function AnimalCategoryById() {
         item={category}
         isOpen={isModalVisible}
         itemName="o registro de Magnos"
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        onDelete={function (item: any): void {
-          console.log('N pegou.' + item)
-        }}
+        onDelete={handleDeleteAnimalCategory}
       />
     </View>
   )
