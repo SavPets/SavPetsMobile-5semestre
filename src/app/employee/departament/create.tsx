@@ -11,8 +11,8 @@ export default function CreateEmployeeDepartament() {
       <ReturnHeader title="Novo departamento" />
 
       <View className="py-8">
-        <View className="mb-12" style={{ gap: 16 }}>
-          <Input title="Nome" />
+        <View className="mb-12">
+          <Input title="Nome" mb={4} />
 
           <Input title="Iniciais" />
         </View>

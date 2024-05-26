@@ -1,13 +1,17 @@
 import * as Button from '@/src/components/button'
+import DeleteModal from '@/src/components/delete-modal'
 import { ReturnHeader } from '@/src/components/return-header'
 import { OCCUPATIONS } from '@/src/utils/data/seed'
 import { Feather } from '@expo/vector-icons'
 import { Link, Redirect, useLocalSearchParams } from 'expo-router'
+import { useState } from 'react'
 import { Text, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 
 export default function EmployeeOccupationById() {
   const { id } = useLocalSearchParams()
+
+  const [isModalVisible, setIsModalVisible] = useState(false)
 
   const occupation = OCCUPATIONS.find((item) => item.id === id)
 
@@ -47,8 +51,12 @@ export default function EmployeeOccupationById() {
           </View>
         </View>
 
-        <View style={{ gap: 12 }}>
-          <Link href={`/employee/occupation/update/${id}`} asChild>
+        <View>
+          <Link
+            href={`/employee/occupation/update/${id}`}
+            asChild
+            className="mb-3"
+          >
             <Button.Root>
               <Button.Icon>
                 <Feather name="edit" size={18} color={colors.slate[950]} />
@@ -57,7 +65,7 @@ export default function EmployeeOccupationById() {
             </Button.Root>
           </Link>
 
-          <Button.Root variant="delete">
+          <Button.Root variant="delete" onPress={() => setIsModalVisible(true)}>
             <Button.Icon>
               <Feather name="trash-2" size={18} color={colors.slate[950]} />
             </Button.Icon>
@@ -65,6 +73,15 @@ export default function EmployeeOccupationById() {
           </Button.Root>
         </View>
       </View>
+
+      <DeleteModal
+        item={occupation}
+        isOpen={isModalVisible}
+        isVisible={isModalVisible}
+        itemName={`o registro de ${occupation.name}`}
+        onClose={() => setIsModalVisible(false)}
+        onDelete={() => null}
+      />
     </View>
   )
 }

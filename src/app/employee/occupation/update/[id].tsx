@@ -19,8 +19,8 @@ export default function UpdateEmployeeOccupationById() {
       <ReturnHeader title="Editar cargo" />
 
       <View className="py-8">
-        <View className="mb-12" style={{ gap: 16 }}>
-          <Input title="Nome" value={occupation.name} />
+        <View className="mb-12">
+          <Input title="Nome" value={occupation.name} mb={4} />
 
           <Input
             title="Descrição"
