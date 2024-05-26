@@ -13,7 +13,6 @@ export function Input({
   errorMessage = null,
   variant = 'medium',
   isInvalid,
-  defaultValue,
   ...props
 }: InputProps) {
   const invalid = !!errorMessage || isInvalid

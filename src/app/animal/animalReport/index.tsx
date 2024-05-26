@@ -5,7 +5,7 @@ import { Link } from 'expo-router'
 import { FlatList, Text, TouchableOpacity, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 import { ANIMAL_REPORT } from '@/src/utils/data/animals'
-import Header from '@/src/components/header'
+import { Header } from '@/src/components/header'
 
 export default function AnimalReport() {
   return (

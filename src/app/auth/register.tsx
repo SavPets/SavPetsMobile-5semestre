@@ -21,14 +21,14 @@ export default function Register() {
         </Text>
 
         <View>
-          <View className="flex-row">
-            <Input title="Nome" variant="small" className="mb-4 mr-3" />
-            <Input title="Sobrenome" variant="small" className="mb-4" />
+          <View className="mb-4 flex-row">
+            <Input title="Nome" variant="small" mr={3} />
+            <Input title="Sobrenome" variant="small" />
           </View>
-          <Input title="Telefone" keyboardType="phone-pad" className="mb-4" />
-          <Input title="Email" keyboardType="email-address" className="mb-4" />
-          <Input title="Senha" secureTextEntry className="mb-4" />
-          <Input title="Confirmar senha" secureTextEntry className="mb-12" />
+          <Input title="Telefone" keyboardType="phone-pad" mb={4} />
+          <Input title="Email" keyboardType="email-address" mb={4} />
+          <Input title="Senha" secureTextEntry mb={4} />
+          <Input title="Confirmar senha" secureTextEntry mb={12} />
 
           <Button.Root>
             <Button.Icon>

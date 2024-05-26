@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Box, Select, ChevronDownIcon, Text, Center } from 'native-base'
 
 interface SelectProps {
@@ -12,7 +12,7 @@ export default function SelectComponent({
   options,
   value,
 }: SelectProps) {
-  const [service, setService] = React.useState('')
+  const [service, setService] = useState('')
 
   useEffect(() => {
     setService(value || '')

@@ -17,15 +17,18 @@ export default function Login() {
       </Text>
 
       <View>
-        <Input title="Email" keyboardType="email-address" className="mb-4" />
-        <Input title="Senha" secureTextEntry className="mb-12" />
+        <Input title="Email" keyboardType="email-address" mb={4} />
+        <Input title="Senha" secureTextEntry mb={12} />
 
-        <Button.Root>
-          <Button.Icon>
-            <Feather name="log-in" size={18} color={colors.slate[900]} />
-          </Button.Icon>
-          <Button.Title>Entrar</Button.Title>
-        </Button.Root>
+        {/* mudando o href do link abaixo enquanto não tem menu de navegação */}
+        <Link href="/employee/" asChild>
+          <Button.Root style={{ gap: 12 }}>
+            <Button.Icon>
+              <Feather name="log-in" size={18} color={colors.slate[900]} />
+            </Button.Icon>
+            <Button.Title>Entrar</Button.Title>
+          </Button.Root>
+        </Link>
 
         <Link href="/auth/change-password" asChild className="mt-3 self-center">
           <Button.Root variant="ghost">

@@ -2,17 +2,21 @@ import { Feather } from '@expo/vector-icons'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import userProfilerImage from '@/src/assets/user-profile.png'
 
-// Verificar import da imagem dps
-// const [userName, setUserName] = useState('');
-// const [userData, setUserData] = useState<any>(null);
-
-// Verificar uso do useState e useEffect
-
-const handleOpenMenu = () => {
-  console.log('')
+interface HeaderProps {
+  userName: string
 }
 
-const Header = ({ userName }: { userName: string }) => {
+export function Header({ userName }: HeaderProps) {
+  // Verificar import da imagem dps
+  // const [userName, setUserName] = useState('');
+  // const [userData, setUserData] = useState<any>(null);
+
+  // Verificar uso do useState e useEffect
+
+  const handleOpenMenu = () => {
+    console.log('')
+  }
+
   return (
     <View className="mt-16">
       <View className=" flex-row items-center justify-between bg-gray-200 bg-slate-900 px-6">
@@ -41,5 +45,3 @@ const Header = ({ userName }: { userName: string }) => {
     </View>
   )
 }
-
-export default Header

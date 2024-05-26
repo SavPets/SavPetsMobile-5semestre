@@ -17,9 +17,9 @@ export default function ChangePassword() {
       </Text>
 
       <View>
-        <Input title="Email" keyboardType="email-address" className="mb-4" />
-        <Input title="Senha" secureTextEntry className="mb-4" />
-        <Input title="Confirmar senha" secureTextEntry className="mb-12" />
+        <Input title="Email" keyboardType="email-address" mb={4} />
+        <Input title="Senha" secureTextEntry mb={4} />
+        <Input title="Confirmar senha" secureTextEntry mb={12} />
 
         <Button.Root>
           <Button.Icon>

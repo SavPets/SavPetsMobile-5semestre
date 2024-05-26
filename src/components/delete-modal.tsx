@@ -55,7 +55,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
             style={{ gap: 12 }}
           >
             <Button.Root variant="cancel" onPress={onClose}>
-              <Button.Title className="px-10 py-4 font-bold text-slate-300">
+              <Button.Title className="px-10 font-bold text-slate-300">
                 Cancelar
               </Button.Title>
             </Button.Root>
