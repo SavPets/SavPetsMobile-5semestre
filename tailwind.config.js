@@ -8,6 +8,11 @@ module.exports = {
         semibold: 'Nunito_600SemiBold',
         bold: 'Nunito_700Bold',
       },
+
+      lineHeight: {
+        short: '140%',
+        relaxed: '160%',
+      },
     },
   },
   plugins: [],
