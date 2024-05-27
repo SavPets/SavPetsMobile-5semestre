@@ -13,7 +13,7 @@ const button = tv({
   base: 'flex-row items-center justify-center rounded-md',
   variants: {
     isFloat: {
-      true: 'h-16 w-16',
+      true: 'h-14 w-14',
       false: 'h-[50]',
     },
     variant: {

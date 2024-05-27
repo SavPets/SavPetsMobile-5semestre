@@ -39,12 +39,15 @@ export function Input({
             borderColor: colors.slate[400],
           }}
           _invalid={{
-            borderColor: colors.red[500],
+            borderColor: colors.rose[400],
             bg: 'rgba(239, 67, 67, 0.1)',
           }}
           {...props}
         />
-        <FormControl.ErrorMessage fontFamily="Nunito_400Regular">
+        <FormControl.ErrorMessage
+          fontFamily="Nunito_400Regular"
+          _text={{ fontSize: 14, color: colors.rose[400] }}
+        >
           {errorMessage}
         </FormControl.ErrorMessage>
       </FormControl>

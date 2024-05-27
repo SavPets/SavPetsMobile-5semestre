@@ -1,41 +1,43 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Feather } from '@expo/vector-icons'
-import { Modal, View, Text, TouchableOpacity, StatusBar } from 'react-native'
+import { Modal, View, Text, StatusBar } from 'react-native'
 import * as Button from '@/src/components/button'
-import colors from 'tailwindcss/colors'
 import 'tailwindcss/tailwind.css'
+import { useState } from 'react'
 
-interface DeleteModalProps {
-  isVisible: boolean
-  onClose: () => void
-  isOpen: boolean
-  onDelete: (item: any) => void
-  item: any
-  itemName: string
+interface GenericItemDTO {
+  id: string
+  name: string
 }
 
-const DeleteModal: React.FC<DeleteModalProps> = ({
+interface DeleteModalProps {
+  item: GenericItemDTO
+  isVisible: boolean
+  onClose: () => void
+  onDelete: () => void
+}
+
+export function DeleteModal({
+  item,
   isVisible,
   onClose,
-  isOpen,
   onDelete,
-  item,
-  itemName,
-}) => {
-  if (!isVisible) {
-    return null
-  }
+}: DeleteModalProps) {
+  const [isDeleting, setIsDeleting] = useState(false)
 
-  const handleDelete = (item: any) => {
-    onDelete(item)
+  const confirmationMessage = `Deseja realmente excluir o registro de ${item.name}?`
+
+  function handleDeleteItem() {
+    setIsDeleting(true)
+
+    onDelete()
     onClose()
+
+    setIsDeleting(false)
   }
 
   return (
     <Modal
       transparent={true}
-      visible={isOpen}
+      visible={isVisible}
       onRequestClose={onClose}
       animationType="slide"
     >
@@ -47,11 +49,11 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
         <View className="absolute bottom-0 left-0 right-0 top-0 bg-black opacity-50" />
         <View className="mx-5 items-center rounded-lg bg-gray-800">
           <Text className="mb-7 px-11 pt-8 text-center text-lg font-semibold text-white">
-            Deseja realmente excluir {itemName}?
+            {confirmationMessage}
           </Text>
 
           <View
-            className=" flex-row justify-center px-7 pb-8"
+            className="flex-row justify-center px-7 pb-8"
             style={{ gap: 12 }}
           >
             <Button.Root variant="cancel" onPress={onClose}>
@@ -60,7 +62,11 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
               </Button.Title>
             </Button.Root>
 
-            <Button.Root variant="delete" onPress={handleDelete}>
+            <Button.Root
+              variant="delete"
+              disabled={isDeleting}
+              onPress={handleDeleteItem}
+            >
               <Button.Title className="px-8 py-4 font-bold text-slate-950">
                 Sim, excluir
               </Button.Title>
@@ -71,5 +77,3 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
     </Modal>
   )
 }
-
-export default DeleteModal
