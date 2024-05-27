@@ -1,18 +1,18 @@
 import { api } from '@/src/lib/axios'
-import { DepartamentSchema } from '@/src/schemas/departamentSchema'
+import { DepartamentDTO } from '@/src/schemas/departamentSchema'
 import { useQuery } from '@tanstack/react-query'
 
-async function fetchDepartamentById(id: string) {
+async function fetchDepartament(id: string) {
   const { data } = await api.get(`/departamentos/${id}`)
 
   return data
 }
 
 export function useGETDepartamentById(id: string) {
-  const query = useQuery<DepartamentSchema>({
+  const query = useQuery<DepartamentDTO>({
     queryKey: ['departament'],
 
-    queryFn: async () => await fetchDepartamentById(id),
+    queryFn: async () => await fetchDepartament(id),
     refetchInterval: 1000 * 60 * 5, // 5 minutes in milliseconds
   })
 

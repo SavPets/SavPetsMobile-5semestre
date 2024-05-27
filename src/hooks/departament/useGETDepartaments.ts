@@ -1,5 +1,5 @@
 import { api } from '@/src/lib/axios'
-import { DepartamentSchema } from '@/src/schemas/departamentSchema'
+import { DepartamentDTO } from '@/src/schemas/departamentSchema'
 import { useQuery } from '@tanstack/react-query'
 
 async function fetchDepartaments() {
@@ -9,7 +9,7 @@ async function fetchDepartaments() {
 }
 
 export function useGETDepartaments() {
-  const query = useQuery<DepartamentSchema[]>({
+  const query = useQuery<DepartamentDTO[]>({
     queryKey: ['departamentList'],
 
     queryFn: async () => await fetchDepartaments(),

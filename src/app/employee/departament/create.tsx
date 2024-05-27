@@ -4,20 +4,99 @@ import * as Button from '@/src/components/button'
 import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
 import { Input } from '@/src/components/input'
+import { Controller, useForm } from 'react-hook-form'
+import {
+  DepartamentSchema,
+  departamentSchema,
+} from '@/src/schemas/departamentSchema'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { usePOSTDepartament } from '@/src/hooks/departament/usePOSTDepartament'
+import { useRouter } from 'expo-router'
+import { useEffect } from 'react'
+import { useToast } from 'native-base'
 
 export default function CreateDepartament() {
+  const router = useRouter()
+  const toast = useToast()
+
+  const {
+    mutate,
+    data: requestError,
+    isPending,
+    isSuccess,
+  } = usePOSTDepartament()
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<DepartamentSchema>({
+    resolver: yupResolver(departamentSchema),
+  })
+
+  function handleCreateDepartament({ name, initials }: DepartamentSchema) {
+    mutate({ name, initials })
+  }
+
+  useEffect(() => {
+    if (!isSuccess) return
+
+    if (requestError) {
+      toast.show({
+        title: requestError,
+        placement: 'top',
+        textAlign: 'center',
+        bg: 'rose.400',
+      })
+
+      return router.navigate('/employee/departament/')
+    }
+
+    toast.show({
+      title: 'Departamento criado com sucesso',
+      placement: 'top',
+      textAlign: 'center',
+      bg: 'success.600',
+    })
+
+    return router.navigate('/employee/departament/')
+  }, [isSuccess, requestError, toast, router])
+
   return (
     <View className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Novo departamento" />
 
       <View className="py-8">
-        <View className="mb-12">
-          <Input title="Nome" mb={4} />
+        <View className="mb-12" style={{ gap: 16 }}>
+          <Controller
+            control={control}
+            name="name"
+            render={({ field: { onChange } }) => (
+              <Input
+                title="Nome"
+                errorMessage={errors.name?.message}
+                onChangeText={onChange}
+              />
+            )}
+          />
 
-          <Input title="Iniciais" />
+          <Controller
+            control={control}
+            name="initials"
+            render={({ field: { onChange } }) => (
+              <Input
+                title="Iniciais"
+                errorMessage={errors.initials?.message}
+                onChangeText={onChange}
+              />
+            )}
+          />
         </View>
 
-        <Button.Root>
+        <Button.Root
+          disabled={isSubmitting || isPending}
+          onPress={handleSubmit(handleCreateDepartament)}
+        >
           <Button.Icon>
             <Feather name="plus-square" size={18} color={colors.slate[950]} />
           </Button.Icon>

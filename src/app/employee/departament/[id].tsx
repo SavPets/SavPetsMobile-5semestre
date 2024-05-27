@@ -1,16 +1,20 @@
 import * as Button from '@/src/components/button'
-import DeleteModal from '@/src/components/delete-modal'
+import { DeleteModal } from '@/src/components/delete-modal'
 import { Loading } from '@/src/components/loading'
 import { ReturnHeader } from '@/src/components/return-header'
+import { useDELETEDepartament } from '@/src/hooks/departament/useDELETEDepartament'
 import { useGETDepartamentById } from '@/src/hooks/departament/useGETDepartamentById'
 import { Feather } from '@expo/vector-icons'
-import { Link, Redirect, useLocalSearchParams } from 'expo-router'
-import { useState } from 'react'
+import { Link, Redirect, useLocalSearchParams, useRouter } from 'expo-router'
+import { useToast } from 'native-base'
+import { useEffect, useState } from 'react'
 import { Text, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 
 export default function DepartamentById() {
   const { id } = useLocalSearchParams()
+  const router = useRouter()
+  const toast = useToast()
 
   const [isModalVisible, setIsModalVisible] = useState(false)
 
@@ -20,13 +24,43 @@ export default function DepartamentById() {
     isLoading,
   } = useGETDepartamentById(id.toString())
 
+  const { mutate, data: requestError, isSuccess } = useDELETEDepartament()
+
+  function onDeleteDepartament() {
+    mutate(id.toString())
+  }
+
+  useEffect(() => {
+    if (!isSuccess) return
+
+    if (requestError) {
+      toast.show({
+        title: requestError,
+        placement: 'top',
+        textAlign: 'center',
+        bg: 'rose.400',
+      })
+
+      return router.navigate('/employee/departament/')
+    }
+
+    toast.show({
+      title: 'Departamento deletado com sucesso',
+      placement: 'top',
+      textAlign: 'center',
+      bg: 'success.600',
+    })
+
+    return router.navigate('/employee/departament/')
+  }, [isSuccess, requestError, toast, router])
+
   if (isError) return <Redirect href="/employee/departament/" />
 
   return (
     <View className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Departamento" />
 
-      {isLoading ? (
+      {isLoading || !departament ? (
         <Loading />
       ) : (
         <>
@@ -61,12 +95,8 @@ export default function DepartamentById() {
             </View>
 
             <View>
-              <Link
-                href={`/employee/departament/update/${id}`}
-                asChild
-                className="mb-3"
-              >
-                <Button.Root>
+              <Link href={`/employee/departament/update/${id}`} asChild>
+                <Button.Root style={{ gap: 12 }} className="mb-3">
                   <Button.Icon>
                     <Feather name="edit" size={18} color={colors.slate[950]} />
                   </Button.Icon>
@@ -87,12 +117,13 @@ export default function DepartamentById() {
           </View>
 
           <DeleteModal
-            item={departament}
-            isOpen={isModalVisible}
+            item={{
+              id: departament.id,
+              name: departament.name,
+            }}
             isVisible={isModalVisible}
-            itemName={`o registro de ${departament?.name}`}
             onClose={() => setIsModalVisible(false)}
-            onDelete={() => null}
+            onDelete={onDeleteDepartament}
           />
         </>
       )}
