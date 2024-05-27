@@ -7,7 +7,7 @@ import { Redirect, useLocalSearchParams } from 'expo-router'
 import { DEPARTAMENTS } from '@/src/utils/data/seed'
 import { Input } from '@/src/components/input'
 
-export default function UpdateEmployeeDepartamentById() {
+export default function UpdateDepartamentById() {
   const { id } = useLocalSearchParams()
 
   const departament = DEPARTAMENTS.find((item) => item.id === id)

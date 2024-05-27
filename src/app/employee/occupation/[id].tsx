@@ -8,7 +8,7 @@ import { useState } from 'react'
 import { Text, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 
-export default function EmployeeOccupationById() {
+export default function OccupationById() {
   const { id } = useLocalSearchParams()
 
   const [isModalVisible, setIsModalVisible] = useState(false)

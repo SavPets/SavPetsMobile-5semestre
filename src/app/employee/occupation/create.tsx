@@ -5,7 +5,7 @@ import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
 import { Input } from '@/src/components/input'
 
-export default function CreateEmployeeOccupation() {
+export default function CreateOccupation() {
   return (
     <View className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Novo cargo" />

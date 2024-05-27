@@ -7,7 +7,7 @@ import { Link } from 'expo-router'
 import { FlatList, Text, TouchableOpacity, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 
-export default function EmployeeOccupation() {
+export default function Occupation() {
   return (
     <>
       <Header userName="Mateus Santana" />
