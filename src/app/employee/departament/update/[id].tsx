@@ -16,6 +16,7 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useEffect } from 'react'
 import { useToast } from 'native-base'
+import Animated, { FadeInUp } from 'react-native-reanimated'
 
 export default function UpdateDepartamentById() {
   const { id } = useLocalSearchParams()
@@ -66,16 +67,14 @@ export default function UpdateDepartamentById() {
         textAlign: 'center',
         bg: 'rose.400',
       })
-
-      return router.navigate('/employee/departament/')
+    } else {
+      toast.show({
+        title: 'Departamento atualizado com sucesso',
+        placement: 'top',
+        textAlign: 'center',
+        bg: 'success.600',
+      })
     }
-
-    toast.show({
-      title: 'Departamento atualizado com sucesso',
-      placement: 'top',
-      textAlign: 'center',
-      bg: 'success.600',
-    })
 
     return router.navigate('/employee/departament/')
   }, [isSuccess, requestError, toast, router])
@@ -89,7 +88,7 @@ export default function UpdateDepartamentById() {
       {isLoading ? (
         <Loading />
       ) : (
-        <View className="py-8">
+        <Animated.View entering={FadeInUp} className="py-8">
           <View className="mb-12" style={{ gap: 16 }}>
             <Controller
               control={control}
@@ -131,7 +130,7 @@ export default function UpdateDepartamentById() {
             </Button.Icon>
             <Button.Title>Salvar alterações</Button.Title>
           </Button.Root>
-        </View>
+        </Animated.View>
       )}
     </View>
   )

@@ -1,5 +1,6 @@
 import * as Button from '@/src/components/button'
 import { DeleteModal } from '@/src/components/delete-modal'
+import { DetailItem } from '@/src/components/detail-item'
 import { Loading } from '@/src/components/loading'
 import { ReturnHeader } from '@/src/components/return-header'
 import { useDELETEDepartament } from '@/src/hooks/departament/useDELETEDepartament'
@@ -8,7 +9,8 @@ import { Feather } from '@expo/vector-icons'
 import { Link, Redirect, useLocalSearchParams, useRouter } from 'expo-router'
 import { useToast } from 'native-base'
 import { useEffect, useState } from 'react'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
+import Animated, { FadeInUp } from 'react-native-reanimated'
 import colors from 'tailwindcss/colors'
 
 export default function DepartamentById() {
@@ -40,16 +42,14 @@ export default function DepartamentById() {
         textAlign: 'center',
         bg: 'rose.400',
       })
-
-      return router.navigate('/employee/departament/')
+    } else {
+      toast.show({
+        title: 'Departamento deletado com sucesso',
+        placement: 'top',
+        textAlign: 'center',
+        bg: 'success.600',
+      })
     }
-
-    toast.show({
-      title: 'Departamento deletado com sucesso',
-      placement: 'top',
-      textAlign: 'center',
-      bg: 'success.600',
-    })
 
     return router.navigate('/employee/departament/')
   }, [isSuccess, requestError, toast, router])
@@ -64,34 +64,16 @@ export default function DepartamentById() {
         <Loading />
       ) : (
         <>
-          <View className="py-8">
-            <View className="mb-12 gap-4">
-              <View className="gap-0.5">
-                <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-                  NOME
-                </Text>
-                <Text className="font-body text-base leading-relaxed text-slate-100">
-                  {departament?.name}
-                </Text>
-              </View>
+          <Animated.View entering={FadeInUp} className="py-8">
+            <View className="mb-12" style={{ gap: 16 }}>
+              <DetailItem title="NOME" value={departament.name} />
 
-              <View className="gap-0.5">
-                <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-                  INICIAIS
-                </Text>
-                <Text className="font-body text-base leading-relaxed text-slate-100">
-                  {departament?.initials}
-                </Text>
-              </View>
+              <DetailItem title="INICIAIS" value={departament.initials} />
 
-              <View className="gap-0.5">
-                <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-                  DATA DE CRIAÇÃO
-                </Text>
-                <Text className="font-body text-base leading-relaxed text-slate-100">
-                  {departament?.createdAt}
-                </Text>
-              </View>
+              <DetailItem
+                title="DATA DE CRIAÇÃO"
+                value={departament.createdAt}
+              />
             </View>
 
             <View>
@@ -105,22 +87,21 @@ export default function DepartamentById() {
               </Link>
 
               <Button.Root
-                variant="delete"
+                variant="outline"
                 onPress={() => setIsModalVisible(true)}
               >
                 <Button.Icon>
-                  <Feather name="trash-2" size={18} color={colors.slate[950]} />
+                  <Feather name="trash-2" size={18} color={colors.slate[300]} />
                 </Button.Icon>
-                <Button.Title>Excluir departamento</Button.Title>
+                <Button.Title className="text-slate-300">
+                  Excluir departamento
+                </Button.Title>
               </Button.Root>
             </View>
-          </View>
+          </Animated.View>
 
           <DeleteModal
-            item={{
-              id: departament.id,
-              name: departament.name,
-            }}
+            item={departament}
             isVisible={isModalVisible}
             onClose={() => setIsModalVisible(false)}
             onDelete={onDeleteDepartament}

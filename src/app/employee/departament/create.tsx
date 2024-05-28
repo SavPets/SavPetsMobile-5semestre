@@ -14,6 +14,7 @@ import { usePOSTDepartament } from '@/src/hooks/departament/usePOSTDepartament'
 import { useRouter } from 'expo-router'
 import { useEffect } from 'react'
 import { useToast } from 'native-base'
+import Animated, { FadeInUp } from 'react-native-reanimated'
 
 export default function CreateDepartament() {
   const router = useRouter()
@@ -48,16 +49,14 @@ export default function CreateDepartament() {
         textAlign: 'center',
         bg: 'rose.400',
       })
-
-      return router.navigate('/employee/departament/')
+    } else {
+      toast.show({
+        title: 'Departamento criado com sucesso',
+        placement: 'top',
+        textAlign: 'center',
+        bg: 'success.600',
+      })
     }
-
-    toast.show({
-      title: 'Departamento criado com sucesso',
-      placement: 'top',
-      textAlign: 'center',
-      bg: 'success.600',
-    })
 
     return router.navigate('/employee/departament/')
   }, [isSuccess, requestError, toast, router])
@@ -66,7 +65,7 @@ export default function CreateDepartament() {
     <View className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Novo departamento" />
 
-      <View className="py-8">
+      <Animated.View entering={FadeInUp} className="py-8">
         <View className="mb-12" style={{ gap: 16 }}>
           <Controller
             control={control}
@@ -102,7 +101,7 @@ export default function CreateDepartament() {
           </Button.Icon>
           <Button.Title>Cadastrar departamento</Button.Title>
         </Button.Root>
-      </View>
+      </Animated.View>
     </View>
   )
 }

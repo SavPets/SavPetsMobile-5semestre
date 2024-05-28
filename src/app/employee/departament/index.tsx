@@ -6,7 +6,11 @@ import { useGETDepartaments } from '@/src/hooks/departament/useGETDepartaments'
 import { Feather } from '@expo/vector-icons'
 import { Link } from 'expo-router'
 import { FlatList, Text, TouchableOpacity, View } from 'react-native'
+import Animated, { SlideInLeft } from 'react-native-reanimated'
 import colors from 'tailwindcss/colors'
+
+const AnimatedTouchableOpacity =
+  Animated.createAnimatedComponent(TouchableOpacity)
 
 export default function Departament() {
   // pendente receber createdAt do backend
@@ -36,9 +40,10 @@ export default function Departament() {
           <FlatList
             data={departamentList}
             keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
+            renderItem={({ item, index }) => (
               <Link href={`/employee/departament/${item.id}`} asChild>
-                <TouchableOpacity
+                <AnimatedTouchableOpacity
+                  entering={SlideInLeft.delay(index * 150)}
                   activeOpacity={0.8}
                   className="border-b border-slate-700 py-4"
                 >
@@ -54,7 +59,7 @@ export default function Departament() {
                   <Text className="font-body text-sm leading-relaxed text-slate-300">
                     Sigla: {item.initials}
                   </Text>
-                </TouchableOpacity>
+                </AnimatedTouchableOpacity>
               </Link>
             )}
             showsVerticalScrollIndicator={false}
