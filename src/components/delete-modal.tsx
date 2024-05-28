@@ -56,7 +56,7 @@ export function DeleteModal({
             className="flex-row justify-center px-7 pb-8"
             style={{ gap: 12 }}
           >
-            <Button.Root variant="cancel" onPress={onClose}>
+            <Button.Root variant="outline" onPress={onClose}>
               <Button.Title className="px-10 font-bold text-slate-300">
                 Cancelar
               </Button.Title>
