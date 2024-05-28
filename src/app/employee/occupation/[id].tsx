@@ -1,87 +1,113 @@
 import * as Button from '@/src/components/button'
-import DeleteModal from '@/src/components/delete-modal'
+import { DeleteModal } from '@/src/components/delete-modal'
+import { DetailItem } from '@/src/components/detail-item'
+import { Loading } from '@/src/components/loading'
 import { ReturnHeader } from '@/src/components/return-header'
-import { OCCUPATIONS } from '@/src/utils/data/seed'
+import { useDELETEOccupation } from '@/src/hooks/occupation/useDELETEOccupation'
+import { useGETOccupationById } from '@/src/hooks/occupation/useGETOccupationById'
 import { Feather } from '@expo/vector-icons'
-import { Link, Redirect, useLocalSearchParams } from 'expo-router'
-import { useState } from 'react'
-import { Text, View } from 'react-native'
+import { Link, Redirect, useLocalSearchParams, useRouter } from 'expo-router'
+import { useToast } from 'native-base'
+import { useEffect, useState } from 'react'
+import { View } from 'react-native'
+import Animated, { FadeInUp } from 'react-native-reanimated'
 import colors from 'tailwindcss/colors'
 
 export default function OccupationById() {
   const { id } = useLocalSearchParams()
+  const router = useRouter()
+  const toast = useToast()
 
   const [isModalVisible, setIsModalVisible] = useState(false)
 
-  const occupation = OCCUPATIONS.find((item) => item.id === id)
+  const {
+    data: occupation,
+    isError,
+    isLoading,
+  } = useGETOccupationById(id.toString())
 
-  if (!occupation) return <Redirect href="/employee/occupation/" />
+  const { mutate, data: requestError, isSuccess } = useDELETEOccupation()
+
+  function onDeleteOccupation() {
+    mutate(id.toString())
+  }
+
+  useEffect(() => {
+    if (!isSuccess) return
+
+    if (requestError) {
+      toast.show({
+        title: requestError,
+        placement: 'top',
+        textAlign: 'center',
+        bgColor: 'rose.400',
+      })
+    } else {
+      toast.show({
+        title: 'Cargo deletado com sucesso',
+        placement: 'top',
+        textAlign: 'center',
+        bgColor: 'success.600',
+      })
+    }
+
+    return router.navigate('/employee/occupation/')
+  }, [isSuccess, requestError, toast, router])
+
+  if (isError) return <Redirect href="/employee/occupation/" />
 
   return (
     <View className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Cargo" />
 
-      <View className="py-8">
-        <View className="mb-12 gap-4">
-          <View className="gap-0.5">
-            <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-              NOME
-            </Text>
-            <Text className="font-body text-base leading-relaxed text-slate-100">
-              {occupation?.name}
-            </Text>
-          </View>
+      {isLoading || !occupation ? (
+        <Loading />
+      ) : (
+        <>
+          <Animated.View entering={FadeInUp} className="py-8">
+            <View className="mb-12" style={{ gap: 16 }}>
+              <DetailItem title="NOME" value={occupation.name} />
 
-          <View className="gap-0.5">
-            <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-              DESCRIÇÃO
-            </Text>
-            <Text className="font-body text-base leading-relaxed text-slate-100">
-              {occupation?.description}
-            </Text>
-          </View>
+              <DetailItem title="DESCRIÇÃO" value={occupation.description} />
 
-          <View className="gap-0.5">
-            <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-              DATA DE CRIAÇÃO
-            </Text>
-            <Text className="font-body text-base leading-relaxed text-slate-100">
-              {occupation?.createdAt}
-            </Text>
-          </View>
-        </View>
+              <DetailItem
+                title="DATA DE CRIAÇÃO"
+                value={occupation.createdAt}
+              />
+            </View>
 
-        <View>
-          <Link
-            href={`/employee/occupation/update/${id}`}
-            asChild
-            className="mb-3"
-          >
-            <Button.Root>
-              <Button.Icon>
-                <Feather name="edit" size={18} color={colors.slate[950]} />
-              </Button.Icon>
-              <Button.Title>Editar cargo</Button.Title>
-            </Button.Root>
-          </Link>
+            <View>
+              <Link href={`/employee/occupation/update/${id}`} asChild>
+                <Button.Root style={{ gap: 12 }} className="mb-3">
+                  <Button.Icon>
+                    <Feather name="edit" size={18} color={colors.slate[950]} />
+                  </Button.Icon>
+                  <Button.Title>Editar cargo</Button.Title>
+                </Button.Root>
+              </Link>
 
-          <Button.Root variant="delete" onPress={() => setIsModalVisible(true)}>
-            <Button.Icon>
-              <Feather name="trash-2" size={18} color={colors.slate[950]} />
-            </Button.Icon>
-            <Button.Title>Excluir cargo</Button.Title>
-          </Button.Root>
-        </View>
-      </View>
+              <Button.Root
+                variant="outline"
+                onPress={() => setIsModalVisible(true)}
+              >
+                <Button.Icon>
+                  <Feather name="trash-2" size={18} color={colors.slate[300]} />
+                </Button.Icon>
+                <Button.Title className="text-slate-300">
+                  Excluir cargo
+                </Button.Title>
+              </Button.Root>
+            </View>
+          </Animated.View>
 
-      <DeleteModal
-        item={occupation}
-        isOpen={isModalVisible}
-        isVisible={isModalVisible}
-        itemName={`o registro de ${occupation.name}`}
-        onClose={() => setIsModalVisible(false)}
-        onDelete={() => null}
-      />
+          <DeleteModal
+            item={occupation}
+            isVisible={isModalVisible}
+            onClose={() => setIsModalVisible(false)}
+            onDelete={onDeleteOccupation}
+          />
+        </>
+      )}
     </View>
   )
 }
