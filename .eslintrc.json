@@ -4,5 +4,6 @@
     "camelcase": "off",
     "@typescript-eslint/no-var-requires": "off",
     "react/display-name": "off"
-  }
+  },
+  "plugins": ["testing-library"]
 }
