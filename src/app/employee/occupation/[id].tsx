@@ -87,13 +87,13 @@ export default function OccupationById() {
               </Link>
 
               <Button.Root
-                variant="outline"
+                variant="outline-delete"
                 onPress={() => setIsModalVisible(true)}
               >
                 <Button.Icon>
-                  <Feather name="trash-2" size={18} color={colors.slate[300]} />
+                  <Feather name="trash-2" size={18} color={colors.rose[400]} />
                 </Button.Icon>
-                <Button.Title className="text-slate-300">
+                <Button.Title className="text-rose-400">
                   Excluir cargo
                 </Button.Title>
               </Button.Root>
@@ -101,7 +101,7 @@ export default function OccupationById() {
           </Animated.View>
 
           <DeleteModal
-            item={occupation}
+            itemName={occupation.name}
             isVisible={isModalVisible}
             onClose={() => setIsModalVisible(false)}
             onDelete={onDeleteOccupation}

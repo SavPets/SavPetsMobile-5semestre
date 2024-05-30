@@ -3,27 +3,22 @@ import * as Button from '@/src/components/button'
 import 'tailwindcss/tailwind.css'
 import { useState } from 'react'
 
-interface GenericItemDTO {
-  id: string
-  name: string
-}
-
 interface DeleteModalProps {
-  item: GenericItemDTO
+  itemName: string
   isVisible: boolean
   onClose: () => void
   onDelete: () => void
 }
 
 export function DeleteModal({
-  item,
+  itemName,
   isVisible,
   onClose,
   onDelete,
 }: DeleteModalProps) {
   const [isDeleting, setIsDeleting] = useState(false)
 
-  const confirmationMessage = `Deseja realmente excluir o registro de ${item.name}?`
+  const confirmationMessage = `Deseja realmente excluir o registro de ${itemName}?`
 
   function handleDeleteItem() {
     setIsDeleting(true)
@@ -66,6 +61,7 @@ export function DeleteModal({
               variant="delete"
               disabled={isDeleting}
               onPress={handleDeleteItem}
+              testID="delete-button"
             >
               <Button.Title className="px-8 py-4 font-bold text-slate-950">
                 Sim, excluir

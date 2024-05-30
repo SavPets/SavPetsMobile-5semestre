@@ -1,5 +1,6 @@
 import { forwardRef } from 'react'
 import {
+  ActivityIndicator,
   Text,
   TextProps,
   TouchableOpacity,
@@ -8,6 +9,7 @@ import {
   ViewProps,
 } from 'react-native'
 import { tv, VariantProps } from 'tailwind-variants'
+import colors from 'tailwindcss/colors'
 
 const button = tv({
   base: 'flex-row items-center justify-center rounded-md',
@@ -20,6 +22,7 @@ const button = tv({
       default: 'bg-sky-400',
       delete: 'bg-rose-400',
       outline: 'bg-transparent border border-slate-300',
+      'outline-delete': 'bg-transparent border border-rose-400',
       ghost: 'bg-transparent',
     },
   },
@@ -42,7 +45,13 @@ const Root = forwardRef<TouchableOpacity, RootProps>(function Root(
       style={{ gap: 12 }}
       className={button({ variant, isFloat, className })}
       {...props}
-    />
+    >
+      {props.disabled ? (
+        <ActivityIndicator color={colors.slate[950]} />
+      ) : (
+        props.children
+      )}
+    </TouchableOpacity>
   )
 })
 
