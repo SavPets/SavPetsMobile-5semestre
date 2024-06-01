@@ -1,5 +1,5 @@
 import { ReturnHeader } from '@/src/components/return-header'
-import { View, ScrollView } from 'react-native'
+import { View } from 'react-native'
 import * as Button from '@/src/components/button'
 import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
@@ -15,6 +15,7 @@ import { useRouter } from 'expo-router'
 import { useEffect } from 'react'
 import { useToast } from 'native-base'
 import Animated, { FadeInUp } from 'react-native-reanimated'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 export default function CreateCampaign() {
   const router = useRouter()
@@ -60,97 +61,102 @@ export default function CreateCampaign() {
 
     return router.navigate('/campaign/')
   }, [isSuccess, requestError, toast, router])
+
   return (
-    <View className="mx-5 mt-16 flex-1">
-      <ReturnHeader title="Nova Campanha" />
+    <KeyboardAwareScrollView
+      contentContainerStyle={{ flexGrow: 1 }}
+      keyboardShouldPersistTaps="handled"
+    >
+      <View className="mx-5 mt-16 flex-1">
+        <ReturnHeader title="Nova Campanha" />
 
-      <Animated.View entering={FadeInUp} className="py-8">
-        <View className="mb-12" style={{ gap: 16 }}>
-          <Controller
-            control={control}
-            name="name"
-            render={({ field: { onChange } }) => (
-              <Input
-                title="Nome"
-                errorMessage={errors.name?.message}
-                onChangeText={onChange}
-              />
-            )}
-          />
+        <Animated.View entering={FadeInUp} className="py-8">
+          <View className="mb-12" style={{ gap: 16 }}>
+            <Controller
+              control={control}
+              name="name"
+              render={({ field: { onChange } }) => (
+                <Input
+                  title="Nome"
+                  errorMessage={errors.name?.message}
+                  onChangeText={onChange}
+                />
+              )}
+            />
 
-          <Controller
-            control={control}
-            name="date"
-            render={({ field: { onChange } }) => (
-              <Input
-                title="Data"
-                errorMessage={errors.date?.message}
-                onChangeText={onChange}
-              />
-            )}
-          />
+            <Controller
+              control={control}
+              name="date"
+              render={({ field: { onChange } }) => (
+                <Input
+                  title="Data"
+                  errorMessage={errors.date?.message}
+                  onChangeText={onChange}
+                />
+              )}
+            />
 
-          <Controller
-            control={control}
-            name="startTime"
-            render={({ field: { onChange } }) => (
-              <Input
-                title="Horário Inicial"
-                errorMessage={errors.startTime?.message}
-                onChangeText={onChange}
-              />
-            )}
-          />
+            <Controller
+              control={control}
+              name="startTime"
+              render={({ field: { onChange } }) => (
+                <Input
+                  title="Horário Inicial"
+                  errorMessage={errors.startTime?.message}
+                  onChangeText={onChange}
+                />
+              )}
+            />
 
-          <Controller
-            control={control}
-            name="endTime"
-            render={({ field: { onChange } }) => (
-              <Input
-                title="Horário Final"
-                errorMessage={errors.endTime?.message}
-                onChangeText={onChange}
-              />
-            )}
-          />
+            <Controller
+              control={control}
+              name="endTime"
+              render={({ field: { onChange } }) => (
+                <Input
+                  title="Horário Final"
+                  errorMessage={errors.endTime?.message}
+                  onChangeText={onChange}
+                />
+              )}
+            />
 
-          <Controller
-            control={control}
-            name="location"
-            render={({ field: { onChange } }) => (
-              <Input
-                title="Localização"
-                errorMessage={errors.location?.message}
-                onChangeText={onChange}
-              />
-            )}
-          />
+            <Controller
+              control={control}
+              name="location"
+              render={({ field: { onChange } }) => (
+                <Input
+                  title="Localização"
+                  errorMessage={errors.location?.message}
+                  onChangeText={onChange}
+                />
+              )}
+            />
 
+            <Controller
+              control={control}
+              name="description"
+              render={({ field: { onChange } }) => (
+                <Input
+                  title="Descrição"
+                  errorMessage={errors.description?.message}
+                  onChangeText={onChange}
+                  multiline={true}
+                />
+              )}
+            />
+          </View>
 
-          <Controller
-            control={control}
-            name="description"
-            render={({ field: { onChange } }) => (
-              <Input
-                title="Descrição"
-                errorMessage={errors.description?.message}
-                onChangeText={onChange}
-                multiline={true}
-              />
-            )}
-          />
-        </View>
-
-        <Button.Root
-          disabled={isSubmitting || isPending}
-          onPress={handleSubmit(handleCreateCampaign)}
-        >
-          <Button.Icon>
-            <Feather name="plus-square" size={18} color={colors.slate[950]} />
-          </Button.Icon>
-          <Button.Title>Cadastrar Campanha</Button.Title>
-        </Button.Root>
-      </Animated.View>
-    </View>
+          <Button.Root
+            disabled={isSubmitting || isPending}
+            onPress={handleSubmit(handleCreateCampaign)}
+          >
+            <Button.Icon>
+              <Feather name="plus-square" size={18} color={colors.slate[950]} />
+            </Button.Icon>
+            <Button.Title>Cadastrar Campanha</Button.Title>
+          </Button.Root>
+        </Animated.View>
+      </View>
+    </KeyboardAwareScrollView>
   )
 }

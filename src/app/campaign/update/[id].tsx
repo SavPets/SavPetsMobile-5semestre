@@ -17,7 +17,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useEffect } from 'react'
 import { useToast } from 'native-base'
 import Animated, { FadeInUp } from 'react-native-reanimated'
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default function UpdateCampaignById() {
   const { id } = useLocalSearchParams()
@@ -87,110 +87,114 @@ export default function UpdateCampaignById() {
   if (isError) return <Redirect href="/campaign/" />
 
   return (
-    <View className="mx-5 mt-16 flex-1">
-      <ReturnHeader title="Editar Campanha" />
+    <KeyboardAwareScrollView
+      contentContainerStyle={{ flexGrow: 1 }}
+      keyboardShouldPersistTaps="handled"
+    >
+      <View className="mx-5 mt-16 flex-1">
+        <ReturnHeader title="Editar Campanha" />
 
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <Animated.View entering={FadeInUp} className="py-8">
-          <View className="mb-12" style={{ gap: 16 }}>
-            <Controller
-              control={control}
-              name="name"
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  title="Nome"
-                  defaultValue={value}
-                  errorMessage={errors.name?.message}
-                  onChangeText={onChange}
-                />
-              )}
-            />
-
-            <Controller
-              control={control}
-              name="date"
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  title="Data"
-                  defaultValue={value}
-                  errorMessage={errors.date?.message}
-                  onChangeText={onChange}
-                />
-              )}
-            />
-
-            <Controller
-              control={control}
-              name="startTime"
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  title="Horário Inicial"
-                  defaultValue={value}
-                  errorMessage={errors.date?.message}
-                  onChangeText={onChange}
-                />
-              )}
-            />
-
-            <Controller
-              control={control}
-              name="endTime"
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  title="Horário final"
-                  defaultValue={value}
-                  errorMessage={errors.date?.message}
-                  onChangeText={onChange}
-                />
-              )}
-            />
-
-            <Controller
-              control={control}
-              name="location"
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  title="Localização"
-                  defaultValue={value}
-                  errorMessage={errors.date?.message}
-                  onChangeText={onChange}
-                />
-              )}
-            />
-
-
-            <Controller
-              control={control}
-              name="description"
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  title="Descrição"
-                  defaultValue={value}
-                  errorMessage={errors.date?.message}
-                  onChangeText={onChange}
-                  multiline={true}
-                />
-              )}
-            />
-          </View>
-
-          <Button.Root
-            disabled={isSubmitting || isPending}
-            onPress={handleSubmit(handleUpdateCampaign)}
-          >
-            <Button.Icon>
-              <Feather
-                name="check-square"
-                size={18}
-                color={colors.slate[950]}
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <Animated.View entering={FadeInUp} className="py-8">
+            <View className="mb-12" style={{ gap: 16 }}>
+              <Controller
+                control={control}
+                name="name"
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    title="Nome"
+                    defaultValue={value}
+                    errorMessage={errors.name?.message}
+                    onChangeText={onChange}
+                  />
+                )}
               />
-            </Button.Icon>
-            <Button.Title>Salvar alterações</Button.Title>
-          </Button.Root>
-        </Animated.View>
-      )}
-    </View>
+
+              <Controller
+                control={control}
+                name="date"
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    title="Data"
+                    defaultValue={value}
+                    errorMessage={errors.date?.message}
+                    onChangeText={onChange}
+                  />
+                )}
+              />
+
+              <Controller
+                control={control}
+                name="startTime"
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    title="Horário Inicial"
+                    defaultValue={value}
+                    errorMessage={errors.date?.message}
+                    onChangeText={onChange}
+                  />
+                )}
+              />
+
+              <Controller
+                control={control}
+                name="endTime"
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    title="Horário final"
+                    defaultValue={value}
+                    errorMessage={errors.date?.message}
+                    onChangeText={onChange}
+                  />
+                )}
+              />
+
+              <Controller
+                control={control}
+                name="location"
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    title="Localização"
+                    defaultValue={value}
+                    errorMessage={errors.date?.message}
+                    onChangeText={onChange}
+                  />
+                )}
+              />
+
+              <Controller
+                control={control}
+                name="description"
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    title="Descrição"
+                    defaultValue={value}
+                    errorMessage={errors.date?.message}
+                    onChangeText={onChange}
+                    multiline={true}
+                  />
+                )}
+              />
+            </View>
+
+            <Button.Root
+              disabled={isSubmitting || isPending}
+              onPress={handleSubmit(handleUpdateCampaign)}
+            >
+              <Button.Icon>
+                <Feather
+                  name="check-square"
+                  size={18}
+                  color={colors.slate[950]}
+                />
+              </Button.Icon>
+              <Button.Title>Salvar alterações</Button.Title>
+            </Button.Root>
+          </Animated.View>
+        )}
+      </View>
+    </KeyboardAwareScrollView>
   )
 }
