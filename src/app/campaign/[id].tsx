@@ -1,110 +1,117 @@
 import * as Button from '@/src/components/button'
+import { DeleteModal } from '@/src/components/delete-modal'
+import { DetailItem } from '@/src/components/detail-item'
+import { Loading } from '@/src/components/loading'
 import { ReturnHeader } from '@/src/components/return-header'
-import { CAMPAIGN } from '@/src/utils/data/campaign'
+import { useDELETECampaign } from '@/src/hooks/campaign/useDELETECampaign'
+import { useGETCampaignById } from '@/src/hooks/campaign/useGETCampaignById'
 import { Feather } from '@expo/vector-icons'
-import { Link, Redirect, useLocalSearchParams } from 'expo-router'
-import { Text, View } from 'react-native'
+import { Link, Redirect, useLocalSearchParams, useRouter } from 'expo-router'
+import { useToast } from 'native-base'
+import { useEffect, useState } from 'react'
+import { View } from 'react-native'
+import Animated, { FadeInUp } from 'react-native-reanimated'
 import colors from 'tailwindcss/colors'
-import DeleteModal from '@/src/components/delete-modal'
-import { useState } from 'react'
 
 export default function CampaignByID() {
   const { id } = useLocalSearchParams()
+  const router = useRouter()
+  const toast = useToast()
 
-  const campaign = CAMPAIGN.find((item) => item.id === id)
   const [isModalVisible, setIsModalVisible] = useState(false)
 
-  const openModal = () => {
-    setIsModalVisible(true)
+  const {
+    data: campaign,
+    isError,
+    isLoading,
+  } = useGETCampaignById(id.toString())
+
+  const { mutate, data: requestError, isSuccess } = useDELETECampaign()
+
+  function onDeleteCampaign() {
+    mutate(id.toString())
   }
 
-  const closeModal = () => {
-    setIsModalVisible(false)
-  }
-  if (!campaign) return <Redirect href="/campaign/" />
+  useEffect(() => {
+    if (!isSuccess) return
 
+    if (requestError) {
+      toast.show({
+        title: requestError,
+        placement: 'top',
+        textAlign: 'center',
+        bg: 'rose.400',
+      })
+    } else {
+      toast.show({
+        title: 'Campanha deletada com sucesso',
+        placement: 'top',
+        textAlign: 'center',
+        bg: 'success.600',
+      })
+    }
+
+    return router.navigate('/campaign/')
+  }, [isSuccess, requestError, toast, router])
+
+  if (isError) return <Redirect href="/campaign/" />
+ 
   return (
     <View className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Campanha" />
 
-      <View className="py-8">
-        <View className="mb-12 gap-4">
-          <View className="gap-0.5">
-            <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-              Nomes
-            </Text>
-            <Text className="font-body text-base leading-relaxed text-slate-100">
-              {campaign.name}
-            </Text>
-          </View>
+      {isLoading || !campaign ? (
+        <Loading />
+      ) : (
+        <>
+          <Animated.View entering={FadeInUp} className="py-8">
+            <View className="mb-12" style={{ gap: 16 }}>
+              <DetailItem title="NOME" value={campaign.name} />
 
-          <View className="gap-0.5">
-            <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-              Data
-            </Text>
-            <Text className="font-body text-base leading-relaxed text-slate-100">
-              {campaign.date}
-            </Text>
-          </View>
+              <DetailItem title="DATA" value={campaign.date} />
 
-          <View className="gap-0.5">
-            <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-              Horário
-            </Text>
-            <Text className="font-body text-base leading-relaxed text-slate-100">
-              {campaign.time}
-            </Text>
-          </View>
+              <DetailItem title="HORÁRIO INICIAL" value={campaign.startTime} />
 
-          <View className="gap-0.5">
-            <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-              Localização
-            </Text>
-            <Text className="font-body text-base leading-relaxed text-slate-100">
-              {campaign.location}
-            </Text>
-          </View>
+              <DetailItem title="HORÁRIO FINAL" value={campaign.endTime} />
 
-          <View className="gap-0.5">
-            <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-              Descrição
-            </Text>
-            <Text className="font-body text-base leading-relaxed text-slate-100">
-              {campaign.description}
-            </Text>
-          </View>
-        </View>
+              <DetailItem title="LOCALIZAÇÃO" value={campaign.location} />
 
-        <View style={{ gap: 12 }}>
-          <Link href={`/campaign/update/${id}`} asChild>
-            <Button.Root>
-              <Button.Icon>
-                <Feather name="edit" size={18} color={colors.slate[950]} />
-              </Button.Icon>
-              <Button.Title>Editar Campanha</Button.Title>
-            </Button.Root>
-          </Link>
+              <DetailItem title="DESCRIÇÃO" value={campaign.description} />
 
-          <Button.Root variant="delete" onPress={openModal}>
-            <Button.Icon>
-              <Feather name="trash-2" size={18} color={colors.slate[950]} />
-            </Button.Icon>
-            <Button.Title>Excluir Campanha</Button.Title>
-          </Button.Root>
-        </View>
-      </View>
+            </View>
 
-      <DeleteModal
-        isVisible={isModalVisible}
-        onClose={closeModal}
-        item={campaign}
-        isOpen={isModalVisible}
-        itemName="o registro de patas em busca de lar"
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        onDelete={function (item: any): void {
-          console.log('N pegou.' + item)
-        }}
-      />
+            <View>
+              <Link href={`/campaign/update/${id}`} asChild>
+                <Button.Root style={{ gap: 12 }} className="mb-3">
+                  <Button.Icon>
+                    <Feather name="edit" size={18} color={colors.slate[950]} />
+                  </Button.Icon>
+                  <Button.Title>Editar Campanha</Button.Title>
+                </Button.Root>
+              </Link>
+
+              <Button.Root
+                variant="outline-delete"
+                onPress={() => setIsModalVisible(true)}
+              >
+                <Button.Icon>
+                  <Feather name="trash-2" size={18} color={colors.rose[400]} />
+                </Button.Icon>
+                <Button.Title className="text-rose-400">
+                  Excluir Campanha
+                </Button.Title>
+              </Button.Root>
+            </View>
+          </Animated.View>
+
+          <DeleteModal
+            itemName={campaign.name}
+            isVisible={isModalVisible}
+            onClose={() => setIsModalVisible(false)}
+            onDelete={onDeleteCampaign}
+          />
+        </>
+      )}
     </View>
   )
 }

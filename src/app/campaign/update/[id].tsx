@@ -1,47 +1,196 @@
 import { ReturnHeader } from '@/src/components/return-header'
-import { ScrollView, View } from 'react-native'
+import { View, ScrollView } from 'react-native'
 import * as Button from '@/src/components/button'
 import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
-import { Redirect, useLocalSearchParams } from 'expo-router'
-import { CAMPAIGN } from '@/src/utils/data/campaign'
+import { Redirect, useLocalSearchParams, useRouter } from 'expo-router'
 import { Input } from '@/src/components/input'
+import { useGETCampaignById } from '@/src/hooks/campaign/useGETCampaignById'
+import { Loading } from '@/src/components/loading'
+import { usePUTCampaign } from '@/src/hooks/campaign/usePUTCampaign'
+import { Controller, useForm } from 'react-hook-form'
+import {
+  CampaignSchema,
+  campaignSchema,
+} from '@/src/schemas/campaignSchema'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useEffect } from 'react'
+import { useToast } from 'native-base'
+import Animated, { FadeInUp } from 'react-native-reanimated'
+
 
 export default function UpdateCampaignById() {
   const { id } = useLocalSearchParams()
+  const router = useRouter()
+  const toast = useToast()
 
-  const campaign = CAMPAIGN.find((item) => item.id === id)
+  const {
+    data: campaign,
+    isError,
+    isLoading,
+  } = useGETCampaignById(id.toString())
 
-  if (!campaign) return <Redirect href="/campaign/" />
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<CampaignSchema>({
+    resolver: yupResolver(campaignSchema),
+
+    defaultValues: {
+      name: campaign?.name,
+      date: campaign?.date,
+      startTime: campaign?.startTime,
+      endTime: campaign?.endTime,
+      location: campaign?.location,
+      description: campaign?.description,
+    },
+  })
+
+  const {
+    mutate,
+    data: requestError,
+    isPending,
+    isSuccess,
+  } = usePUTCampaign()
+
+  function handleUpdateCampaign({ name, date, startTime, endTime, location, description }: CampaignSchema) {
+    if (name === campaign?.name && date === campaign?.date && startTime === campaign?.startTime && endTime === campaign?.endTime && location === campaign?.location && description === campaign?.description) return
+
+    const updatedCampaign = { name, date, startTime, endTime, location, description }
+
+    mutate({ id: id.toString(), updatedCampaign })
+  }
+
+  useEffect(() => {
+    if (!isSuccess) return
+
+    if (requestError) {
+      toast.show({
+        title: requestError,
+        placement: 'top',
+        textAlign: 'center',
+        bg: 'rose.400',
+      })
+    } else {
+      toast.show({
+        title: 'Campanha atualizada com sucesso',
+        placement: 'top',
+        textAlign: 'center',
+        bg: 'success.600',
+      })
+    }
+
+    return router.navigate('/campaign/')
+  }, [isSuccess, requestError, toast, router])
+
+  if (isError) return <Redirect href="/campaign/" />
 
   return (
     <View className="mx-5 mt-16 flex-1">
-      <ReturnHeader title="Editar campanha" />
+      <ReturnHeader title="Editar Campanha" />
 
-      <ScrollView contentContainerStyle={{ paddingVertical: 32 }}>
-        <View className="mb-12" style={{ gap: 16 }}>
-          <Input title="Nome" defaultValue={campaign.name} />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <Animated.View entering={FadeInUp} className="py-8">
+          <View className="mb-12" style={{ gap: 16 }}>
+            <Controller
+              control={control}
+              name="name"
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  title="Nome"
+                  defaultValue={value}
+                  errorMessage={errors.name?.message}
+                  onChangeText={onChange}
+                />
+              )}
+            />
 
-          <Input title="Data" defaultValue={campaign.date} />
+            <Controller
+              control={control}
+              name="date"
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  title="Data"
+                  defaultValue={value}
+                  errorMessage={errors.date?.message}
+                  onChangeText={onChange}
+                />
+              )}
+            />
 
-          <Input title="Horário" defaultValue={campaign.time} />
+            <Controller
+              control={control}
+              name="startTime"
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  title="Horário Inicial"
+                  defaultValue={value}
+                  errorMessage={errors.date?.message}
+                  onChangeText={onChange}
+                />
+              )}
+            />
 
-          <Input title="Localização" defaultValue={campaign.location} />
+            <Controller
+              control={control}
+              name="endTime"
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  title="Horário final"
+                  defaultValue={value}
+                  errorMessage={errors.date?.message}
+                  onChangeText={onChange}
+                />
+              )}
+            />
 
-          <Input
-            title="Descrição"
-            multiline={true}
-            defaultValue={campaign.description}
-          />
-        </View>
+            <Controller
+              control={control}
+              name="location"
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  title="Localização"
+                  defaultValue={value}
+                  errorMessage={errors.date?.message}
+                  onChangeText={onChange}
+                />
+              )}
+            />
 
-        <Button.Root>
-          <Button.Icon>
-            <Feather name="check-square" size={18} color={colors.slate[950]} />
-          </Button.Icon>
-          <Button.Title>Salvar alterações</Button.Title>
-        </Button.Root>
-      </ScrollView>
+
+            <Controller
+              control={control}
+              name="description"
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  title="Descrição"
+                  defaultValue={value}
+                  errorMessage={errors.date?.message}
+                  onChangeText={onChange}
+                  multiline={true}
+                />
+              )}
+            />
+          </View>
+
+          <Button.Root
+            disabled={isSubmitting || isPending}
+            onPress={handleSubmit(handleUpdateCampaign)}
+          >
+            <Button.Icon>
+              <Feather
+                name="check-square"
+                size={18}
+                color={colors.slate[950]}
+              />
+            </Button.Icon>
+            <Button.Title>Salvar alterações</Button.Title>
+          </Button.Root>
+        </Animated.View>
+      )}
     </View>
   )
 }
