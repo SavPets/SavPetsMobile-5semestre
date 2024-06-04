@@ -21,7 +21,7 @@ export function Header({ userName }: HeaderProps) {
           </Text>
         </View>
 
-        <TouchableOpacity onPress={handleOpenMenu}>
+        <TouchableOpacity onPress={handleOpenMenu} activeOpacity={0.8}>
           <Feather
             name="bar-chart"
             size={28}

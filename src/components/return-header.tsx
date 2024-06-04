@@ -14,6 +14,7 @@ export function ReturnHeader({ title }: ReturnHeaderProps) {
     <View className="flex-row items-center justify-center border-b border-slate-700 pb-6">
       <TouchableOpacity
         onPress={() => goBack()}
+        activeOpacity={0.8}
         className="absolute left-0 top-0"
       >
         <Feather name="chevron-left" size={28} color={colors.white} />
