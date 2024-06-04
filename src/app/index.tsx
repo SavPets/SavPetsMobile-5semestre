@@ -1,6 +1,6 @@
 import Login from './auth/login'
-import AnimalReport from './animal/animalReport'
+import Client from './client'
 
 export default function Home() {
-  return <AnimalReport />
+  return <Client />
 }
