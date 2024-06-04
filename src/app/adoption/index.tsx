@@ -48,9 +48,9 @@ export default function Adoption() {
                   <Text className="mb-0.5 font-body text-sm leading-relaxed text-slate-300">
                     {item.employee}
                   </Text>
-                  <Text className="font-body text-sm leading-relaxed text-slate-300">
+                  {/* <Text className="font-body text-sm leading-relaxed text-slate-300">
                     {formatDate(item.adoptionDate)}
-                  </Text>
+                  </Text> */}
                 </TouchableOpacity>
               </Link>
             )}

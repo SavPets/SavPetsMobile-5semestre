@@ -10,7 +10,7 @@ async function fetchAnimalCategories() {
 
 export function useGETAnimalCategories() {
   const query = useQuery<AnimalCategory[]>({
-    queryKey: ['animalCategoriesList', 'allAnimalCategories'],
+    queryKey: ['animalCategoriesList'],
     queryFn: async () => await fetchAnimalCategories(),
     refetchInterval: 1000 * 60 * 5, // 5 minutes in miliseconds
   })

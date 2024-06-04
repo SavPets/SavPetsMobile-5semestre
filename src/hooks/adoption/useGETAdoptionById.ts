@@ -10,7 +10,7 @@ async function fetchAdoption(id: string) {
 
 export function useGETAdoptionById(id: string) {
   const query = useQuery<AdoptionDTO>({
-    queryKey: ['departament', id],
+    queryKey: ['adoption', id],
 
     queryFn: async () => await fetchAdoption(id),
     refetchInterval: 1000 * 60 * 5, // 5 minutes in milliseconds

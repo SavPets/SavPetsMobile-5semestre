@@ -1,18 +1,19 @@
 import { api } from '@/src/lib/axios'
+import { AnimalReportSchema } from '@/src/schemas/animalReportSchema'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 
-async function deleteAdoption(id: string) {
+async function createAnimalReport(newAnimalReport: AnimalReportSchema) {
   try {
-    await api.delete(`/adocao/${id}`)
+    await api.post('/relatorio-animais', newAnimalReport)
   } catch (error) {
     if (error instanceof AxiosError) return error.response?.data
   }
 }
 
-export function useDELETEAdoption() {
+export function usePOSTAnimalReport() {
   const mutation = useMutation({
-    mutationFn: deleteAdoption,
+    mutationFn: createAnimalReport,
   })
 
   return mutation

@@ -4,66 +4,78 @@ import { Feather } from '@expo/vector-icons'
 import { Link } from 'expo-router'
 import { FlatList, Text, TouchableOpacity, View } from 'react-native'
 import colors from 'tailwindcss/colors'
-import { ANIMAL_REPORT } from '@/src/utils/data/animals'
 import { Header } from '@/src/components/header'
+import { useGETAnimalReports } from '@/src/hooks/animal/animalReport/useGETAnimalReports'
+import { formatDate } from '@/src/utils/formatDate'
+import { Loading } from '@/src/components/loading'
 
 export default function AnimalReport() {
+  const {
+    data: animalReports,
+    animalReportsCount,
+    isLoading,
+  } = useGETAnimalReports()
+
   return (
     <>
-      <Header userName="Matheus Carvalho" />
-      <View className="mx-5 mt-8 flex-1">
-        <View className="flex-row items-center justify-between">
-          <Text className="text-lg font-semibold leading-short text-white">
-            Relatórios de animais
-          </Text>
-          <Text className="font-body text-sm leading-short text-slate-300">
-            Total de {ANIMAL_REPORT.length}
-          </Text>
-        </View>
+      <Header userName="Matheus Simões" />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <View className="mx-5 mt-8 flex-1">
+          <View className="flex-row items-center justify-between">
+            <Text className="text-lg font-semibold leading-short text-white">
+              Relatórios de animais
+            </Text>
+            <Text className="font-body text-sm leading-short text-slate-300">
+              Total de {animalReportsCount}
+            </Text>
+          </View>
 
-        <FlatList
-          data={ANIMAL_REPORT}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <Link href={`/animal/animalReport/${item.id}`} asChild>
-              <TouchableOpacity
-                activeOpacity={0.8}
-                className="border-b border-slate-700 py-4"
-              >
-                <View className="mb-0.5 flex-row items-center justify-between">
-                  <Text className="text-base font-semibold leading-short text-slate-100">
-                    {item.animalName}
+          <FlatList
+            data={animalReports}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <Link href={`/animal/animalReport/${item.id}`} asChild>
+                <TouchableOpacity
+                  activeOpacity={0.8}
+                  className="border-b border-slate-700 py-4"
+                >
+                  <View className="mb-0.5 flex-row items-center justify-between">
+                    <Text className="text-base font-semibold leading-short text-slate-100">
+                      {item.animalName}
+                    </Text>
+                    <Text className="font-body text-sm leading-short text-slate-100">
+                      {formatDate(item.arrivalDate)}
+                    </Text>
+                  </View>
+
+                  <Text className="font-body text-sm leading-relaxed text-slate-300">
+                    Categoria: {item.animalCategory}
                   </Text>
-                  <Text className="font-body text-sm leading-short text-slate-100">
-                    {item.createdAt}
+
+                  <Text className="font-body text-sm leading-relaxed text-slate-300">
+                    Encontrado perto de: {item.local}
                   </Text>
-                </View>
+                </TouchableOpacity>
+              </Link>
+            )}
+            showsVerticalScrollIndicator={false}
+            ListEmptyComponent={ListEmpty}
+            className="my-8"
+          />
 
-                <Text className="font-body text-sm leading-relaxed text-slate-300">
-                  Categoria: {item.animalCategory}
-                </Text>
-
-                <Text className="font-body text-sm leading-relaxed text-slate-300">
-                  Encontrado perto de: {item.local}
-                </Text>
-              </TouchableOpacity>
+          <View style={{ position: 'absolute', right: 0, bottom: 80 }}>
+            <Link href="/animal/animalReport/create" asChild>
+              <Button.Root isFloat>
+                <Button.Icon>
+                  <Feather name="plus" size={28} color={colors.slate[950]} />
+                </Button.Icon>
+              </Button.Root>
             </Link>
-          )}
-          showsVerticalScrollIndicator={false}
-          ListEmptyComponent={ListEmpty}
-          className="my-8"
-        />
-
-        <View style={{ position: 'absolute', right: 0, bottom: 80 }}>
-          <Link href="/animal/animalReport/create" asChild>
-            <Button.Root isFloat>
-              <Button.Icon>
-                <Feather name="plus" size={28} color={colors.slate[950]} />
-              </Button.Icon>
-            </Button.Root>
-          </Link>
+          </View>
         </View>
-      </View>
+      )}
     </>
   )
 }

@@ -6,9 +6,9 @@ import { useState } from 'react'
 import { Text, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 import DeleteModal from '@/src/components/delete-modal'
-import { useGETAnimalCategory } from '@/src/hooks/animalCategory/useGETAnimalCategory'
+import { useGETAnimalCategory } from '@/src/hooks/animal/animalCategory/useGETAnimalCategory'
 import { Loading } from '@/src/components/loading'
-import { useDELETEAnimalCategory } from '@/src/hooks/animalCategory/useDELETEAnimalCategory'
+import { useDELETEAnimalCategory } from '@/src/hooks/animal/animalCategory/useDELETEAnimalCategory'
 
 export default function AnimalCategoryById() {
   const { id } = useLocalSearchParams()

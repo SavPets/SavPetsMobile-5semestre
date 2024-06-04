@@ -10,7 +10,7 @@ async function fetchMedicine(id: string) {
 
 export function useGETMedicineById(id: string) {
   const query = useQuery<MedicineDTO>({
-    queryKey: ['departament', id],
+    queryKey: ['medicine', id],
 
     queryFn: async () => await fetchMedicine(id),
     refetchInterval: 1000 * 60 * 5, // 5 minutes in milliseconds

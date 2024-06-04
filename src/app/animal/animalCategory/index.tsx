@@ -2,7 +2,7 @@
 import * as Button from '@/src/components/button'
 import { ListEmpty } from '@/src/components/list-empty'
 import { Loading } from '@/src/components/loading'
-import { useGETAnimalCategories } from '@/src/hooks/animalCategory/useGETAnimalCategories'
+import { useGETAnimalCategories } from '@/src/hooks/animal/animalCategory/useGETAnimalCategories'
 import { Feather } from '@expo/vector-icons'
 import { Link } from 'expo-router'
 import { FlatList, Text, TouchableOpacity, View } from 'react-native'
