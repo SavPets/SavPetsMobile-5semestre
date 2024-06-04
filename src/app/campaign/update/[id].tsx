@@ -132,7 +132,7 @@ export default function UpdateCampaignById() {
                   <Input
                     title="Horário Inicial"
                     defaultValue={value}
-                    errorMessage={errors.date?.message}
+                    errorMessage={errors.startTime?.message}
                     onChangeText={onChange}
                   />
                 )}
@@ -145,7 +145,7 @@ export default function UpdateCampaignById() {
                   <Input
                     title="Horário final"
                     defaultValue={value}
-                    errorMessage={errors.date?.message}
+                    errorMessage={errors.endTime?.message}
                     onChangeText={onChange}
                   />
                 )}
@@ -158,7 +158,7 @@ export default function UpdateCampaignById() {
                   <Input
                     title="Localização"
                     defaultValue={value}
-                    errorMessage={errors.date?.message}
+                    errorMessage={errors.location?.message}
                     onChangeText={onChange}
                   />
                 )}
@@ -171,7 +171,7 @@ export default function UpdateCampaignById() {
                   <Input
                     title="Descrição"
                     defaultValue={value}
-                    errorMessage={errors.date?.message}
+                    errorMessage={errors.description?.message}
                     onChangeText={onChange}
                     multiline={true}
                   />
