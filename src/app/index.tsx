@@ -1,6 +1,6 @@
 import Login from './auth/login'
-import Occupation from './employee/occupation'
+import Provider from './provider'
 
 export default function Home() {
-  return <Occupation />
+  return <Provider />
 }
