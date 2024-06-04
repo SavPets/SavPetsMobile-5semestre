@@ -7,7 +7,7 @@ import { Feather } from '@expo/vector-icons'
 import { Link } from 'expo-router'
 import { FlatList, Text, TouchableOpacity, View } from 'react-native'
 import colors from 'tailwindcss/colors'
-import Header from '@/src/components/header'
+import { Header } from '@/src/components/header'
 
 export default function AnimalCategory() {
   const {

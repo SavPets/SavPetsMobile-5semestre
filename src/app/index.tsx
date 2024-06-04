@@ -1,6 +1,6 @@
 import Login from './auth/login'
-import Campanha from './campaign'
+import Medicine from './medicine'
 
 export default function Home() {
-  return <Campanha />
+  return <Medicine />
 }
