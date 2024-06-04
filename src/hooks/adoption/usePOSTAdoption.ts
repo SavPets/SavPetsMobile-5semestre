@@ -3,7 +3,7 @@ import { MedicineSchema } from '@/src/schemas/medicineSchema'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 
-async function createMedicine(newMedicine: MedicineSchema) {
+async function createAdoption(newMedicine: MedicineSchema) {
   try {
     await api.post('/medicamentos', newMedicine)
   } catch (error) {
@@ -11,9 +11,9 @@ async function createMedicine(newMedicine: MedicineSchema) {
   }
 }
 
-export function usePOSTMedicine() {
+export function usePOSTAdoption() {
   const mutation = useMutation({
-    mutationFn: createMedicine,
+    mutationFn: createAdoption,
   })
 
   return mutation

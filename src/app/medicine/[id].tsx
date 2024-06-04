@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import * as Button from '@/src/components/button'
 import { Loading } from '@/src/components/loading'
 import { ReturnHeader } from '@/src/components/return-header'
@@ -16,12 +15,12 @@ export default function MedicineByID() {
   const {
     data: medicine,
     isError,
-    isLoading
+    isLoading,
   } = useGETMedicineById(id.toString())
 
   if (isError) return <Redirect href="/employee/departament/" />
 
-  return (    
+  return (
     <View className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Medicamento" />
 
@@ -55,11 +54,11 @@ export default function MedicineByID() {
               <Text className="font-body text-base leading-relaxed text-slate-100">
                 {formatDate(medicine.expirationDate)}
               </Text>
-            </View> 
+            </View>
 
             <View className="gap-0.5">
               <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-              Fornecedor
+                Fornecedor
               </Text>
               <Text className="font-body text-base leading-relaxed text-slate-100">
                 {medicine.provider}
@@ -86,7 +85,7 @@ export default function MedicineByID() {
 
             <View className="gap-0.5">
               <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-              Bula
+                Bula
               </Text>
               <Text className="font-body text-base leading-relaxed text-slate-100">
                 {medicine.leaflet}
@@ -95,7 +94,7 @@ export default function MedicineByID() {
 
             <View className="gap-0.5">
               <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-              Data de chegada
+                Data de chegada
               </Text>
               <Text className="font-body text-base leading-relaxed text-slate-100">
                 {formatDate(medicine.arrivalDate)}
@@ -104,7 +103,7 @@ export default function MedicineByID() {
 
             <View className="gap-0.5">
               <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-              Quantidade
+                Quantidade
               </Text>
               <Text className="font-body text-base leading-relaxed text-slate-100">
                 {medicine.amount}

@@ -1,19 +1,18 @@
 import { api } from '@/src/lib/axios'
-import { MedicineSchema } from '@/src/schemas/medicineSchema'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 
-async function createMedicine(newMedicine: MedicineSchema) {
+async function deleteAdoption(id: string) {
   try {
-    await api.post('/medicamentos', newMedicine)
+    await api.delete(`/adocao/${id}`)
   } catch (error) {
     if (error instanceof AxiosError) return error.response?.data
   }
 }
 
-export function usePOSTMedicine() {
+export function useDELETEAdoption() {
   const mutation = useMutation({
-    mutationFn: createMedicine,
+    mutationFn: deleteAdoption,
   })
 
   return mutation

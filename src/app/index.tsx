@@ -1,6 +1,6 @@
 import Login from './auth/login'
-import Medicine from './medicine'
+import Adoption from './adoption'
 
 export default function Home() {
-  return <Medicine />
+  return <Adoption />
 }

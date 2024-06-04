@@ -2,7 +2,7 @@ import { api } from '@/src/lib/axios'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 
-async function deleteDepartament(id: string) {
+async function deleteMedicine(id: string) {
   try {
     await api.delete(`/medicamentos/${id}`)
   } catch (error) {
@@ -12,7 +12,7 @@ async function deleteDepartament(id: string) {
 
 export function useDELETEMedicine() {
   const mutation = useMutation({
-    mutationFn: deleteDepartament,
+    mutationFn: deleteMedicine,
   })
 
   return mutation
