@@ -5,7 +5,8 @@ import { useGETAdoptionById } from '@/src/hooks/adoption/useGETAdoptionById'
 import { formatDate } from '@/src/utils/formatDate'
 import { Feather } from '@expo/vector-icons'
 import { Link, Redirect, useLocalSearchParams } from 'expo-router'
-import { ScrollView, Text, View } from 'react-native'
+import { Text, View } from 'react-native'
+import Animated, { FadeInUp } from 'react-native-reanimated'
 import colors from 'tailwindcss/colors'
 
 export default function AdoptionById() {
@@ -24,7 +25,10 @@ export default function AdoptionById() {
       {isLoading || !adoption ? (
         <Loading />
       ) : (
-        <ScrollView contentContainerStyle={{ paddingVertical: 32 }}>
+        <Animated.ScrollView
+          entering={FadeInUp}
+          contentContainerStyle={{ paddingVertical: 32 }}
+        >
           <View className="mb-12 gap-4">
             <View className="gap-0.5">
               <Text className="text-base font-semibold uppercase leading-short text-slate-300">
@@ -77,7 +81,7 @@ export default function AdoptionById() {
               </Button.Root>
             </Link>
           </View>
-        </ScrollView>
+        </Animated.ScrollView>
       )}
     </View>
   )

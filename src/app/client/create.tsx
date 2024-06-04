@@ -1,15 +1,19 @@
 import { ReturnHeader } from '@/src/components/return-header'
-import { ScrollView, View } from 'react-native'
+import { View } from 'react-native'
 import * as Button from '@/src/components/button'
 import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
 import { Input } from '@/src/components/input'
+import Animated, { FadeInUp } from 'react-native-reanimated'
 
 export default function CreateClient() {
   return (
     <View className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Novo cliente" />
-      <ScrollView contentContainerStyle={{ paddingVertical: 32 }}>
+      <Animated.ScrollView
+        entering={FadeInUp}
+        contentContainerStyle={{ paddingVertical: 32 }}
+      >
         <View className="mb-12" style={{ gap: 16 }}>
           <Input title="Primeiro nome" />
           <Input title="Último nome" />
@@ -26,7 +30,7 @@ export default function CreateClient() {
           </Button.Icon>
           <Button.Title>Cadastrar cliente</Button.Title>
         </Button.Root>
-      </ScrollView>
+      </Animated.ScrollView>
     </View>
   )
 }

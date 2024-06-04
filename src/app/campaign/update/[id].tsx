@@ -1,5 +1,5 @@
 import { ReturnHeader } from '@/src/components/return-header'
-import { View, ScrollView } from 'react-native'
+import { View } from 'react-native'
 import * as Button from '@/src/components/button'
 import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
@@ -9,15 +9,12 @@ import { useGETCampaignById } from '@/src/hooks/campaign/useGETCampaignById'
 import { Loading } from '@/src/components/loading'
 import { usePUTCampaign } from '@/src/hooks/campaign/usePUTCampaign'
 import { Controller, useForm } from 'react-hook-form'
-import {
-  CampaignSchema,
-  campaignSchema,
-} from '@/src/schemas/campaignSchema'
+import { CampaignSchema, campaignSchema } from '@/src/schemas/campaignSchema'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useEffect } from 'react'
 import { useToast } from 'native-base'
 import Animated, { FadeInUp } from 'react-native-reanimated'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 export default function UpdateCampaignById() {
   const { id } = useLocalSearchParams()
@@ -47,17 +44,34 @@ export default function UpdateCampaignById() {
     },
   })
 
-  const {
-    mutate,
-    data: requestError,
-    isPending,
-    isSuccess,
-  } = usePUTCampaign()
+  const { mutate, data: requestError, isPending, isSuccess } = usePUTCampaign()
 
-  function handleUpdateCampaign({ name, date, startTime, endTime, location, description }: CampaignSchema) {
-    if (name === campaign?.name && date === campaign?.date && startTime === campaign?.startTime && endTime === campaign?.endTime && location === campaign?.location && description === campaign?.description) return
+  function handleUpdateCampaign({
+    name,
+    date,
+    startTime,
+    endTime,
+    location,
+    description,
+  }: CampaignSchema) {
+    if (
+      name === campaign?.name &&
+      date === campaign?.date &&
+      startTime === campaign?.startTime &&
+      endTime === campaign?.endTime &&
+      location === campaign?.location &&
+      description === campaign?.description
+    )
+      return
 
-    const updatedCampaign = { name, date, startTime, endTime, location, description }
+    const updatedCampaign = {
+      name,
+      date,
+      startTime,
+      endTime,
+      location,
+      description,
+    }
 
     mutate({ id: id.toString(), updatedCampaign })
   }

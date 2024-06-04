@@ -18,7 +18,7 @@ export default function MedicineByID() {
     isLoading,
   } = useGETMedicineById(id.toString())
 
-  if (isError) return <Redirect href="/employee/departament/" />
+  if (isError) return <Redirect href="/medicine/" />
 
   return (
     <View className="mx-5 mt-16 flex-1">
@@ -106,7 +106,7 @@ export default function MedicineByID() {
                 Quantidade
               </Text>
               <Text className="font-body text-base leading-relaxed text-slate-100">
-                {medicine.amount}
+                {medicine.amount.toString()}
               </Text>
             </View>
           </View>

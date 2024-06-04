@@ -8,6 +8,10 @@ import { useGETProviders } from '@/src/hooks/provider/useGETProviders'
 import { Header } from '@/src/components/header'
 import { Loading } from '@/src/components/loading'
 import { formatDate } from '@/src/utils/formatDate'
+import Animated, { SlideInLeft } from 'react-native-reanimated'
+
+const AnimatedTouchableOpacity =
+  Animated.createAnimatedComponent(TouchableOpacity)
 
 export default function Provider() {
   const { data: providers, providersCount, isLoading } = useGETProviders()
@@ -31,9 +35,10 @@ export default function Provider() {
           <FlatList
             data={providers}
             keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
+            renderItem={({ item, index }) => (
               <Link href={`/provider/${item.id}`} asChild>
-                <TouchableOpacity
+                <AnimatedTouchableOpacity
+                  entering={SlideInLeft.delay(index * 150)}
                   activeOpacity={0.8}
                   className="border-b border-slate-700 py-4"
                 >
@@ -53,7 +58,7 @@ export default function Provider() {
                   <Text className="font-body text-sm leading-relaxed text-slate-300">
                     {item.cep}
                   </Text>
-                </TouchableOpacity>
+                </AnimatedTouchableOpacity>
               </Link>
             )}
             showsVerticalScrollIndicator={false}

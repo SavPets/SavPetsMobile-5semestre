@@ -13,7 +13,7 @@ export interface MedicineDTO {
   expirationDate: Date
   observation: string
   arrivalDate: Date
-  amount: string
+  amount: number
   manufacturingDate: Date
   createdAt: Date
 }

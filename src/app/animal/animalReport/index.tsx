@@ -2,12 +2,17 @@ import * as Button from '@/src/components/button'
 import { ListEmpty } from '@/src/components/list-empty'
 import { Feather } from '@expo/vector-icons'
 import { Link } from 'expo-router'
-import { FlatList, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, TouchableOpacity, View } from 'react-native'
+import { Text } from 'native-base'
 import colors from 'tailwindcss/colors'
 import { Header } from '@/src/components/header'
 import { useGETAnimalReports } from '@/src/hooks/animal/animalReport/useGETAnimalReports'
 import { formatDate } from '@/src/utils/formatDate'
 import { Loading } from '@/src/components/loading'
+import Animated, { SlideInLeft } from 'react-native-reanimated'
+
+const AnimatedTouchableOpacity =
+  Animated.createAnimatedComponent(TouchableOpacity)
 
 export default function AnimalReport() {
   const {
@@ -35,9 +40,10 @@ export default function AnimalReport() {
           <FlatList
             data={animalReports}
             keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
+            renderItem={({ item, index }) => (
               <Link href={`/animal/animalReport/${item.id}`} asChild>
-                <TouchableOpacity
+                <AnimatedTouchableOpacity
+                  entering={SlideInLeft.delay(index * 150)}
                   activeOpacity={0.8}
                   className="border-b border-slate-700 py-4"
                 >
@@ -50,14 +56,18 @@ export default function AnimalReport() {
                     </Text>
                   </View>
 
-                  <Text className="font-body text-sm leading-relaxed text-slate-300">
+                  <Text
+                    isTruncated
+                    maxW="50%"
+                    className="font-body text-sm leading-relaxed text-slate-300"
+                  >
                     Categoria: {item.animalCategory}
                   </Text>
 
                   <Text className="font-body text-sm leading-relaxed text-slate-300">
                     Encontrado perto de: {item.local}
                   </Text>
-                </TouchableOpacity>
+                </AnimatedTouchableOpacity>
               </Link>
             )}
             showsVerticalScrollIndicator={false}

@@ -12,6 +12,7 @@ import {
   animalCategorySchema,
 } from '@/src/schemas/animalCategorySchema'
 import { zodResolver } from '@hookform/resolvers/zod'
+import Animated, { FadeInUp } from 'react-native-reanimated'
 
 export const GenderOptions = [
   { label: 'Macho', value: 'macho' },
@@ -30,46 +31,42 @@ export default function CreateAnimalCategory() {
   })
 
   return (
-      <View className="mx-5 mt-16 flex-1">
-        <ReturnHeader title="Nova categoria" />
-        <View className="py-8">
-          <View className="mb-12" style={{ gap: 16 }}>
-            <Input title="Nome" {...register('name')} />
+    <View className="mx-5 mt-16 flex-1">
+      <ReturnHeader title="Nova categoria" />
+      <Animated.View entering={FadeInUp} className="py-8">
+        <View className="mb-12" style={{ gap: 16 }}>
+          <Input title="Nome" {...register('name')} />
 
-            <Input title="Cor" {...register('coatColor')} />
+          <Input title="Cor" {...register('coatColor')} />
 
-            <Input title="Raça" {...register('race')} />
+          <Input title="Raça" {...register('race')} />
 
-            <ButtonSelect
-              title={'Gênero'}
-              options={GenderOptions}
-              value={''}
-              {...register('gender')}
-            />
+          <ButtonSelect
+            title={'Gênero'}
+            options={GenderOptions}
+            value={''}
+            {...register('gender')}
+          />
 
-            <ButtonSelect
-              title={'Porte'}
-              options={SizeOptions}
-              value={''}
-              {...register('size')}
-            />
+          <ButtonSelect
+            title={'Porte'}
+            options={SizeOptions}
+            value={''}
+            {...register('size')}
+          />
 
-            {/* <ButtonSelect title="Raça" options={RaceOptions} value={''} /> */}
-          </View>
-
-          <View>
-            <Button.Root>
-              <Button.Icon>
-                <Feather
-                  name="plus-square"
-                  size={18}
-                  color={colors.slate[950]}
-                />
-              </Button.Icon>
-              <Button.Title>Cadastrar categoria</Button.Title>
-            </Button.Root>
-          </View>
+          {/* <ButtonSelect title="Raça" options={RaceOptions} value={''} /> */}
         </View>
-      </View>
+
+        <View>
+          <Button.Root>
+            <Button.Icon>
+              <Feather name="plus-square" size={18} color={colors.slate[950]} />
+            </Button.Icon>
+            <Button.Title>Cadastrar categoria</Button.Title>
+          </Button.Root>
+        </View>
+      </Animated.View>
+    </View>
   )
 }

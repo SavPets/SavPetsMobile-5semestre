@@ -5,10 +5,7 @@ import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
 import { Input } from '@/src/components/input'
 import { Controller, useForm } from 'react-hook-form'
-import {
-  CampaignSchema,
-  campaignSchema,
-} from '@/src/schemas/campaignSchema'
+import { CampaignSchema, campaignSchema } from '@/src/schemas/campaignSchema'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { usePOSTCampaign } from '@/src/hooks/campaign/usePOSTCampaign'
 import { useRouter } from 'expo-router'
@@ -21,12 +18,7 @@ export default function CreateCampaign() {
   const router = useRouter()
   const toast = useToast()
 
-  const {
-    mutate,
-    data: requestError,
-    isPending,
-    isSuccess,
-  } = usePOSTCampaign()
+  const { mutate, data: requestError, isPending, isSuccess } = usePOSTCampaign()
 
   const {
     control,
@@ -36,7 +28,14 @@ export default function CreateCampaign() {
     resolver: yupResolver(campaignSchema),
   })
 
-  function handleCreateCampaign({ name, date, startTime, endTime, location, description }: CampaignSchema) {
+  function handleCreateCampaign({
+    name,
+    date,
+    startTime,
+    endTime,
+    location,
+    description,
+  }: CampaignSchema) {
     mutate({ name, date, startTime, endTime, location, description })
   }
 

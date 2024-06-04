@@ -6,6 +6,7 @@ import colors from 'tailwindcss/colors'
 import { Redirect, useLocalSearchParams } from 'expo-router'
 import { ADOPTIONS } from '@/src/utils/data/adoptions'
 import { Input } from '@/src/components/input'
+import Animated, { FadeInUp } from 'react-native-reanimated'
 
 export default function UpdateAdoptionById() {
   const { id } = useLocalSearchParams()
@@ -13,7 +14,7 @@ export default function UpdateAdoptionById() {
   if (!adoption) return <Redirect href="/adoption/" />
 
   return (
-    <View className="mx-5 mt-16 flex-1">
+    <Animated.View entering={FadeInUp} className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Editar adoção" />
       <ScrollView contentContainerStyle={{ paddingVertical: 32 }}>
         <View className="mb-12" style={{ gap: 16 }}>
@@ -35,6 +36,6 @@ export default function UpdateAdoptionById() {
           <Button.Title>Salvar alterações</Button.Title>
         </Button.Root>
       </ScrollView>
-    </View>
+    </Animated.View>
   )
 }

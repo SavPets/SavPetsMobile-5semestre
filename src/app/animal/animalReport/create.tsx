@@ -2,13 +2,14 @@
 import { ReturnHeader } from '@/src/components/return-header'
 import { View, ScrollView } from 'react-native'
 import { Input } from '@/src/components/input'
-import SelectComponent from '@/src/components/select'
+import { Select } from '@/src/components/select'
 import * as Button from '@/src/components/button'
 import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
 
 import { MEDICINE } from '@/src/utils/data/medicine'
 import { ANIMALS_CATEGORY } from '@/src/utils/data/animals'
+import Animated, { FadeInUp } from 'react-native-reanimated'
 
 export const medicineOptions = [
   { label: 'Não Medicado', value: 'nao_medicado' },
@@ -39,25 +40,20 @@ export default function CreateAnimalReport() {
     <View className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Novo Relatório" />
 
-      <ScrollView contentContainerStyle={{ paddingVertical: 32 }}>
+      <Animated.ScrollView
+        entering={FadeInUp}
+        contentContainerStyle={{ paddingVertical: 32 }}
+      >
         <View className="mb-12" style={{ gap: 16 }}>
           <Input title="Nome do animal" />
 
-          <SelectComponent
-            title={'Categoria'}
-            options={categoryOptions}
-            value={''}
-          />
+          <Select title={'Categoria'} options={categoryOptions} value={''} />
 
           <Input title="Local encontrado" />
 
           <Input title="Data de chegada" />
 
-          <SelectComponent
-            title={'Medicamento'}
-            options={medicineOptions}
-            value={''}
-          />
+          <Select title={'Medicamento'} options={medicineOptions} value={''} />
 
           <Input title="Descrição" multiline={true} />
         </View>
@@ -70,7 +66,7 @@ export default function CreateAnimalReport() {
             <Button.Title>Cadastrar relatório</Button.Title>
           </Button.Root>
         </View>
-      </ScrollView>
+      </Animated.ScrollView>
     </View>
   )
 }

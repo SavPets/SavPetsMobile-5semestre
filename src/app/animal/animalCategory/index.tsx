@@ -8,6 +8,10 @@ import { Link } from 'expo-router'
 import { FlatList, Text, TouchableOpacity, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 import { Header } from '@/src/components/header'
+import Animated, { SlideInLeft } from 'react-native-reanimated'
+
+const AnimatedTouchableOpacity =
+  Animated.createAnimatedComponent(TouchableOpacity)
 
 export default function AnimalCategory() {
   const {
@@ -36,9 +40,10 @@ export default function AnimalCategory() {
           <FlatList
             data={data}
             keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
+            renderItem={({ item, index }) => (
               <Link href={`/animal/animalCategory/${item.id}`} asChild>
-                <TouchableOpacity
+                <AnimatedTouchableOpacity
+                  entering={SlideInLeft.delay(index * 150)}
                   activeOpacity={0.8}
                   className="border-b border-slate-700 py-4"
                 >
@@ -54,7 +59,7 @@ export default function AnimalCategory() {
                   <Text className="font-body text-sm leading-relaxed text-slate-300">
                     {item.race}
                   </Text>
-                </TouchableOpacity>
+                </AnimatedTouchableOpacity>
               </Link>
             )}
             showsVerticalScrollIndicator={false}

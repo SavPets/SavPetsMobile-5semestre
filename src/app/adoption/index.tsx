@@ -8,6 +8,10 @@ import { useGETAdoptions } from '@/src/hooks/adoption/useGETAdoptions'
 import { formatDate } from '@/src/utils/formatDate'
 import { Header } from '@/src/components/header'
 import { Loading } from '@/src/components/loading'
+import Animated, { SlideInLeft } from 'react-native-reanimated'
+
+const AnimatedTouchableOpacity =
+  Animated.createAnimatedComponent(TouchableOpacity)
 
 export default function Adoption() {
   const { data: adoptions, adoptionsCount, isLoading } = useGETAdoptions()
@@ -30,15 +34,21 @@ export default function Adoption() {
           <FlatList
             data={adoptions}
             keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
+            renderItem={({ item, index }) => (
               <Link href={`/adoption/${item.id}`} asChild>
-                <TouchableOpacity
+                <AnimatedTouchableOpacity
+                  entering={SlideInLeft.delay(index * 150)}
                   activeOpacity={0.8}
                   className="border-b border-slate-700 py-4"
                 >
-                  <Text className="mb-0.5 text-base font-semibold leading-short text-slate-100">
-                    {item.animalName}
-                  </Text>
+                  <View className="mb-0.5 flex-row items-center justify-between">
+                    <Text className="text-base font-semibold leading-short text-slate-100">
+                      {item.animalName}
+                    </Text>
+                    <Text className="font-body text-sm leading-relaxed text-slate-300">
+                      {formatDate(item.adoptionDate)}
+                    </Text>
+                  </View>
                   <Text className="mb-0.5 font-body text-sm leading-relaxed text-slate-300">
                     {item.client}
                   </Text>
@@ -48,10 +58,7 @@ export default function Adoption() {
                   <Text className="mb-0.5 font-body text-sm leading-relaxed text-slate-300">
                     {item.employee}
                   </Text>
-                  {/* <Text className="font-body text-sm leading-relaxed text-slate-300">
-                    {formatDate(item.adoptionDate)}
-                  </Text> */}
-                </TouchableOpacity>
+                </AnimatedTouchableOpacity>
               </Link>
             )}
             showsVerticalScrollIndicator={false}

@@ -3,6 +3,8 @@ import { Header } from '@/src/components/header'
 import { ListEmpty } from '@/src/components/list-empty'
 import { Loading } from '@/src/components/loading'
 import { useGETCampaigns } from '@/src/hooks/campaign/useGETCampaigns'
+import { formatDate } from '@/src/utils/formatDate'
+import { formatDateWithWeekDay } from '@/src/utils/formatDateWithWeekDay'
 import { Feather } from '@expo/vector-icons'
 import { Link } from 'expo-router'
 import { FlatList, Text, TouchableOpacity, View } from 'react-native'
@@ -14,24 +16,7 @@ const AnimatedTouchableOpacity =
 
 export default function Campaign() {
   // pendente receber createdAt do backend
-  const {
-    data: campaignList,
-    campaignCount,
-    isLoading,
-  } = useGETCampaigns()
-
-
-  function formatDate(dateString: string): string {
-    const months = [
-      'janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho',
-      'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'
-    ];
-
-    const [day, month, year] = dateString.split('/').map(part => parseInt(part, 10));
-    const monthName = months[month - 1];
-
-    return `${day} de ${monthName} de ${year}`;
-  }
+  const { data: campaignList, campaignCount, isLoading } = useGETCampaigns()
 
   return (
     <>
@@ -62,14 +47,14 @@ export default function Campaign() {
                 >
                   <View className="mb-0.5 flex-row items-center justify-between">
                     <Text className="text-base font-semibold leading-short text-slate-100">
-                      {item.name}
+                      {formatDateWithWeekDay(item.date)}
                     </Text>
                     <Text className="font-body text-sm leading-short text-slate-100">
-                      {item.date}
+                      {formatDate(item.date)}
                     </Text>
                   </View>
                   <Text className="font-body text-sm leading-relaxed text-slate-300">
-                    {formatDate(item.date)}
+                    {item.name}
                   </Text>
                   <Text className="font-body text-sm leading-relaxed text-slate-300">
                     {item.location}

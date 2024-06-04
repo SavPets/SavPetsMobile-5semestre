@@ -4,13 +4,14 @@ import * as Button from '@/src/components/button'
 import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
 import { Input } from '@/src/components/input'
+import Animated, { FadeInUp } from 'react-native-reanimated'
 
 export default function CreateProvider() {
   return (
     <View className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Novo Fornecedor" />
 
-      <View className="py-8">
+      <Animated.View entering={FadeInUp} className="py-8">
         <View className="mb-12" style={{ gap: 16 }}>
           <Input title="Razão Social" />
 
@@ -31,7 +32,7 @@ export default function CreateProvider() {
           </Button.Icon>
           <Button.Title>Cadastrar Fornecedor</Button.Title>
         </Button.Root>
-      </View>
+      </Animated.View>
     </View>
   )
 }

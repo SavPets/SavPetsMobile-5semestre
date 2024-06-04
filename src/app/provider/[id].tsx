@@ -5,6 +5,7 @@ import { useGETProviderById } from '@/src/hooks/provider/useGETProviderById'
 import { Feather } from '@expo/vector-icons'
 import { Link, Redirect, useLocalSearchParams } from 'expo-router'
 import { Text, View } from 'react-native'
+import Animated, { FadeInUp } from 'react-native-reanimated'
 import colors from 'tailwindcss/colors'
 
 export default function ProviderByID() {
@@ -25,7 +26,7 @@ export default function ProviderByID() {
       {isLoading || !provider ? (
         <Loading />
       ) : (
-        <View className="py-8">
+        <Animated.View entering={FadeInUp} className="py-8">
           <View className="mb-12 gap-4">
             <View className="gap-0.5">
               <Text className="text-base font-semibold uppercase leading-short text-slate-300">
@@ -81,7 +82,7 @@ export default function ProviderByID() {
               <Button.Title>Excluir Fornecedor</Button.Title>
             </Button.Root>
           </View>
-        </View>
+        </Animated.View>
       )}
     </View>
   )

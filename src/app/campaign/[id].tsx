@@ -55,7 +55,7 @@ export default function CampaignByID() {
   }, [isSuccess, requestError, toast, router])
 
   if (isError) return <Redirect href="/campaign/" />
- 
+
   return (
     <View className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Campanha" />
@@ -77,7 +77,6 @@ export default function CampaignByID() {
               <DetailItem title="LOCALIZAÇÃO" value={campaign.location} />
 
               <DetailItem title="DESCRIÇÃO" value={campaign.description} />
-
             </View>
 
             <View>
