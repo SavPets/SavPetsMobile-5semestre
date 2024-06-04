@@ -3,16 +3,32 @@ import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import { NAVIGATION_SECTIONS } from '../utils/navigationSections'
 import colors from 'tailwindcss/colors'
 import { Feather } from '@expo/vector-icons'
+import Animated, { FadeInUp, FadeOutUp } from 'react-native-reanimated'
+import { MenuContext } from '../contexts/menu-context'
+import { useContextSelector } from 'use-context-selector'
 
-export function NavigationMenu() {
+interface NavigationMenuProps {
+  isOpen: boolean
+}
+
+export function NavigationMenu({ isOpen }: NavigationMenuProps) {
   const router = useRouter()
+  const handleChangeMenuVisibility = useContextSelector(
+    MenuContext,
+    (context) => context.handleChangeMenuVisibility,
+  )
 
   function handleNavigateToScreen(href: string) {
     router.navigate(href)
+    handleChangeMenuVisibility()
   }
 
   return (
-    <View className="mx-5 my-8 rounded-lg bg-slate-800 px-5">
+    <Animated.View
+      entering={FadeInUp}
+      exiting={FadeOutUp}
+      className={`${!isOpen && 'h-0'} absolute top-[76px] z-10 mx-5 mt-8 rounded-lg bg-slate-800 px-5`}
+    >
       <ScrollView showsVerticalScrollIndicator={false}>
         {NAVIGATION_SECTIONS.map((section) => (
           <View key={section.title}>
@@ -45,6 +61,6 @@ export function NavigationMenu() {
           </View>
         ))}
       </ScrollView>
-    </View>
+    </Animated.View>
   )
 }

@@ -2,17 +2,24 @@ import * as Button from '@/src/components/button'
 import { Header } from '@/src/components/header'
 import { ListEmpty } from '@/src/components/list-empty'
 import { Loading } from '@/src/components/loading'
+import { MenuContext } from '@/src/contexts/menu-context'
 import { useGETOccupations } from '@/src/hooks/employee/occupation/useGETOccupations'
 import { Feather } from '@expo/vector-icons'
 import { Link } from 'expo-router'
 import { FlatList, Text, TouchableOpacity, View } from 'react-native'
 import Animated, { SlideInLeft } from 'react-native-reanimated'
 import colors from 'tailwindcss/colors'
+import { useContextSelector } from 'use-context-selector'
 
 const AnimatedTouchableOpacity =
   Animated.createAnimatedComponent(TouchableOpacity)
 
 export default function Occupation() {
+  const isOpenMenu = useContextSelector(
+    MenuContext,
+    (context) => context.isOpenMenu,
+  )
+
   const {
     data: occupationList,
     occupationCount,
@@ -26,7 +33,10 @@ export default function Occupation() {
       {isLoading ? (
         <Loading />
       ) : (
-        <View className="mx-5 mt-8 flex-1">
+        <View
+          style={isOpenMenu && { display: 'none' }}
+          className="mx-5 mt-8 flex-1"
+        >
           <View className="flex-row items-center justify-between">
             <Text className="text-lg font-semibold leading-short text-white">
               Cargos

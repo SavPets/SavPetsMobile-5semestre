@@ -1,15 +1,19 @@
 import { Feather } from '@expo/vector-icons'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import userProfilerImage from '@/src/assets/user-profile.png'
+import { NavigationMenu } from './navigation-menu'
+import { MenuContext } from '../contexts/menu-context'
+import { useContextSelector } from 'use-context-selector'
 
 interface HeaderProps {
   userName: string
 }
 
 export function Header({ userName }: HeaderProps) {
-  const handleOpenMenu = () => {
-    console.log('Menu aberto')
-  }
+  const { isOpenMenu, handleChangeMenuVisibility } = useContextSelector(
+    MenuContext,
+    (context) => context,
+  )
 
   return (
     <View className="mt-16">
@@ -21,17 +25,22 @@ export function Header({ userName }: HeaderProps) {
           </Text>
         </View>
 
-        <TouchableOpacity onPress={handleOpenMenu} activeOpacity={0.8}>
+        <TouchableOpacity
+          onPress={handleChangeMenuVisibility}
+          activeOpacity={0.8}
+        >
           <Feather
-            name="bar-chart"
+            name={isOpenMenu ? 'x' : 'bar-chart'}
             size={28}
             color="white"
-            style={{ transform: [{ rotate: '-90deg' }] }}
+            style={!isOpenMenu && { transform: [{ rotate: '-90deg' }] }}
           />
         </TouchableOpacity>
       </View>
 
       <View className="ml-5 mr-5 mt-6 justify-center border-b border-slate-700" />
+
+      <NavigationMenu isOpen={isOpenMenu} />
     </View>
   )
 }

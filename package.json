@@ -31,7 +31,7 @@
     "expo-web-browser": "~12.8.2",
     "native-base": "^3.4.28",
     "nativewind": "^2.0.11",
-    "react": "18.2.0",
+    "react": "^18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.51.5",
     "react-native": "0.73.4",
@@ -41,7 +41,9 @@
     "react-native-screens": "~3.29.0",
     "react-native-svg": "^15.3.0",
     "react-native-web": "~0.19.6",
+    "scheduler": "^0.23.2",
     "tailwind-variants": "^0.2.0",
+    "use-context-selector": "^2.0.0",
     "yup": "^1.4.0"
   },
   "devDependencies": {
