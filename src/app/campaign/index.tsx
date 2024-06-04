@@ -20,6 +20,19 @@ export default function Campaign() {
     isLoading,
   } = useGETCampaigns()
 
+
+  function formatDate(dateString: string): string {
+    const months = [
+      'janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho',
+      'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'
+    ];
+
+    const [day, month, year] = dateString.split('/').map(part => parseInt(part, 10));
+    const monthName = months[month - 1];
+
+    return `${day} de ${monthName} de ${year}`;
+  }
+
   return (
     <>
       <Header userName="Mateus Simões" />
@@ -54,15 +67,12 @@ export default function Campaign() {
                     <Text className="font-body text-sm leading-short text-slate-100">
                       {item.date}
                     </Text>
-                    <Text className="font-body text-sm leading-short text-slate-100">
-                      {item.startTime} - {item.endTime}
-                    </Text>
                   </View>
                   <Text className="font-body text-sm leading-relaxed text-slate-300">
-                    {item.location}
+                    {formatDate(item.date)}
                   </Text>
                   <Text className="font-body text-sm leading-relaxed text-slate-300">
-                    {item.description}
+                    {item.location}
                   </Text>
                 </AnimatedTouchableOpacity>
               </Link>
