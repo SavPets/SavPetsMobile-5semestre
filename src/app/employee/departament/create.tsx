@@ -10,7 +10,7 @@ import {
   departamentSchema,
 } from '@/src/schemas/departamentSchema'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { usePOSTDepartament } from '@/src/hooks/departament/usePOSTDepartament'
+import { usePOSTDepartament } from '@/src/hooks/employee/departament/usePOSTDepartament'
 import { useRouter } from 'expo-router'
 import { useEffect } from 'react'
 import { useToast } from 'native-base'

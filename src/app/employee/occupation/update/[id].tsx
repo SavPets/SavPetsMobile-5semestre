@@ -6,7 +6,7 @@ import colors from 'tailwindcss/colors'
 import { Redirect, useLocalSearchParams, useRouter } from 'expo-router'
 import { Input } from '@/src/components/input'
 import { useToast } from 'native-base'
-import { useGETOccupationById } from '@/src/hooks/occupation/useGETOccupationById'
+import { useGETOccupationById } from '@/src/hooks/employee/occupation/useGETOccupationById'
 import { Loading } from '@/src/components/loading'
 import { Controller, useForm } from 'react-hook-form'
 import {
@@ -14,7 +14,7 @@ import {
   occupationSchema,
 } from '@/src/schemas/occupationSchema'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { usePUTOccupation } from '@/src/hooks/occupation/usePUTOccupation'
+import { usePUTOccupation } from '@/src/hooks/employee/occupation/usePUTOccupation'
 import { useEffect } from 'react'
 import Animated, { FadeInUp } from 'react-native-reanimated'
 

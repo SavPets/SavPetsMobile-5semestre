@@ -5,9 +5,9 @@ import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
 import { Redirect, useLocalSearchParams, useRouter } from 'expo-router'
 import { Input } from '@/src/components/input'
-import { useGETDepartamentById } from '@/src/hooks/departament/useGETDepartamentById'
+import { useGETDepartamentById } from '@/src/hooks/employee/departament/useGETDepartamentById'
 import { Loading } from '@/src/components/loading'
-import { usePUTDepartament } from '@/src/hooks/departament/usePUTDepartament'
+import { usePUTDepartament } from '@/src/hooks/employee/departament/usePUTDepartament'
 import { Controller, useForm } from 'react-hook-form'
 import {
   DepartamentSchema,

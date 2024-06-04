@@ -17,5 +17,7 @@ export type OccupationSchema = yup.InferType<typeof occupationSchema>
 
 export type OccupationDTO = OccupationSchema & {
   id: string
+  name: string
+  description: string
   createdAt: string
 }

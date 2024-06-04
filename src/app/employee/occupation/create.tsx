@@ -6,7 +6,7 @@ import colors from 'tailwindcss/colors'
 import { Input } from '@/src/components/input'
 import { useRouter } from 'expo-router'
 import { useToast } from 'native-base'
-import { usePOSTOccupation } from '@/src/hooks/occupation/usePOSTOccupation'
+import { usePOSTOccupation } from '@/src/hooks/employee/occupation/usePOSTOccupation'
 import { Controller, useForm } from 'react-hook-form'
 import {
   OccupationSchema,
