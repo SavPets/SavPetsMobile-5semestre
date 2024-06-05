@@ -1,6 +1,14 @@
 import * as yup from 'yup'
 
-export const adoptionSchema = yup.object({})
+export const adoptionSchema = yup.object({
+  employee: yup.string().required('O funcionário precisa ser selecionado'),
+  client: yup.string().required('O cliente precisa ser selecionado'),
+  animalReport: yup.string().required('O animal precisa ser selecionado'),
+  report: yup
+    .string()
+    .required('O relatório é obrigatório')
+    .min(15, 'O relatório precisa ter, no mínimo, 15 caracteres'),
+})
 
 export type AdoptionSchema = yup.InferType<typeof adoptionSchema>
 
