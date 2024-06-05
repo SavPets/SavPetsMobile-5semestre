@@ -10,11 +10,18 @@ import { useGETAnimalReports } from '@/src/hooks/animal/animalReport/useGETAnima
 import { formatDate } from '@/src/utils/formatDate'
 import { Loading } from '@/src/components/loading'
 import Animated, { SlideInLeft } from 'react-native-reanimated'
+import { MenuContext } from '@/src/contexts/menu-context'
+import { useContextSelector } from 'use-context-selector'
 
 const AnimatedTouchableOpacity =
   Animated.createAnimatedComponent(TouchableOpacity)
 
 export default function AnimalReport() {
+  const isOpenMenu = useContextSelector(
+    MenuContext,
+    (context) => context.isOpenMenu,
+  )
+
   const {
     data: animalReports,
     animalReportsCount,
@@ -27,7 +34,7 @@ export default function AnimalReport() {
       {isLoading ? (
         <Loading />
       ) : (
-        <View className="mx-5 mt-8 flex-1">
+        <View style={isOpenMenu && { display: 'none' }} className="mx-5 mt-8 flex-1">
           <View className="flex-row items-center justify-between">
             <Text className="text-lg font-semibold leading-short text-white">
               Relatórios de animais

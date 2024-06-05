@@ -6,13 +6,20 @@ import { FlatList, Text, TouchableOpacity, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 import { EMPLOYEES } from '@/src/utils/data/employees'
 import { Header } from '@/src/components/header'
+import { MenuContext } from '@/src/contexts/menu-context'
+import { useContextSelector } from 'use-context-selector'
 
 export default function Employee() {
+  const isOpenMenu = useContextSelector(
+    MenuContext,
+    (context) => context.isOpenMenu,
+  )
+
   return (
     <>
       <Header userName="Mateus Santana" />
 
-      <View className="mx-5 mt-8 flex-1">
+      <View style={isOpenMenu && { display: 'none' }} className="mx-5 mt-8 flex-1">
         <View className="flex-row items-center justify-between">
           <Text className="text-lg font-semibold leading-short text-white">
             Funcionários

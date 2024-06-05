@@ -2,6 +2,7 @@ import * as Button from '@/src/components/button'
 import { Header } from '@/src/components/header'
 import { ListEmpty } from '@/src/components/list-empty'
 import { Loading } from '@/src/components/loading'
+import { MenuContext } from '@/src/contexts/menu-context'
 import { useGETCampaigns } from '@/src/hooks/campaign/useGETCampaigns'
 import { formatDate } from '@/src/utils/formatDate'
 import { formatDateWithWeekDay } from '@/src/utils/formatDateWithWeekDay'
@@ -10,11 +11,17 @@ import { Link } from 'expo-router'
 import { FlatList, Text, TouchableOpacity, View } from 'react-native'
 import Animated, { SlideInLeft } from 'react-native-reanimated'
 import colors from 'tailwindcss/colors'
+import { useContextSelector } from 'use-context-selector'
 
 const AnimatedTouchableOpacity =
   Animated.createAnimatedComponent(TouchableOpacity)
 
 export default function Campaign() {
+  const isOpenMenu = useContextSelector(
+    MenuContext,
+    (context) => context.isOpenMenu,
+  )
+
   // pendente receber createdAt do backend
   const { data: campaignList, campaignCount, isLoading } = useGETCampaigns()
 
@@ -25,7 +32,7 @@ export default function Campaign() {
       {isLoading ? (
         <Loading />
       ) : (
-        <View className="mx-5 mt-8 flex-1">
+        <View style={isOpenMenu && { display: 'none' }} className="mx-5 mt-8 flex-1">
           <View className="flex-row items-center justify-between">
             <Text className="text-lg font-semibold leading-short text-white">
               Campanhas
