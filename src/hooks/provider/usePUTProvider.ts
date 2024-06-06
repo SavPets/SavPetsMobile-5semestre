@@ -8,7 +8,7 @@ interface UpdateProps {
   updatedProvider: ProviderSchema
 }
 
-async function updateMedicine({ id, updatedProvider }: UpdateProps) {
+async function updateProvider({ id, updatedProvider }: UpdateProps) {
   try {
     await api.put(`/fornecedores/${id}`, updatedProvider)
   } catch (error) {
@@ -16,9 +16,9 @@ async function updateMedicine({ id, updatedProvider }: UpdateProps) {
   }
 }
 
-export function usePUTMedicine() {
+export function usePUTProvider() {
   const mutation = useMutation({
-    mutationFn: updateMedicine,
+    mutationFn: updateProvider,
   })
 
   return mutation
