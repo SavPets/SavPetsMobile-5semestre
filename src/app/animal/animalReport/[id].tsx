@@ -2,33 +2,60 @@ import * as Button from '@/src/components/button'
 import { DeleteModal } from '@/src/components/delete-modal'
 import { Loading } from '@/src/components/loading'
 import { ReturnHeader } from '@/src/components/return-header'
-import { useGETAnimalReportById } from '@/src/hooks/animal/animalReport/useGETAnimalReportById'
-import { formatDate } from '@/src/utils/formatDate'
+import { DetailItem } from '@/src/components/detail-item'
+// import { formatDate } from '@/src/utils/formatDate'
 import { Feather } from '@expo/vector-icons'
-import { Link, Redirect, useLocalSearchParams } from 'expo-router'
-import { useState } from 'react'
-import { Text, View } from 'react-native'
+import { Link, Redirect, useLocalSearchParams, useRouter } from 'expo-router'
+import { useToast } from 'native-base'
+import { useEffect, useState } from 'react'
+import { View } from 'react-native'
 import Animated, { FadeInUp } from 'react-native-reanimated'
 import colors from 'tailwindcss/colors'
+import { useDELETEAnimalReport } from '@/src/hooks/animal/animalReport/useDELETEAnimalReport'
+import { useGETAnimalReportById } from '@/src/hooks/animal/animalReport/useGETAnimalReportById'
 
 export default function AnimalReportById() {
   const { id } = useLocalSearchParams()
-
-  const {
-    data: report,
-    isLoading,
-    isError,
-  } = useGETAnimalReportById(id.toString())
+  const router = useRouter()
+  const toast = useToast()
 
   const [isModalVisible, setIsModalVisible] = useState(false)
 
-  const openModal = () => {
-    setIsModalVisible(true)
+  const {
+    data: report,
+    isError,
+    isLoading,
+  } = useGETAnimalReportById(id.toString())
+
+  const { mutate, data: requestError, isSuccess } = useDELETEAnimalReport()
+
+  function onDeleteAnimalReport() {
+    console.log('chamando')
+    mutate(id.toString())
+    console.log('deu sim')
   }
 
-  const closeModal = () => {
-    setIsModalVisible(false)
-  }
+  useEffect(() => {
+    if (!isSuccess) return
+
+    if (requestError) {
+      toast.show({
+        title: requestError,
+        placement: 'top',
+        textAlign: 'center',
+        bg: 'rose.400',
+      })
+      console.log('errado')
+    } else {
+      toast.show({
+        title: 'Relatório deletado com sucesso',
+        placement: 'top',
+        textAlign: 'center',
+        bg: 'success.600',
+      })
+    }
+    return router.navigate('/animal/animalReport/')
+  }, [isSuccess, requestError, toast, router])
 
   if (isError) return <Redirect href="/animal/animalReport/" />
 
@@ -41,51 +68,16 @@ export default function AnimalReportById() {
       ) : (
         <>
           <Animated.View entering={FadeInUp} className="py-8">
-            <View className="mb-12 gap-4">
-              <View className="gap-0.5">
-                <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-                  Nome do animal
-                </Text>
-                <Text className="font-body text-base leading-relaxed text-slate-100">
-                  {report.animalName}
-                </Text>
-              </View>
+            <View className="mb-12" style={{ gap: 16 }}>
+              <DetailItem title="NOME DO ANIMAL" value={report.animalName} />
 
-              <View className="gap-0.5">
-                <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-                  Medicamento
-                </Text>
-                <Text className="font-body text-base leading-relaxed text-slate-100">
-                  {report.medicine}
-                </Text>
-              </View>
+              <DetailItem title="MEDICAMENTO" value={report.medicine} />
 
-              <View className="gap-0.5">
-                <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-                  Categoria
-                </Text>
-                <Text className="font-body text-base leading-relaxed text-slate-100">
-                  {report.animalCategory}
-                </Text>
-              </View>
+              <DetailItem title="CATEGORIA" value={report.animalCategory} />
 
-              <View className="gap-0.5">
-                <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-                  Data de chegada
-                </Text>
-                <Text className="font-body text-base leading-relaxed text-slate-100">
-                  {formatDate(report.arrivalDate)}
-                </Text>
-              </View>
+              <DetailItem title="DATA DE CHEGADA" value={report.createdAt} />
 
-              <View className="gap-0.5">
-                <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-                  Local encontrado
-                </Text>
-                <Text className="font-body text-base leading-relaxed text-slate-100">
-                  {report.local}
-                </Text>
-              </View>
+              <DetailItem title="LOCAL ENCONTRADO" value={report.local} />
             </View>
 
             <View style={{ gap: 12 }}>
@@ -98,7 +90,10 @@ export default function AnimalReportById() {
                 </Button.Root>
               </Link>
 
-              <Button.Root variant="delete" onPress={openModal}>
+              <Button.Root
+                variant="delete"
+                onPress={() => setIsModalVisible(true)}
+              >
                 <Button.Icon>
                   <Feather name="trash-2" size={18} color={colors.slate[950]} />
                 </Button.Icon>
@@ -107,10 +102,10 @@ export default function AnimalReportById() {
             </View>
           </Animated.View>
           <DeleteModal
+            itemName={report.animalName}
             isVisible={isModalVisible}
-            onClose={closeModal}
-            itemName="o registro de Magnos"
-            onDelete={() => {}} // TODO: Implementar o DELETE
+            onClose={() => setIsModalVisible(false)}
+            onDelete={onDeleteAnimalReport}
           />
         </>
       )}
