@@ -20,7 +20,7 @@ export default function Provider() {
     MenuContext,
     (context) => context.isOpenMenu,
   )
-  
+
   const { data: providers, providersCount, isLoading } = useGETProviders()
 
   return (
@@ -29,7 +29,10 @@ export default function Provider() {
       {isLoading ? (
         <Loading />
       ) : (
-        <View style={isOpenMenu && { display: 'none' }} className="mx-5 mt-8 flex-1">
+        <View
+          style={isOpenMenu && { display: 'none' }}
+          className="mx-5 mt-8 flex-1"
+        >
           <View className="flex-row items-center justify-between">
             <Text className="text-lg font-semibold leading-short text-white">
               Fornecedores
