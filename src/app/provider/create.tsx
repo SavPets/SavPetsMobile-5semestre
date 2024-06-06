@@ -21,6 +21,7 @@ export default function CreateProvider() {
   const [isCepCorrect, setIsCepCorrect] = useState<boolean | undefined>(
     undefined,
   )
+  const [isReadyOnly, setIsReadyOnly] = useState(true)
 
   const router = useRouter()
   const toast = useToast()
@@ -42,10 +43,13 @@ export default function CreateProvider() {
     locationNumber,
     complement,
   }: ProviderSchema) {
+    const formattedCNPJ = `${cnpj.substring(0, 2)}.${cnpj.substring(2, 5)}.${cnpj.substring(5, 8)}/${cnpj.substring(8, 12)}-${cnpj.substring(12, 14)}`
+    const formattedCEP = `${cep.substring(0, 5)}-${cep.substring(5, 8)}`
+
     mutate({
       name,
-      cep,
-      cnpj,
+      cep: formattedCEP,
+      cnpj: formattedCNPJ,
       locationNumber,
       address,
       complement,
@@ -80,8 +84,18 @@ export default function CreateProvider() {
         await axios
           .get<AddressDTO>(`https://viacep.com.br/ws/${cep}/json/`)
           .then(({ data }) => {
-            setAddress(data.logradouro)
-            setIsCepCorrect(true)
+            if (data.erro) {
+              setIsCepCorrect(false)
+              setIsReadyOnly(true)
+            } else if (data.logradouro === '') {
+              setIsReadyOnly(false)
+              setIsCepCorrect(true)
+              setAddress(undefined)
+            } else {
+              setIsReadyOnly(true)
+              setAddress(data.logradouro)
+              setIsCepCorrect(true)
+            }
           })
           .catch(() => {
             setAddress('')
@@ -140,7 +154,7 @@ export default function CreateProvider() {
 
           <Input
             title="Endereço"
-            isReadOnly
+            isReadOnly={isReadyOnly}
             placeholder="Praça da Sé"
             errorMessage={isCepCorrect === false ? 'CEP Inválido' : null}
             value={address}
