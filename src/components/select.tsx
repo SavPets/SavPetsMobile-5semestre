@@ -5,11 +5,9 @@ import {
   ChevronDownIcon,
   Text,
   Center,
-  FormControl,
   ISelectProps,
   IFormControlErrorMessageProps,
 } from 'native-base'
-import colors from 'tailwindcss/colors'
 
 export interface Option {
   label: string
@@ -24,16 +22,8 @@ type SelectProps = ISelectProps &
     errorMessage?: string | null
   }
 
-export function Select({
-  title,
-  options,
-  value,
-  errorMessage,
-  isInvalid,
-}: SelectProps) {
+export function Select({ title, options, value }: SelectProps) {
   const [service, setService] = useState('')
-
-  const invalid = !!errorMessage || isInvalid
 
   useEffect(() => {
     setService(value || '')
@@ -45,31 +35,23 @@ export function Select({
         <Text className="text-base font-semibold leading-short text-slate-300">
           {title}
         </Text>
-        <FormControl isInvalid={invalid}>
-          <SelectNB
-            selectedValue={service}
-            minWidth="full"
-            dropdownIcon={<ChevronDownIcon size={0} />}
-            onValueChange={(itemValue) => setService(itemValue)}
-            zIndex={1}
-            variant="unstyled"
-            className="h-12 rounded-md border border-slate-700 bg-slate-800 px-3 py-3.5 font-body text-sm leading-short text-slate-100"
-          >
-            {options.map((option, index) => (
-              <SelectNB.Item
-                key={index}
-                label={option.label}
-                value={option.value}
-              />
-            ))}
-          </SelectNB>
-          <FormControl.ErrorMessage
-            fontFamily="Nunito_400Regular"
-            _text={{ fontSize: 14, color: colors.rose[400] }}
-          >
-            {errorMessage}
-          </FormControl.ErrorMessage>
-        </FormControl>
+        <SelectNB
+          selectedValue={service}
+          minWidth="full"
+          dropdownIcon={<ChevronDownIcon size={0} />}
+          onValueChange={(itemValue) => setService(itemValue)}
+          zIndex={1}
+          variant="unstyled"
+          className="h-12 rounded-md border border-slate-700 bg-slate-800 px-3 py-3.5 font-body text-sm leading-short text-slate-100"
+        >
+          {options.map((option, index) => (
+            <SelectNB.Item
+              key={index}
+              label={option.label}
+              value={option.value}
+            />
+          ))}
+        </SelectNB>
         <ChevronDownIcon
           size="4"
           position="absolute"
