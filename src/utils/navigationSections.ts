@@ -57,7 +57,7 @@ export const NAVIGATION_SECTIONS: NavigationSections[] = [
         href: '/animal/animalCategory/',
       },
       {
-        icon: 'file',
+        icon: 'file-text',
         text: 'Relatórios',
         href: '/animal/animalReport/',
       },

@@ -2,7 +2,7 @@ import { View, Text } from 'react-native'
 
 interface DetailItemProps {
   title: string
-  value: string
+  value: string | Date
 }
 
 export function DetailItem({ title, value }: DetailItemProps) {
@@ -13,7 +13,7 @@ export function DetailItem({ title, value }: DetailItemProps) {
       </Text>
 
       <Text className="font-body text-base leading-relaxed text-slate-100">
-        {value}
+        {value.toString()}
       </Text>
     </View>
   )
