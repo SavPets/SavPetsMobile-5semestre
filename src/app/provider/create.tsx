@@ -100,7 +100,6 @@ export default function CreateProvider() {
           })
       } else {
         setAddress('')
-        setIsCepCorrect(false)
         setIsReadyOnly(true)
       }
     })()

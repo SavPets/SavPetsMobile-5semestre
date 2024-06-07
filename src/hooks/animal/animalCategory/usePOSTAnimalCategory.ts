@@ -3,7 +3,7 @@ import { AnimalCategorySchema } from '@/src/schemas/animalCategorySchema'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 
-async function createMedicine(newAnimalCategory: AnimalCategorySchema) {
+async function createAnimalCategory(newAnimalCategory: AnimalCategorySchema) {
   try {
     await api.post('/categorias-animais', newAnimalCategory)
   } catch (error) {
@@ -11,9 +11,9 @@ async function createMedicine(newAnimalCategory: AnimalCategorySchema) {
   }
 }
 
-export function usePOSTMedicine() {
+export function usePOSTAnimalCategory() {
   const mutation = useMutation({
-    mutationFn: createMedicine,
+    mutationFn: createAnimalCategory,
   })
 
   return mutation
