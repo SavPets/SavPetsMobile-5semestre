@@ -27,10 +27,14 @@ export default function Medicine() {
   return (
     <>
       <Header userName="Mateus Simões" />
+
       {isLoading ? (
         <Loading />
       ) : (
-        <View style={isOpenMenu && { display: 'none' }} className="mx-5 mt-12 flex-1">
+        <View
+          style={isOpenMenu && { display: 'none' }}
+          className="mx-5 mt-12 flex-1"
+        >
           <View className="flex-row items-center justify-between">
             <Text className="text-lg font-semibold leading-short text-white">
               Medicamentos
@@ -74,8 +78,6 @@ export default function Medicine() {
 
           <View style={{ position: 'absolute', right: 0, bottom: 80 }}>
             <Link href="/medicine/create" asChild>
-              {/* usando o princípio da composição selecionando apenas os itens que serão usados - ícone | texto */}
-
               <Button.Root isFloat>
                 <Button.Icon>
                   <Feather name="plus" size={28} color={colors.slate[950]} />

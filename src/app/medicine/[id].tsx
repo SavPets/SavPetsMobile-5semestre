@@ -27,7 +27,10 @@ export default function MedicineByID() {
       {isLoading || !medicine ? (
         <Loading />
       ) : (
-        <Animated.ScrollView entering={FadeInUp} className="py-8">
+        <Animated.ScrollView
+          entering={FadeInUp}
+          contentContainerStyle={{ paddingVertical: 32 }}
+        >
           <View className="mb-12 gap-4">
             <View className="gap-0.5">
               <Text className="text-base font-semibold uppercase leading-short text-slate-300">
