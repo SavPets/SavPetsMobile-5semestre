@@ -16,7 +16,7 @@ import axios from 'axios'
 import { AddressDTO } from '@/src/schemas/addressSchema'
 
 export default function CreateProvider() {
-  const [address, setAddress] = useState<string | undefined>(undefined)
+  const [address, setAddress] = useState<string>('')
   const [cep, setCep] = useState<string | undefined>(undefined)
   const [isCepCorrect, setIsCepCorrect] = useState<boolean | undefined>(
     undefined,
@@ -43,13 +43,10 @@ export default function CreateProvider() {
     locationNumber,
     complement,
   }: ProviderSchema) {
-    const formattedCNPJ = `${cnpj.substring(0, 2)}.${cnpj.substring(2, 5)}.${cnpj.substring(5, 8)}/${cnpj.substring(8, 12)}-${cnpj.substring(12, 14)}`
-    const formattedCEP = `${cep.substring(0, 5)}-${cep.substring(5, 8)}`
-
     mutate({
       name,
-      cep: formattedCEP,
-      cnpj: formattedCNPJ,
+      cep,
+      cnpj,
       locationNumber,
       address,
       complement,
@@ -90,7 +87,7 @@ export default function CreateProvider() {
             } else if (data.logradouro === '') {
               setIsReadyOnly(false)
               setIsCepCorrect(true)
-              setAddress(undefined)
+              setAddress('')
             } else {
               setIsReadyOnly(true)
               setAddress(data.logradouro)
@@ -101,6 +98,10 @@ export default function CreateProvider() {
             setAddress('')
             setIsCepCorrect(false)
           })
+      } else {
+        setAddress('')
+        setIsCepCorrect(false)
+        setIsReadyOnly(true)
       }
     })()
   }, [cep])
@@ -109,7 +110,10 @@ export default function CreateProvider() {
     <View className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Novo Fornecedor" />
 
-      <Animated.View entering={FadeInUp} className="py-8">
+      <Animated.ScrollView
+        entering={FadeInUp}
+        contentContainerStyle={{ paddingVertical: 32 }}
+      >
         <View className="mb-12" style={{ gap: 16 }}>
           <Controller
             control={control}
@@ -131,8 +135,8 @@ export default function CreateProvider() {
                 errorMessage={errors.cnpj?.message}
                 onChangeText={onChange}
                 title="CNPJ"
-                placeholder="18833251000112"
-                keyboardType="number-pad"
+                placeholder="18.833.251/000112"
+                keyboardType="numbers-and-punctuation"
               />
             )}
           />
@@ -145,8 +149,8 @@ export default function CreateProvider() {
                 errorMessage={errors.cep?.message}
                 onChangeText={onChange}
                 title="CEP"
-                placeholder="01001000"
-                keyboardType="number-pad"
+                placeholder="01001-000"
+                keyboardType="numbers-and-punctuation"
                 onEndEditing={(e) => setCep(e.nativeEvent.text)}
               />
             )}
@@ -197,7 +201,7 @@ export default function CreateProvider() {
           </Button.Icon>
           <Button.Title>Cadastrar Fornecedor</Button.Title>
         </Button.Root>
-      </Animated.View>
+      </Animated.ScrollView>
     </View>
   )
 }

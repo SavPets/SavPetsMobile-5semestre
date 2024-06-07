@@ -13,9 +13,18 @@ import { ProviderSchema, providerSchema } from '@/src/schemas/providerSchema'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Controller, useForm } from 'react-hook-form'
 import { usePUTProvider } from '@/src/hooks/provider/usePUTProvider'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { AddressDTO } from '@/src/schemas/addressSchema'
+import axios from 'axios'
 
 export default function UpdateProviderByID() {
+  const [address, setAddress] = useState<string>('')
+  const [cep, setCep] = useState<string | undefined>(undefined)
+  const [isCepCorrect, setIsCepCorrect] = useState<boolean | undefined>(
+    undefined,
+  )
+  const [isReadyOnly, setIsReadyOnly] = useState(true)
+
   const { id } = useLocalSearchParams()
   const router = useRouter()
   const toast = useToast()
@@ -34,7 +43,7 @@ export default function UpdateProviderByID() {
     resolver: yupResolver(providerSchema),
 
     defaultValues: {
-      cnpj: unformatCNPJ(provider!.cnpj),
+      cnpj: provider?.cnpj,
       name: provider?.name,
       cep: provider?.cep,
       address: provider?.address,
@@ -42,10 +51,6 @@ export default function UpdateProviderByID() {
       complement: provider?.complement,
     },
   })
-
-  function unformatCNPJ(cnpj: string) {
-    return `${cnpj.substring(0, 2)}${cnpj.substring(3, 6)}${cnpj.substring(7, 10)}${cnpj.substring(11, 15)}${cnpj.substring(16, cnpj.length)}`
-  }
 
   const { mutate, data: requestError, isPending, isSuccess } = usePUTProvider()
 
@@ -64,8 +69,15 @@ export default function UpdateProviderByID() {
       address === provider?.address &&
       locationNumber === provider?.locationNumber &&
       complement === provider?.complement
-    )
+    ) {
+      toast.show({
+        title: 'Altere os dados para atualizar',
+        placement: 'top',
+        textAlign: 'center',
+        bg: 'rose.400',
+      })
       return
+    }
 
     const updatedProvider = {
       cnpj,
@@ -101,6 +113,45 @@ export default function UpdateProviderByID() {
     return router.navigate('/provider/')
   }, [isSuccess, requestError, toast, router])
 
+  useEffect(() => {
+    ;(async () => {
+      if (cep) {
+        await axios
+          .get<AddressDTO>(`https://viacep.com.br/ws/${cep}/json/`)
+          .then(({ data }) => {
+            if (data.erro) {
+              setIsCepCorrect(false)
+              setIsReadyOnly(true)
+              setAddress('')
+              console.log(data)
+            } else if (data.logradouro === '') {
+              setIsReadyOnly(false)
+              setIsCepCorrect(true)
+              setAddress('')
+            } else {
+              setIsReadyOnly(true)
+              setAddress(data.logradouro)
+              setIsCepCorrect(true)
+            }
+          })
+          .catch(() => {
+            setAddress('')
+            setIsCepCorrect(false)
+          })
+      } else {
+        setAddress('')
+        setIsCepCorrect(false)
+        setIsReadyOnly(true)
+      }
+    })()
+  }, [cep])
+
+  useEffect(() => {
+    if (provider?.cep) {
+      setAddress(provider.address)
+    }
+  }, [provider?.address, provider?.cep])
+
   if (isError) return <Redirect href="/provider/" />
 
   return (
@@ -110,7 +161,10 @@ export default function UpdateProviderByID() {
       {isLoading || !provider ? (
         <Loading />
       ) : (
-        <Animated.View entering={FadeInUp} className="py-8">
+        <Animated.ScrollView
+          entering={FadeInUp}
+          contentContainerStyle={{ paddingVertical: 32 }}
+        >
           <View className="mb-12" style={{ gap: 16 }}>
             <Controller
               control={control}
@@ -147,6 +201,7 @@ export default function UpdateProviderByID() {
                   defaultValue={value}
                   errorMessage={errors.cep?.message}
                   onChangeText={onChange}
+                  onEndEditing={(e) => setCep(e.nativeEvent.text)}
                 />
               )}
             />
@@ -158,7 +213,9 @@ export default function UpdateProviderByID() {
                 <Input
                   title="Endereço"
                   defaultValue={value}
-                  errorMessage={errors.address?.message}
+                  value={address}
+                  isReadOnly={isReadyOnly}
+                  errorMessage={!isCepCorrect ? 'O CEP está incorreto' : null}
                   onChangeText={onChange}
                 />
               )}
@@ -204,7 +261,7 @@ export default function UpdateProviderByID() {
             </Button.Icon>
             <Button.Title>Salvar alterações</Button.Title>
           </Button.Root>
-        </Animated.View>
+        </Animated.ScrollView>
       )}
     </View>
   )
