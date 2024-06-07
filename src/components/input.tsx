@@ -1,4 +1,9 @@
-import { FormControl, Input as IInput, IInputProps } from 'native-base'
+import {
+  FormControl,
+  Input as IInput,
+  IInputProps,
+  TextArea,
+} from 'native-base'
 import { View, Text } from 'react-native'
 import colors from 'tailwindcss/colors'
 
@@ -24,26 +29,50 @@ export function Input({
       </Text>
 
       <FormControl isInvalid={invalid}>
-        <IInput
-          h={props.multiline ? 24 : 12}
-          rounded={6}
-          borderColor={colors.slate[700]}
-          borderWidth={1}
-          bg={colors.slate[800]}
-          px={3}
-          py={3.5}
-          fontFamily="Nunito_400Regular"
-          fontSize={14}
-          color={colors.slate[100]}
-          _focus={{
-            borderColor: colors.slate[400],
-          }}
-          _invalid={{
-            borderColor: colors.rose[400],
-            bg: 'rgba(239, 67, 67, 0.1)',
-          }}
-          {...props}
-        />
+        {!props.multiline ? (
+          <IInput
+            h={12}
+            rounded={6}
+            borderColor={colors.slate[700]}
+            borderWidth={1}
+            bg={colors.slate[800]}
+            px={3}
+            py={3.5}
+            fontFamily="Nunito_400Regular"
+            fontSize={14}
+            color={colors.slate[100]}
+            _focus={{
+              borderColor: colors.slate[400],
+            }}
+            _invalid={{
+              borderColor: colors.rose[400],
+              bg: 'rgba(239, 67, 67, 0.1)',
+            }}
+            {...props}
+          />
+        ) : (
+          <TextArea
+            autoCompleteType={undefined}
+            h={24}
+            rounded={6}
+            borderColor={colors.slate[700]}
+            borderWidth={1}
+            bg={colors.slate[800]}
+            px={3}
+            py={3.5}
+            fontFamily="Nunito_400Regular"
+            fontSize={14}
+            color={colors.slate[100]}
+            _focus={{
+              borderColor: colors.slate[400],
+            }}
+            _invalid={{
+              borderColor: colors.rose[400],
+              bg: 'rgba(239, 67, 67, 0.1)',
+            }}
+            {...props}
+          />
+        )}
         <FormControl.ErrorMessage
           fontFamily="Nunito_400Regular"
           _text={{ fontSize: 14, color: colors.rose[400] }}

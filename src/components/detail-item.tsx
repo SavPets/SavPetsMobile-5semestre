@@ -3,7 +3,7 @@ import { View, Text } from 'react-native'
 interface DetailItemProps {
   title: string
   value: string
-} 
+}
 
 export function DetailItem({ title, value }: DetailItemProps) {
   return (
