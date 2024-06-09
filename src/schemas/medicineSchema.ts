@@ -1,4 +1,5 @@
 import * as yup from 'yup'
+import { formatDateISO } from '../utils/formatDateISO'
 
 export const medicineSchema = yup.object({
   name: yup
@@ -7,57 +8,49 @@ export const medicineSchema = yup.object({
     .min(3, 'O nome precisa ter no mínimo 3 caracteres'),
   manufacturingDate: yup
     .string()
-    .required('A data de fabricação é obrigatório')
-    .min(10, 'A data de fabricação tem que ter 10 caracteres')
-    .max(10, 'A data de fabricação tem que ter 10 caracteres')
+    .trim()
+    .required('A data de fabricação é obrigatória')
     .matches(
-      /^\d{2}\/\d{2}\/\d{4}/,
-      'A data de fabricação precisa estar no formato correto (00/00/0000)',
-    ),
+      /^\d{4}-\d{2}-\d{2}$/,
+      'Formato de data inválido. Por favor, use YYYY-MM-DD.',
+    )
+    .default(formatDateISO(new Date())),
   expirationDate: yup
     .string()
-    .required('A data de validade é obrigatório')
-    .min(10, 'A data de validade tem que ter 10 caracteres')
-    .max(10, 'A data de validade tem que ter 10 caracteres')
+    .trim()
+    .required('A data de validade é obrigatória')
     .matches(
-      /^\d{2}\/\d{2}\/\d{4}/,
-      'A data de validade precisa estar no formato correto (00/00/0000)',
-    ),
+      /^\d{4}-\d{2}-\d{2}$/,
+      'Formato de data inválido. Por favor, use YYYY-MM-DD.',
+    )
+    .default(formatDateISO(new Date())),
   utility: yup.string().required('A utilidade é obrigatória'),
   observation: yup.string().optional().nullable(),
   amount: yup
     .number()
     .required('A quantidade é obrigatória')
     .min(1, 'A quantidade precisa ser superior a 1')
-    .integer('O número precisa ser inteiro'),
+    .integer('O número precisa ser inteiro')
+    .typeError('A quantidade precisa ser um número'),
   arrivalDate: yup
     .string()
-    .required('A data de chegada é obrigatório')
-    .min(10, 'A data de chegada tem que ter 10 caracteres')
-    .max(10, 'A data de chegada tem que ter 10 caracteres')
+    .trim()
+    .required('A data de chegada é obrigatória')
     .matches(
-      /^\d{2}\/\d{2}\/\d{4}/,
-      'A data de chegada precisa estar no formato correto (00/00/0000)',
-    ),
+      /^\d{4}-\d{2}-\d{2}$/,
+      'Formato de data inválido. Por favor, use YYYY-MM-DD.',
+    )
+    .default(formatDateISO(new Date())),
   leaflet: yup
     .string()
     .required('A bula é obrigatória')
     .min(10, 'A bula precisa ter no mínimo 10 caracteres'),
-  provider: yup.string().required('O fornecedor é obrigatório'),
+  provider: yup.string(),
 })
 
 export type MedicineSchema = yup.InferType<typeof medicineSchema>
 
-export interface MedicineDTO {
+export type MedicineDTO = MedicineSchema & {
   id: string
-  provider: string
-  name: string
-  leaflet: string
-  utility: string
-  expirationDate: Date
-  observation: string
-  arrivalDate: Date
-  amount: number
-  manufacturingDate: Date
   createdAt: Date
 }

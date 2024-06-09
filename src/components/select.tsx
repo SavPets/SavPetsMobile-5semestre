@@ -22,7 +22,7 @@ type SelectProps = ISelectProps &
     errorMessage?: string | null
   }
 
-export function Select({ title, options, value }: SelectProps) {
+export function Select({ title, options, value, ...props }: SelectProps) {
   const [service, setService] = useState('')
 
   useEffect(() => {
@@ -39,10 +39,11 @@ export function Select({ title, options, value }: SelectProps) {
           selectedValue={service}
           minWidth="full"
           dropdownIcon={<ChevronDownIcon size={0} />}
-          onValueChange={(itemValue) => setService(itemValue)}
+          onValueChange={setService}
           zIndex={1}
           variant="unstyled"
           className="h-12 rounded-md border border-slate-700 bg-slate-800 px-3 py-3.5 font-body text-sm leading-short text-slate-100"
+          {...props}
         >
           {options.map((option, index) => (
             <SelectNB.Item

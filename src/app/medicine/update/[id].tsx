@@ -1,17 +1,27 @@
-/* eslint-disable prettier/prettier */
 import { ReturnHeader } from '@/src/components/return-header'
 import { View } from 'react-native'
 import * as Button from '@/src/components/button'
 import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
-import { Redirect, useLocalSearchParams } from 'expo-router'
+import { Redirect, useLocalSearchParams, useRouter } from 'expo-router'
 import { Input } from '@/src/components/input'
 import { useGETMedicineById } from '@/src/hooks/medicine/useGETMedicineById'
 import { Loading } from '@/src/components/loading'
 import Animated, { FadeInUp } from 'react-native-reanimated'
+import { useToast } from 'native-base'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { Controller, useForm } from 'react-hook-form'
+import { MedicineSchema, medicineSchema } from '@/src/schemas/medicineSchema'
+import { usePUTMedicine } from '@/src/hooks/medicine/usePUTMedicine'
+import { useEffect, useState } from 'react'
+import { Option, Select } from '@/src/components/select'
+import { useGETProviders } from '@/src/hooks/provider/useGETProviders'
+import { formatDateISO } from '@/src/utils/formatDateISO'
 
 export default function UpdateMedicineById() {
   const { id } = useLocalSearchParams()
+  const router = useRouter()
+  const toast = useToast()
 
   const {
     data: medicine,
@@ -19,35 +29,263 @@ export default function UpdateMedicineById() {
     isLoading,
   } = useGETMedicineById(id.toString())
 
+  const [provider, setProvider] = useState<string | undefined>(
+    medicine?.provider,
+  )
+
+  function handleProviderChange(providerValue: string) {
+    setProvider(providerValue)
+  }
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<MedicineSchema>({
+    resolver: yupResolver(medicineSchema),
+
+    defaultValues: {
+      name: medicine?.name,
+      manufacturingDate: medicine?.manufacturingDate,
+      expirationDate: medicine?.expirationDate,
+      utility: medicine?.utility,
+      observation: medicine?.observation,
+      amount: medicine?.amount,
+      arrivalDate: medicine?.arrivalDate,
+      leaflet: medicine?.leaflet,
+      provider: medicine?.provider,
+    },
+  })
+
+  const { mutate, data: requestError, isPending, isSuccess } = usePUTMedicine()
+
+  function handleUpdateMedicine({
+    name,
+    manufacturingDate,
+    expirationDate,
+    utility,
+    observation,
+    amount,
+    arrivalDate,
+    leaflet,
+  }: MedicineSchema) {
+    if (
+      name === medicine?.name &&
+      manufacturingDate === medicine?.manufacturingDate &&
+      expirationDate === medicine?.expirationDate &&
+      utility === medicine?.utility &&
+      observation === medicine?.observation &&
+      amount === medicine?.amount &&
+      arrivalDate === medicine?.arrivalDate &&
+      leaflet === medicine?.leaflet &&
+      provider === medicine?.provider
+    )
+      return
+
+    const updatedMedicine = {
+      name,
+      manufacturingDate,
+      expirationDate,
+      utility,
+      observation,
+      amount,
+      arrivalDate,
+      leaflet,
+      provider,
+    } as MedicineSchema
+
+    mutate({ id: id.toString(), updatedMedicine })
+  }
+
+  useEffect(() => {
+    console.log(provider)
+  }, [provider])
+
+  const providersOptions: Option[] = []
+
+  const { data: providers, isLoading: isLoadingProviders } = useGETProviders()
+
+  providers?.forEach((provider) => {
+    const newOption = {
+      label: provider.name,
+      value: provider.name,
+    }
+
+    providersOptions.push(newOption)
+  })
+
+  useEffect(() => {
+    if (!isSuccess) return
+
+    if (requestError) {
+      toast.show({
+        title: requestError,
+        placement: 'top',
+        textAlign: 'center',
+        bg: 'rose.400',
+      })
+    } else {
+      toast.show({
+        title: 'Medicamento atualizado com sucesso',
+        placement: 'top',
+        textAlign: 'center',
+        bg: 'success.600',
+      })
+    }
+
+    return router.navigate('/medicine/')
+  }, [isSuccess, requestError, toast, router])
+
   if (isError) return <Redirect href="/medicine/" />
 
   return (
     <View className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Editar medicamento" />
 
-      {isLoading || !medicine ? (
+      {isLoading || isLoadingProviders ? (
         <Loading />
       ) : (
-        <Animated.ScrollView entering={FadeInUp} contentContainerStyle={{ paddingVertical: 32 }}>
+        <Animated.ScrollView
+          entering={FadeInUp}
+          contentContainerStyle={{ paddingVertical: 32 }}
+        >
           <View className="mb-12" style={{ gap: 16 }}>
-            <Input title="Nome" defaultValue={medicine.name} />
-            <Input title="Data fabricação" defaultValue={medicine.manufacturingDate.toString()} />
-            <Input title="Data de validade" defaultValue={medicine.expirationDate.toString()} />
-            <Input title="Utilidade" defaultValue={medicine.utility} />
-            <Input
-              title="Descrição"
-              multiline={true}
-              defaultValue={medicine.observation}
+            <Controller
+              control={control}
+              name="name"
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  errorMessage={errors.name?.message}
+                  onChangeText={onChange}
+                  defaultValue={value}
+                  placeholder="NexGard Spectra"
+                  title="Nome"
+                />
+              )}
             />
-            <Input title="Quantidade" defaultValue={medicine.amount.toString()} />
-            <Input title="Data de chegada" defaultValue={medicine.arrivalDate.toString()} />
-            <Input title="Bula" defaultValue={medicine.leaflet} />
-            <Input title="Fornecedor" defaultValue={medicine.provider} />
+
+            <Controller
+              control={control}
+              name="manufacturingDate"
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  errorMessage={errors.manufacturingDate?.message}
+                  onChangeText={onChange}
+                  title="Data de Fabricação"
+                  placeholder={formatDateISO(new Date())!}
+                  defaultValue={value}
+                  keyboardType="numbers-and-punctuation"
+                />
+              )}
+            />
+
+            <Controller
+              control={control}
+              name="expirationDate"
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  errorMessage={errors.expirationDate?.message}
+                  onChangeText={onChange}
+                  title="Data de Validade"
+                  defaultValue={value}
+                  placeholder={formatDateISO(new Date())!}
+                  keyboardType="numbers-and-punctuation"
+                />
+              )}
+            />
+
+            <Controller
+              control={control}
+              name="utility"
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  errorMessage={errors.utility?.message}
+                  onChangeText={onChange}
+                  title="Utilidade"
+                  defaultValue={value}
+                  placeholder="Antipulgas, Carrapatos e Vermifugo"
+                />
+              )}
+            />
+
+            <Controller
+              control={control}
+              name="observation"
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  errorMessage={errors.observation?.message}
+                  onChangeText={onChange}
+                  defaultValue={value!}
+                  title="Observação"
+                  placeholder="Para cães de 7,6 a 15 Kg"
+                  multiline
+                />
+              )}
+            />
+
+            <Controller
+              control={control}
+              name="amount"
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  errorMessage={errors.amount?.message}
+                  onChangeText={onChange}
+                  defaultValue={value.toString()}
+                  title="Quantidade"
+                  placeholder="100"
+                  keyboardType="number-pad"
+                />
+              )}
+            />
+
+            <Controller
+              control={control}
+              name="arrivalDate"
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  errorMessage={errors.arrivalDate?.message}
+                  onChangeText={onChange}
+                  title="Data de chegada"
+                  defaultValue={value}
+                  placeholder={formatDateISO(new Date())!}
+                  keyboardType="numbers-and-punctuation"
+                />
+              )}
+            />
+
+            <Controller
+              control={control}
+              name="leaflet"
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  errorMessage={errors.leaflet?.message}
+                  onChangeText={onChange}
+                  title="Bula"
+                  defaultValue={value}
+                  multiline
+                  placeholder="A administração de NexGard será uma tarefa fácil, pois o tablete mastigável sabor carne é altamente aceito pelos cães, graças a sua alta palatabilidade"
+                />
+              )}
+            />
+
+            <Select
+              title="Fornecedor"
+              value={provider!}
+              options={providersOptions}
+              onValueChange={handleProviderChange}
+            />
           </View>
 
-          <Button.Root>
+          <Button.Root
+            disabled={isSubmitting || isPending}
+            onPress={handleSubmit(handleUpdateMedicine)}
+          >
             <Button.Icon>
-              <Feather name="check-square" size={18} color={colors.slate[950]} />
+              <Feather
+                name="check-square"
+                size={18}
+                color={colors.slate[950]}
+              />
             </Button.Icon>
             <Button.Title>Salvar alterações</Button.Title>
           </Button.Root>

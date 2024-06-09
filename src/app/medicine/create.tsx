@@ -12,13 +12,19 @@ import { usePOSTMedicine } from '@/src/hooks/medicine/usePOSTMedine'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { MedicineSchema, medicineSchema } from '@/src/schemas/medicineSchema'
 import { Controller, useForm } from 'react-hook-form'
-import { useEffect } from 'react'
-import { formatDate } from '@/src/utils/formatDate'
+import { useEffect, useState } from 'react'
 import { Option, Select } from '@/src/components/select'
 import { useGETProviders } from '@/src/hooks/provider/useGETProviders'
 import { Loading } from '@/src/components/loading'
+import { formatDateISO } from '@/src/utils/formatDateISO'
 
 export default function CreateMedicine() {
+  const [provider, setProvider] = useState<string>('')
+
+  function handleProviderChange(providerValue: string) {
+    setProvider(providerValue)
+  }
+
   const router = useRouter()
   const toast = useToast()
 
@@ -37,7 +43,10 @@ export default function CreateMedicine() {
   })
 
   function handleCreateMedicine(medicine: MedicineSchema) {
-    console.log(medicine)
+    mutate({
+      ...medicine,
+      provider,
+    })
   }
 
   useEffect(() => {
@@ -59,7 +68,7 @@ export default function CreateMedicine() {
       })
     }
 
-    return router.navigate('/provider/')
+    return router.navigate('/medicine/')
   }, [isSuccess, requestError, toast, router])
 
   useEffect(() => {
@@ -74,14 +83,16 @@ export default function CreateMedicine() {
   
         return router.navigate('/medicine/')
       }
-    }
 
-  }, [isLoading, providers])
+      if (providers)
+        setProvider(providers[0].name)
+    }
+  }, [isLoading, providers, router, toast])
 
   providers?.forEach((provider) => {
     const newOption = {
       label: provider.name,
-      value: provider.id,
+      value: provider.name,
     }
 
     providersOptions.push(newOption)
@@ -120,7 +131,8 @@ export default function CreateMedicine() {
                   errorMessage={errors.manufacturingDate?.message}
                   onChangeText={onChange}
                   title="Data de Fabricação"
-                  placeholder={formatDate(new Date())!}
+                  placeholder={formatDateISO(new Date())!}
+                  keyboardType="numbers-and-punctuation"
                 />
               )}
             />
@@ -133,7 +145,8 @@ export default function CreateMedicine() {
                   errorMessage={errors.expirationDate?.message}
                   onChangeText={onChange}
                   title="Data de Validade"
-                  placeholder={formatDate(new Date())!}
+                  placeholder={formatDateISO(new Date())!}
+                  keyboardType="numbers-and-punctuation"
                 />
               )}
             />
@@ -183,14 +196,15 @@ export default function CreateMedicine() {
               control={control}
               name="arrivalDate"
               render={({ field: { onChange } }) => (
-                <Input
-                  errorMessage={errors.arrivalDate?.message}
-                  onChangeText={onChange}
-                  title="Data de Chegada"
-                  placeholder={formatDate(new Date())!}
-                />
-              )}
-            />
+              <Input
+              errorMessage={errors.arrivalDate?.message}
+              onChangeText={onChange}
+              title="Data de chegada"
+              placeholder={formatDateISO(new Date())!}
+              keyboardType="numbers-and-punctuation"
+              />
+            )}
+          />
 
             <Controller
               control={control}
@@ -206,12 +220,11 @@ export default function CreateMedicine() {
               )}
             />
 
-            <Controller
-              control={control}
-              name="provider"
-              render={() => (
-                <Select options={providersOptions} title="Fornecedor" value={null} />
-              )}
+            <Select
+              title="Fornecedor"
+              value={provider}
+              options={providersOptions}
+              onValueChange={handleProviderChange}
             />
           </View>
 
@@ -222,7 +235,7 @@ export default function CreateMedicine() {
             <Button.Icon>
               <Feather name="plus-square" size={18} color={colors.slate[950]} />
             </Button.Icon>
-            <Button.Title>Cadastrar Fornecedor</Button.Title>
+            <Button.Title>Cadastrar Medicamento</Button.Title>
           </Button.Root>
         </Animated.ScrollView>
       )}
