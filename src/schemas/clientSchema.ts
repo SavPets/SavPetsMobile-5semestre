@@ -14,25 +14,24 @@ export const clientSchema = yup.object({
     .nullable()
     .optional()
     .default(null)
-    .min(11, 'O telefone precisa ter 11 caracteres')
-    .max(11, 'O telefone precisa ter 11 caracteres')
-    .transform((value: string) => {
-      if (value.length === 0) {
-        return null
-      } else {
-        return value
-      }
-    }),
+    .matches(
+      /\(\d{2}\)\d{5}-\d{4}/,
+      'Formato de telefone inválido. Por favor, use (00)00000-0000 ',
+    ),
   cpf: yup
     .string()
     .required('O CPF é obrigatório')
-    .min(11, 'O CPF precisa ter 11 caracateres')
-    .max(11, 'O CPF precisa ter 11 caracateres'),
+    .matches(
+      /\d{3}\.\d{3}\.\d{3}-\d{2}/,
+      'Formato de CEP inválido. Por favor, use 00000-000',
+    ),
   cep: yup
     .string()
     .required('O CEP é obrigatório')
-    .min(8, 'O CEP precisa ter 8 caracateres')
-    .max(8, 'O CEP precisa ter 8 caracateres'),
+    .matches(
+      /\d{5}-\d{3}/,
+      'Formato de CEP inválido. Por favor, use 00000-000',
+    ),
   address: yup.string(),
   locationNumber: yup
     .number()
@@ -43,15 +42,7 @@ export const clientSchema = yup.object({
 
 export type ClientSchema = yup.InferType<typeof clientSchema>
 
-export interface ClientDTO {
+export type ClientDTO = ClientSchema & {
   id: string
-  firstName: string
-  lastName: string
-  cpf: string
-  telephone: string | null
-  cep: string
-  address: string
-  locationNumber: number
-  complement: string
   createdAt: Date
 }

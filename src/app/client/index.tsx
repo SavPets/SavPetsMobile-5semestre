@@ -59,9 +59,11 @@ export default function Client() {
                       {formatDate(item.createdAt)}
                     </Text>
                   </View>
-                  <Text className="mb-0.5 font-body text-sm leading-relaxed text-slate-300">
-                    {item.telephone}
-                  </Text>
+                  {item.telephone && (
+                    <Text className="mb-0.5 font-body text-sm leading-relaxed text-slate-300">
+                      {item.telephone}
+                    </Text>
+                  )}
                   <Text className="font-body text-sm leading-relaxed text-slate-300">
                     {item.cpf}
                   </Text>

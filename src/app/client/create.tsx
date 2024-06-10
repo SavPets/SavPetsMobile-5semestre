@@ -21,6 +21,7 @@ export default function CreateClient() {
   const [isCepCorrect, setIsCepCorrect] = useState<boolean | undefined>(
     undefined,
   )
+
   const router = useRouter()
   const toast = useToast()
 
@@ -37,16 +38,12 @@ export default function CreateClient() {
   function handleCreateClient({
     firstName,
     lastName,
-    telephone: tel,
+    telephone,
     cpf,
     cep,
     locationNumber,
     complement: locationComplement,
   }: ClientSchema) {
-    const telephone = tel
-      ? `(${tel.substring(0, 2)}) ${tel.substring(2, 7)}-${tel.substring(7, tel.length)}`
-      : null
-
     const complement = locationComplement || null
 
     mutate({
@@ -85,7 +82,7 @@ export default function CreateClient() {
 
   useEffect(() => {
     ;(async () => {
-      if (cep) {
+      if (cep?.length === 9) {
         await axios
           .get<AddressDTO>(`https://viacep.com.br/ws/${cep}/json/`)
           .then(({ data }) => {
@@ -138,10 +135,10 @@ export default function CreateClient() {
             render={({ field: { onChange } }) => (
               <Input
                 title="Telefone"
-                placeholder="11987654321"
+                placeholder="(11)98765-4321"
                 errorMessage={errors.telephone?.message}
                 onChangeText={onChange}
-                keyboardType="numeric"
+                keyboardType="numbers-and-punctuation"
               />
             )}
           />
@@ -151,10 +148,10 @@ export default function CreateClient() {
             render={({ field: { onChange } }) => (
               <Input
                 title="CPF"
-                placeholder="12345678910"
+                placeholder="123.456.789-10"
                 errorMessage={errors.cpf?.message}
                 onChangeText={onChange}
-                keyboardType="numeric"
+                keyboardType="numbers-and-punctuation"
               />
             )}
           />
@@ -164,19 +161,21 @@ export default function CreateClient() {
             render={({ field: { onChange } }) => (
               <Input
                 title="CEP"
-                placeholder="01153000"
+                placeholder="01001-000"
                 errorMessage={errors.cep?.message}
                 onChangeText={onChange}
                 onEndEditing={(e) => setCep(e.nativeEvent.text)}
-                keyboardType="numeric"
+                keyboardType="numbers-and-punctuation"
               />
             )}
           />
+
           <Input
             title="Endereço"
             isReadOnly
             errorMessage={isCepCorrect === false ? 'CEP Inválido' : null}
             value={address}
+            placeholder="Praça da Sé"
             keyboardType="numeric"
           />
           <Controller

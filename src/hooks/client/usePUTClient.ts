@@ -10,7 +10,7 @@ interface UpdateProps {
 
 async function updateClient({ id, updatedClient }: UpdateProps) {
   try {
-    await api.put(`/relatorio-animais/${id}`, updatedClient)
+    await api.put(`/clientes/${id}`, updatedClient)
   } catch (error) {
     if (error instanceof AxiosError) return error.response?.data
   }
