@@ -2,9 +2,8 @@ import * as Button from '@/src/components/button'
 import { Loading } from '@/src/components/loading'
 import { ReturnHeader } from '@/src/components/return-header'
 import { DetailItem } from '@/src/components/detail-item'
-import { formatDate } from '@/src/utils/formatDate'
 import { Feather } from '@expo/vector-icons'
-import { Link, Redirect, useLocalSearchParams, useRouter } from 'expo-router'
+import { Link, Redirect, useLocalSearchParams } from 'expo-router'
 import { View } from 'react-native'
 import Animated, { FadeInUp } from 'react-native-reanimated'
 import colors from 'tailwindcss/colors'
@@ -40,11 +39,13 @@ export default function AnimalReportById() {
               <DetailItem title="DATA DE CHEGADA" value={report.arrivalDate} />
 
               <DetailItem title="LOCAL ENCONTRADO" value={report.local} />
+
+              <DetailItem title="DESCRIÇÃO" value={report.description} />
             </View>
 
             <View>
               <Link href={`/animal/animalReport/update/${id}`} asChild>
-                <Button.Root  style={{ gap: 12 }} className="mb-3">
+                <Button.Root style={{ gap: 12 }} className="mb-3">
                   <Button.Icon>
                     <Feather name="edit" size={18} color={colors.slate[950]} />
                   </Button.Icon>
@@ -53,7 +54,6 @@ export default function AnimalReportById() {
               </Link>
             </View>
           </Animated.View>
-
         </>
       )}
     </View>
