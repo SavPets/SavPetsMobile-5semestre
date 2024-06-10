@@ -26,9 +26,9 @@ export default function AnimalCategoryById() {
 
   const [isModalVisible, setIsModalVisible] = useState(false)
 
-  const { mutate, data: requestError, isSuccess } = useDELETEAnimalCategory() 
+  const { mutate, data: requestError, isSuccess } = useDELETEAnimalCategory()
 
-  function onDeleteCategory(){
+  function onDeleteCategory() {
     mutate(id.toString())
   }
 
@@ -37,23 +37,26 @@ export default function AnimalCategoryById() {
 
     if (requestError) {
       toast.show({
-        title: requestError,
-        placement: 'top',
-        textAlign: 'center',
-        bgColor: 'rose.400',
-      })
-      console.log(requestError)
-    } else {
-      toast.show({
         title: 'Categoria deletada com sucesso',
         placement: 'top',
         textAlign: 'center',
         bgColor: 'success.600',
       })
+    } else {
+      const errorMessage =
+        typeof requestError === 'string'
+          ? requestError
+          : requestError.message || 'Erro ao excluir categoria'
+
+      toast.show({
+        title: errorMessage,
+        placement: 'top',
+        textAlign: 'center',
+        bgColor: 'rose.400',
+      })
     }
 
     return router.navigate('/animal/animalCategory/')
-
   }, [isSuccess, requestError, toast, router])
 
   if (isError) return <Redirect href="/animal/animalCategory/" />
@@ -67,23 +70,21 @@ export default function AnimalCategoryById() {
       ) : (
         <>
           <Animated.View entering={FadeInUp} className="py-8">
-          <View className="mb-12" style={{ gap: 16 }}>
+            <View className="mb-12" style={{ gap: 16 }}>
+              <DetailItem title="NOME" value={category.name} />
 
-              <DetailItem title='ESPÉCIE' value={category.name} /> 
+              <DetailItem title="RAÇA" value={category.race} />
 
-              <DetailItem title='RAÇA' value={category.race} />
+              <DetailItem title="COR" value={category.coatColor} />
 
-              <DetailItem title='COR' value={category.coatColor} />
+              <DetailItem title="PORTE" value={category.size} />
 
-              <DetailItem title='PORTE' value={category.size} />
-
-              <DetailItem title='GÊNERO' value={category.gender} />
-
+              <DetailItem title="GÊNERO" value={category.gender} />
             </View>
 
-            <View style={{ gap: 12 }}>
+            <View>
               <Link href={`/animal/animalCategory/update/${id}`} asChild>
-                <Button.Root>
+                <Button.Root style={{ gap: 12 }} className="mb-3">
                   <Button.Icon>
                     <Feather name="edit" size={18} color={colors.slate[950]} />
                   </Button.Icon>
@@ -91,7 +92,10 @@ export default function AnimalCategoryById() {
                 </Button.Root>
               </Link>
 
-              <Button.Root variant="delete" onPress={() => setIsModalVisible(true)}>
+              <Button.Root
+                variant="delete"
+                onPress={() => setIsModalVisible(true)}
+              >
                 <Button.Icon>
                   <Feather name="trash-2" size={18} color={colors.slate[950]} />
                 </Button.Icon>

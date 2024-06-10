@@ -1,8 +1,22 @@
 import { useMutation } from '@tanstack/react-query'
 import { api } from '@/src/lib/axios'
+import { AnimalCategorySchema } from '@/src/schemas/animalCategorySchema'
+import { AxiosError } from 'axios'
 
-async function updateAnimalCategory(id: string) {
-  return await api.put(`/categorias-animais/${id}`)
+interface UpdateProps {
+  id: string
+  updatedAnimalCategory: AnimalCategorySchema
+}
+
+async function updateAnimalCategory({
+  id,
+  updatedAnimalCategory,
+}: UpdateProps) {
+  try {
+    await api.put(`/categorias-animais/${id}`, updatedAnimalCategory)
+  } catch (error) {
+    if (error instanceof AxiosError) return error.response?.data
+  }
 }
 
 export function usePUTAnimalCategory() {
@@ -10,5 +24,5 @@ export function usePUTAnimalCategory() {
     mutationFn: updateAnimalCategory,
   })
 
-  return { mutation }
+  return mutation
 }

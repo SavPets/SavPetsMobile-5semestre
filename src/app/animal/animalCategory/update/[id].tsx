@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import * as Button from '@/src/components/button'
 import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
-import { Redirect, useLocalSearchParams } from 'expo-router'
+import { Redirect, useLocalSearchParams, useRouter } from 'expo-router'
 import { Input } from '@/src/components/input'
 import ButtonSelect from '@/src/components/button-select'
 import { GenderOptions, SizeOptions } from '../create'
@@ -16,9 +16,14 @@ import {
 } from '@/src/schemas/animalCategorySchema'
 import { Loading } from '@/src/components/loading'
 import Animated, { FadeInUp } from 'react-native-reanimated'
+import { usePUTAnimalCategory } from '@/src/hooks/animal/animalCategory/usePUTAnimalCategory'
+import { useEffect } from 'react'
+import { useToast } from 'native-base'
 
 export default function UpdateAnimalCategoryById() {
   const { id } = useLocalSearchParams()
+  const router = useRouter()
+  const toast = useToast()
 
   const {
     data: category,
@@ -29,10 +34,69 @@ export default function UpdateAnimalCategoryById() {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    formState: { errors, isSubmitting },
   } = useForm<AnimalCategorySchema>({
     resolver: yupResolver(animalCategorySchema),
+
+    defaultValues: {
+      name: category?.name,
+      race: category?.race,
+      gender: category?.gender,
+      size: category?.size,
+      coatColor: category?.coatColor,
+    },
   })
+
+  const {
+    mutate,
+    data: requestError,
+    isPending,
+    isSuccess,
+  } = usePUTAnimalCategory()
+
+  function handleUpdateAnimalCategory({
+    name,
+    race,
+    gender,
+    size,
+    coatColor,
+  }: AnimalCategorySchema) {
+    if (
+      name === category?.name &&
+      race === category?.race &&
+      gender === category?.gender &&
+      size === category?.size &&
+      coatColor === category?.coatColor
+    )
+      return
+
+    const updatedAnimalCategory = { name, race, gender, size, coatColor }
+
+    mutate({ id: id.toString(), updatedAnimalCategory })
+  }
+
+  useEffect(() => {
+    if (!isSuccess) return
+
+    if (requestError) {
+      toast.show({
+        title: requestError,
+        placement: 'top',
+        textAlign: 'center',
+        bg: 'rose.400',
+      })
+    } else {
+      toast.show({
+        title: 'Categoria atualizada com sucesso',
+        placement: 'top',
+        textAlign: 'center',
+        bg: 'success.600',
+      })
+    }
+
+    return router.navigate('/animal/animalCategory/')
+  }, [isSuccess, requestError, toast, router])
 
   if (isError) return <Redirect href="/animal/animalCategory/" />
 
@@ -50,9 +114,9 @@ export default function UpdateAnimalCategoryById() {
               name="name"
               render={({ field: { onChange } }) => (
                 <Input
-                  title="Espécie"
+                  title="Nome"
                   defaultValue={category.name}
-                  errorMessage={errors.name?.message}
+                  // errorMessage={errors.name?.message}
                   onChangeText={onChange}
                 />
               )}
@@ -65,7 +129,7 @@ export default function UpdateAnimalCategoryById() {
                 <Input
                   title="Raça"
                   defaultValue={category.race}
-                  errorMessage={errors.race?.message}
+                  // errorMessage={errors.race?.message}
                   onChangeText={onChange}
                 />
               )}
@@ -73,12 +137,12 @@ export default function UpdateAnimalCategoryById() {
 
             <Controller
               control={control}
-              name="name"
+              name="coatColor"
               render={({ field: { onChange } }) => (
                 <Input
                   title="Cor"
                   defaultValue={category.coatColor}
-                  errorMessage={errors.coatColor?.message}
+                  // errorMessage={errors.coatColor?.message}
                   onChangeText={onChange}
                 />
               )}
@@ -86,31 +150,37 @@ export default function UpdateAnimalCategoryById() {
 
             <Controller
               control={control}
-              name="name"
-              render={() => (
+              name="gender"
+              render={({ field: { onChange } }) => (
                 <ButtonSelect
                   title="Gênero"
                   options={GenderOptions}
-                  errorMessage={errors.gender?.message}
+                  // errorMessage={errors.gender?.message}
                   value={category.gender}
+                  onChange={onChange}
                 />
               )}
             />
 
             <Controller
               control={control}
-              name="name"
-              render={() => (
+              name="size"
+              render={({ field: { onChange } }) => (
                 <ButtonSelect
                   title={'Porte'}
                   options={SizeOptions}
                   value={category.size}
+                  onChange={onChange}
+                  //  errorMessage={errors.size?.message}
                 />
               )}
             />
           </View>
 
-          <Button.Root onPress={() => {}}>
+          <Button.Root
+            disabled={isSubmitting || isPending}
+            onPress={handleSubmit(handleUpdateAnimalCategory)}
+          >
             <Button.Icon>
               <Feather
                 name="check-square"

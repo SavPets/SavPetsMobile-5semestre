@@ -10,6 +10,7 @@ import colors from 'tailwindcss/colors'
 import { Header } from '@/src/components/header'
 import Animated, { SlideInLeft } from 'react-native-reanimated'
 import { MenuContext } from '@/src/contexts/menu-context'
+import { formatDate } from '@/src/utils/formatDate'
 import { useContextSelector } from 'use-context-selector'
 
 const AnimatedTouchableOpacity =
@@ -61,10 +62,15 @@ export default function AnimalCategory() {
                     <Text className="text-base font-semibold leading-short text-slate-100">
                       {item.name}
                     </Text>
+
                     <Text className="font-body text-sm leading-short text-slate-100">
-                      {item.gender}
+                      {formatDate(item.createdAt)}
                     </Text>
                   </View>
+
+                  <Text className="font-body text-sm leading-short text-slate-100">
+                    {item.gender}
+                  </Text>
 
                   <Text className="font-body text-sm leading-relaxed text-slate-300">
                     {item.race}
