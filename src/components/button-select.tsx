@@ -39,6 +39,7 @@ interface ButtonSelectProps {
   options: { label: string; value: string }[]
   value: string | null
   errorMessage?: string | null
+  onChange: (value: string | null) => void
 }
 
 const ButtonSelect: FC<ButtonSelectProps> = ({
@@ -46,11 +47,14 @@ const ButtonSelect: FC<ButtonSelectProps> = ({
   errorMessage = null,
   options,
   value,
+  onChange,
 }) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(value)
 
   const handleOptionToggle = (label: string) => {
-    setSelectedOption((prevSelected) => (prevSelected === label ? null : label))
+    const newValue = selectedOption === label ? null : label
+    setSelectedOption(newValue)
+    onChange(newValue)
   }
 
   useEffect(() => {

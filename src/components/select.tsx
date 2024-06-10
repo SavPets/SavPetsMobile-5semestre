@@ -20,14 +20,26 @@ type SelectProps = ISelectProps &
     options: Option[]
     value: string | null
     errorMessage?: string | null
+    onChange: (value: string) => void
   }
 
-export function Select({ title, options, value, ...props }: SelectProps) {
+export function Select({
+  title,
+  options,
+  value,
+  onChange,
+  ...props
+}: SelectProps) {
   const [service, setService] = useState('')
 
   useEffect(() => {
     setService(value || '')
   }, [value])
+
+  const handleValueChange = (newValue: string) => {
+    setService(newValue)
+    onChange(newValue)
+  }
 
   return (
     <Center>
@@ -39,7 +51,7 @@ export function Select({ title, options, value, ...props }: SelectProps) {
           selectedValue={service}
           minWidth="full"
           dropdownIcon={<ChevronDownIcon size={0} />}
-          onValueChange={setService}
+          onValueChange={handleValueChange}
           zIndex={1}
           variant="unstyled"
           className="h-12 rounded-md border border-slate-700 bg-slate-800 px-3 py-3.5 font-body text-sm leading-short text-slate-100"
