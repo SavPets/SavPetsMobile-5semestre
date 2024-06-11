@@ -1,52 +1,159 @@
 import { Input } from '@/src/components/input'
-import { Text, View } from 'react-native'
+import { ScrollView, Text, View } from 'react-native'
 import * as Button from '@/src/components/button'
 import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
-import { Link } from 'expo-router'
+import { Link, useRouter } from 'expo-router'
+import { useToast } from 'native-base'
+import { useLogin } from '@/src/hooks/auth/useLogin'
+import { Controller, useForm } from 'react-hook-form'
+import {
+  UserCredentialsSchema,
+  userCredentialsSchema,
+} from '@/src/schemas/authSchema'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useEffect } from 'react'
 
 import LogoImg from '@/src/assets/logo.svg'
+import { saveUserSession } from '@/src/storages/auth'
 
 export default function Login() {
+  const router = useRouter()
+  const toast = useToast()
+
+  const {
+    // mutate,
+    data: requestError,
+    isPending,
+    isSuccess,
+  } = useLogin()
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<UserCredentialsSchema>({
+    resolver: yupResolver(userCredentialsSchema),
+  })
+
+  function handleSignIn(userCredentials: UserCredentialsSchema) {
+    console.log(userCredentials)
+
+    const exampleUser = {
+      name: 'Mateus',
+      surname: 'Silva',
+      email: 'mateus@email.com',
+    }
+
+    saveUserSession(exampleUser)
+
+    toast.show({
+      title: 'Autenticação realizada com sucesso',
+      placement: 'top',
+      textAlign: 'center',
+      bg: 'success.600',
+    })
+
+    return router.navigate('/employee/')
+
+    // mutate(userCredentials)
+  }
+
+  useEffect(() => {
+    if (!isSuccess) return
+
+    if (requestError) {
+      toast.show({
+        title: requestError,
+        placement: 'top',
+        textAlign: 'center',
+        bg: 'rose.400',
+      })
+    } else {
+      toast.show({
+        title: 'Autenticação realizada com sucesso',
+        placement: 'top',
+        textAlign: 'center',
+        bg: 'success.600',
+      })
+    }
+
+    return router.navigate('/employee/')
+  }, [isSuccess, requestError, toast, router])
+
   return (
-    <View className="mx-5 flex-1 justify-center">
+    <View className="mx-5 flex-1 pt-32">
       <LogoImg className="self-center" />
 
       <Text className="my-8 text-center text-xl font-bold leading-short text-white">
         Entre para continuar
       </Text>
 
-      <View>
-        <Input title="Email" keyboardType="email-address" mb={4} />
-        <Input title="Senha" secureTextEntry mb={12} />
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 50 }}
+      >
+        <View>
+          <View className="mb-12" style={{ gap: 16 }}>
+            <Controller
+              control={control}
+              name="email"
+              render={({ field: { onChange } }) => (
+                <Input
+                  title="Email"
+                  keyboardType="email-address"
+                  errorMessage={errors.email?.message}
+                  onChangeText={onChange}
+                />
+              )}
+            />
 
-        {/* mudando o href do link abaixo enquanto não tem menu de navegação */}
-        <Link href="/employee/" asChild>
-          <Button.Root style={{ gap: 12 }}>
+            <Controller
+              control={control}
+              name="password"
+              render={({ field: { onChange } }) => (
+                <Input
+                  title="Senha"
+                  secureTextEntry
+                  errorMessage={errors.password?.message}
+                  onChangeText={onChange}
+                />
+              )}
+            />
+          </View>
+
+          <Button.Root
+            disabled={isSubmitting || isPending}
+            onPress={handleSubmit(handleSignIn)}
+          >
             <Button.Icon>
               <Feather name="log-in" size={18} color={colors.slate[900]} />
             </Button.Icon>
             <Button.Title>Entrar</Button.Title>
           </Button.Root>
-        </Link>
 
-        <Link href="/auth/change-password" asChild className="mt-3 self-center">
+          <Link
+            href="/auth/change-password"
+            asChild
+            className="mt-3 self-center"
+          >
+            <Button.Root variant="ghost">
+              <Button.Title className="text-slate-300">
+                Esqueceu a senha?
+              </Button.Title>
+            </Button.Root>
+          </Link>
+        </View>
+
+        <Link href="/auth/register" asChild className="mt-28 self-center">
           <Button.Root variant="ghost">
-            <Button.Title className="text-slate-300">
-              Esqueceu a senha?
+            <Button.Title className="font-semibold text-slate-300">
+              Não tem nenhuma conta?
+              <Text className="text-sky-400"> Cadastre-se</Text>
             </Button.Title>
           </Button.Root>
         </Link>
-      </View>
-
-      <Link href="/auth/register" asChild className="mt-28 self-center">
-        <Button.Root variant="ghost">
-          <Button.Title className="font-semibold text-slate-300">
-            Não tem nenhuma conta?
-            <Text className="text-sky-400"> Cadastre-se</Text>
-          </Button.Title>
-        </Button.Root>
-      </Link>
+      </ScrollView>
     </View>
   )
 }

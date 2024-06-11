@@ -3,34 +3,170 @@ import { ScrollView, Text, View } from 'react-native'
 import * as Button from '@/src/components/button'
 import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
-import { Link } from 'expo-router'
+import { Link, useRouter } from 'expo-router'
+import { useToast } from 'native-base'
+import { useRegister } from '@/src/hooks/auth/useRegister'
+import {
+  NewUserCredentialsSchema,
+  newUserCredentialsSchema,
+} from '@/src/schemas/authSchema'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { Controller, useForm } from 'react-hook-form'
+import { useEffect } from 'react'
 
 import LogoImg from '@/src/assets/logo.svg'
+import { saveUserSession } from '@/src/storages/auth'
 
 export default function Register() {
+  const router = useRouter()
+  const toast = useToast()
+
+  const {
+    // mutate,
+    data: requestError,
+    isPending,
+    isSuccess,
+  } = useRegister()
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<NewUserCredentialsSchema>({
+    resolver: yupResolver(newUserCredentialsSchema),
+  })
+
+  function handleRegisterUser(newUser: NewUserCredentialsSchema) {
+    console.log(newUser)
+
+    const exampleUser = {
+      name: 'Mateus',
+      surname: 'Silva',
+      email: 'mateus@email.com',
+    }
+
+    saveUserSession(exampleUser)
+
+    toast.show({
+      title: 'Cadastro realizado com sucesso',
+      placement: 'top',
+      textAlign: 'center',
+      bg: 'success.600',
+    })
+
+    return router.navigate('/employee/')
+    // mutate(newUser)
+  }
+
+  useEffect(() => {
+    if (!isSuccess) return
+
+    if (requestError) {
+      toast.show({
+        title: requestError,
+        placement: 'top',
+        textAlign: 'center',
+        bg: 'rose.400',
+      })
+    } else {
+      toast.show({
+        title: 'Cadastro realizado com sucesso',
+        placement: 'top',
+        textAlign: 'center',
+        bg: 'success.600',
+      })
+    }
+
+    return router.navigate('/employee/')
+  }, [isSuccess, requestError, toast, router])
+
   return (
-    <View className="mx-5 flex-1 justify-center">
+    <View className="mx-5 flex-1 pt-32">
+      <LogoImg className="self-center" />
+
+      <Text className="my-8 text-center text-xl font-bold leading-short text-white">
+        Crie uma conta para acessar
+      </Text>
+
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ marginVertical: 70 }}
+        contentContainerStyle={{ paddingBottom: 50 }}
       >
-        <LogoImg className="self-center" />
-
-        <Text className="my-8 text-center text-xl font-bold leading-short text-white">
-          Crie uma conta para acessar
-        </Text>
-
         <View>
-          <View className="mb-4 flex-row">
-            <Input title="Nome" variant="small" mr={3} />
-            <Input title="Sobrenome" variant="small" />
-          </View>
-          <Input title="Telefone" keyboardType="phone-pad" mb={4} />
-          <Input title="Email" keyboardType="email-address" mb={4} />
-          <Input title="Senha" secureTextEntry mb={4} />
-          <Input title="Confirmar senha" secureTextEntry mb={12} />
+          <View className="mb-12" style={{ gap: 16 }}>
+            <View className="flex-row">
+              <Controller
+                control={control}
+                name="name"
+                render={({ field: { onChange } }) => (
+                  <Input
+                    title="Nome"
+                    variant="small"
+                    mr={3}
+                    errorMessage={errors.name?.message}
+                    onChangeText={onChange}
+                  />
+                )}
+              />
 
-          <Button.Root>
+              <Controller
+                control={control}
+                name="surname"
+                render={({ field: { onChange } }) => (
+                  <Input
+                    title="Sobrenome"
+                    variant="small"
+                    errorMessage={errors.surname?.message}
+                    onChangeText={onChange}
+                  />
+                )}
+              />
+            </View>
+
+            <Controller
+              control={control}
+              name="email"
+              render={({ field: { onChange } }) => (
+                <Input
+                  title="Email"
+                  keyboardType="email-address"
+                  errorMessage={errors.email?.message}
+                  onChangeText={onChange}
+                />
+              )}
+            />
+
+            <Controller
+              control={control}
+              name="password"
+              render={({ field: { onChange } }) => (
+                <Input
+                  title="Senha"
+                  secureTextEntry
+                  errorMessage={errors.password?.message}
+                  onChangeText={onChange}
+                />
+              )}
+            />
+
+            <Controller
+              control={control}
+              name="repeatPassword"
+              render={({ field: { onChange } }) => (
+                <Input
+                  title="Confirmar senha"
+                  secureTextEntry
+                  errorMessage={errors.repeatPassword?.message}
+                  onChangeText={onChange}
+                />
+              )}
+            />
+          </View>
+
+          <Button.Root
+            disabled={isSubmitting || isPending}
+            onPress={handleSubmit(handleRegisterUser)}
+          >
             <Button.Icon>
               <Feather name="log-in" size={18} color={colors.slate[900]} />
             </Button.Icon>
