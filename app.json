@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "savpets",
+    "name": "Savpets",
     "slug": "savpets",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -22,7 +22,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#0F172A"
-      }
+      },
+      "package": "com.fatec.savpets"
     },
     "web": {
       "bundler": "metro",
