@@ -25,7 +25,8 @@ export default function Client() {
 
   return (
     <>
-      <Header userName="Mateus Simões" />
+      <Header />
+
       {isLoading ? (
         <Loading />
       ) : (

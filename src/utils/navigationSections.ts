@@ -84,4 +84,15 @@ export const NAVIGATION_SECTIONS: NavigationSections[] = [
       },
     ],
   },
+
+  {
+    title: 'CONTA',
+    data: [
+      {
+        icon: 'power',
+        text: 'Sair',
+        href: '/auth/login',
+      },
+    ],
+  },
 ]

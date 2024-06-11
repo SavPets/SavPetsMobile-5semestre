@@ -30,7 +30,8 @@ export default function AnimalReport() {
 
   return (
     <>
-      <Header userName="Matheus Simões" />
+      <Header />
+
       {isLoading ? (
         <Loading />
       ) : (

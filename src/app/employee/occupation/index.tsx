@@ -28,7 +28,7 @@ export default function Occupation() {
 
   return (
     <>
-      <Header userName="Mateus Santana" />
+      <Header />
 
       {isLoading ? (
         <Loading />

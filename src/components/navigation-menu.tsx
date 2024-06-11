@@ -6,6 +6,8 @@ import { Feather } from '@expo/vector-icons'
 import Animated, { FadeInUp, FadeOutUp } from 'react-native-reanimated'
 import { MenuContext } from '../contexts/menu-context'
 import { useContextSelector } from 'use-context-selector'
+import { deleteUserSession } from '../storages/auth'
+import { useToast } from 'native-base'
 
 interface NavigationMenuProps {
   isOpen: boolean
@@ -13,14 +15,30 @@ interface NavigationMenuProps {
 
 export function NavigationMenu({ isOpen }: NavigationMenuProps) {
   const router = useRouter()
+  const toast = useToast()
+
   const handleChangeMenuVisibility = useContextSelector(
     MenuContext,
     (context) => context.handleChangeMenuVisibility,
   )
 
   function handleNavigateToScreen(href: string) {
-    router.navigate(href)
+    if (href === '/auth/login') {
+      deleteUserSession()
+      handleChangeMenuVisibility()
+
+      toast.show({
+        title: 'Sessão encerrada',
+        placement: 'top',
+        textAlign: 'center',
+        bg: 'info.600',
+      })
+
+      return router.navigate(href)
+    }
+
     handleChangeMenuVisibility()
+    return router.navigate(href)
   }
 
   return (
@@ -47,12 +65,18 @@ export function NavigationMenu({ isOpen }: NavigationMenuProps) {
                   <View>
                     <Feather
                       name={navLink.icon}
-                      color={colors.white}
+                      color={
+                        navLink.icon === 'power'
+                          ? colors.rose[400]
+                          : colors.white
+                      }
                       size={24}
                     />
                   </View>
 
-                  <Text className="font-body text-base leading-short text-slate-100">
+                  <Text
+                    className={`${navLink.text === 'Sair' ? 'text-rose-400' : 'text-slate-100'} font-body text-base leading-short`}
+                  >
                     {navLink.text}
                   </Text>
                 </TouchableOpacity>

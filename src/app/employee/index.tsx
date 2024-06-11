@@ -17,7 +17,7 @@ export default function Employee() {
 
   return (
     <>
-      <Header userName="Mateus Santana" />
+      <Header />
 
       <View
         style={isOpenMenu && { display: 'none' }}

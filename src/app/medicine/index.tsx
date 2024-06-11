@@ -26,7 +26,7 @@ export default function Medicine() {
 
   return (
     <>
-      <Header userName="Mateus Simões" />
+      <Header />
 
       {isLoading ? (
         <Loading />

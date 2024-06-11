@@ -29,7 +29,7 @@ export default function Departament() {
 
   return (
     <>
-      <Header userName="Mateus Santana" />
+      <Header />
 
       {isLoading ? (
         <Loading />

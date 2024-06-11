@@ -25,7 +25,8 @@ export default function Adoption() {
 
   return (
     <>
-      <Header userName="Mateus Simões" />
+      <Header />
+
       {isLoading ? (
         <Loading />
       ) : (

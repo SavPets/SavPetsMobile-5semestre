@@ -4,16 +4,18 @@ import userProfilerImage from '@/src/assets/user-profile.png'
 import { NavigationMenu } from './navigation-menu'
 import { MenuContext } from '../contexts/menu-context'
 import { useContextSelector } from 'use-context-selector'
+import { getUserSession } from '../storages/auth'
 
-interface HeaderProps {
-  userName: string
-}
-
-export function Header({ userName }: HeaderProps) {
+export function Header() {
   const { isOpenMenu, handleChangeMenuVisibility } = useContextSelector(
     MenuContext,
     (context) => context,
   )
+
+  const userSession = getUserSession()
+  const userName = userSession
+    ? `${userSession.name} ${userSession.surname}`
+    : 'Olá, Bem Vindo!'
 
   return (
     <View className="mt-16">

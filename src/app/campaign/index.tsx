@@ -27,7 +27,7 @@ export default function Campaign() {
 
   return (
     <>
-      <Header userName="Mateus Simões" />
+      <Header />
 
       {isLoading ? (
         <Loading />
