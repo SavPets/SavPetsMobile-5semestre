@@ -45,7 +45,8 @@
     "scheduler": "^0.23.2",
     "tailwind-variants": "^0.2.0",
     "use-context-selector": "^2.0.0",
-    "yup": "^1.4.0"
+    "yup": "^1.4.0",
+    "expo-updates": "~0.24.13"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
