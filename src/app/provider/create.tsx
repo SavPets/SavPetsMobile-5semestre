@@ -122,7 +122,6 @@ export default function CreateProvider() {
               <Input
                 errorMessage={errors.name?.message}
                 onChangeText={onChange}
-                placeholder="PEDIGREE LTDA"
                 title="Razão Social"
               />
             )}
@@ -135,7 +134,6 @@ export default function CreateProvider() {
                 errorMessage={errors.cnpj?.message}
                 onChangeText={onChange}
                 title="CNPJ"
-                placeholder="18.833.251/000112"
                 keyboardType="numbers-and-punctuation"
               />
             )}
@@ -149,7 +147,6 @@ export default function CreateProvider() {
                 errorMessage={errors.cep?.message}
                 onChangeText={onChange}
                 title="CEP"
-                placeholder="01001-000"
                 keyboardType="numbers-and-punctuation"
                 onEndEditing={(e) => setCep(e.nativeEvent.text)}
               />
@@ -159,7 +156,6 @@ export default function CreateProvider() {
           <Input
             title="Endereço"
             isReadOnly={isReadyOnly}
-            placeholder="Praça da Sé"
             errorMessage={isCepCorrect === false ? 'CEP Inválido' : null}
             value={address}
           />
@@ -170,7 +166,6 @@ export default function CreateProvider() {
             render={({ field: { onChange } }) => (
               <Input
                 title="Número do Enderço"
-                placeholder="1200"
                 errorMessage={errors.locationNumber?.message}
                 onChangeText={onChange}
                 keyboardType="numeric"
@@ -186,7 +181,6 @@ export default function CreateProvider() {
                 errorMessage={errors.complement?.message}
                 onChangeText={onChange}
                 title="Complemento"
-                placeholder="Casa 1"
               />
             )}
           />

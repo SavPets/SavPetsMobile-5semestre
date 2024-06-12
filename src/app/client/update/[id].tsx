@@ -154,7 +154,6 @@ export default function UpdateClientById() {
               render={({ field: { onChange, value } }) => (
                 <Input
                   title="Primeiro nome"
-                  placeholder="José"
                   errorMessage={errors.firstName?.message}
                   defaultValue={value}
                   onChangeText={onChange}
@@ -167,7 +166,6 @@ export default function UpdateClientById() {
               render={({ field: { onChange, value } }) => (
                 <Input
                   title="Último nome"
-                  placeholder="Santos"
                   defaultValue={value}
                   errorMessage={errors.lastName?.message}
                   onChangeText={onChange}
@@ -180,7 +178,6 @@ export default function UpdateClientById() {
               render={({ field: { onChange } }) => (
                 <Input
                   title="Telefone"
-                  placeholder="(11)98765-4321"
                   errorMessage={errors.telephone?.message}
                   onChangeText={onChange}
                   keyboardType="numbers-and-punctuation"
@@ -193,7 +190,6 @@ export default function UpdateClientById() {
               render={({ field: { onChange, value } }) => (
                 <Input
                   title="Telefone"
-                  placeholder="123.456.789-10"
                   errorMessage={errors.cpf?.message}
                   defaultValue={value}
                   onChangeText={onChange}
@@ -207,7 +203,6 @@ export default function UpdateClientById() {
               render={({ field: { onChange, value } }) => (
                 <Input
                   title="CEP"
-                  placeholder="01001-000"
                   errorMessage={errors.cep?.message}
                   onChangeText={onChange}
                   defaultValue={value}
@@ -221,7 +216,6 @@ export default function UpdateClientById() {
               isReadOnly
               errorMessage={isCepCorrect === false ? 'CEP Inválido' : null}
               value={address}
-              placeholder="Praça da Sé"
               keyboardType="numeric"
             />
             <Controller
@@ -230,7 +224,6 @@ export default function UpdateClientById() {
               render={({ field: { onChange, value } }) => (
                 <Input
                   title="Número da Residência"
-                  placeholder="1200"
                   defaultValue={value.toString()}
                   errorMessage={errors.locationNumber?.message}
                   onChangeText={onChange}
@@ -244,7 +237,6 @@ export default function UpdateClientById() {
               render={({ field: { onChange, value } }) => (
                 <Input
                   title="Complemento"
-                  placeholder="Casa A"
                   defaultValue={value || ''}
                   errorMessage={errors.complement?.message}
                   onChangeText={onChange}

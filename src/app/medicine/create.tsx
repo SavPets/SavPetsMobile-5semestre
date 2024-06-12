@@ -118,7 +118,6 @@ export default function CreateMedicine() {
                 <Input
                   errorMessage={errors.name?.message}
                   onChangeText={onChange}
-                  placeholder="NexGard Spectra"
                   title="Nome"
                 />
               )}
@@ -132,7 +131,6 @@ export default function CreateMedicine() {
                   errorMessage={errors.manufacturingDate?.message}
                   onChangeText={onChange}
                   title="Data de Fabricação"
-                  placeholder={formatDateISO(new Date())!}
                   keyboardType="numbers-and-punctuation"
                 />
               )}
@@ -146,7 +144,6 @@ export default function CreateMedicine() {
                   errorMessage={errors.expirationDate?.message}
                   onChangeText={onChange}
                   title="Data de Validade"
-                  placeholder={formatDateISO(new Date())!}
                   keyboardType="numbers-and-punctuation"
                 />
               )}
@@ -160,7 +157,6 @@ export default function CreateMedicine() {
                   errorMessage={errors.utility?.message}
                   onChangeText={onChange}
                   title="Utilidade"
-                  placeholder="Antipulgas, Carrapatos e Vermifugo"
                 />
               )}
             />
@@ -173,7 +169,6 @@ export default function CreateMedicine() {
                   errorMessage={errors.observation?.message}
                   onChangeText={onChange}
                   title="Observação"
-                  placeholder="Para cães de 7,6 a 15 Kg"
                   multiline
                 />
               )}
@@ -187,7 +182,6 @@ export default function CreateMedicine() {
                   errorMessage={errors.amount?.message}
                   onChangeText={onChange}
                   title="Quantidade"
-                  placeholder="100"
                   keyboardType="number-pad"
                 />
               )}
@@ -201,7 +195,6 @@ export default function CreateMedicine() {
               errorMessage={errors.arrivalDate?.message}
               onChangeText={onChange}
               title="Data de chegada"
-              placeholder={formatDateISO(new Date())!}
               keyboardType="numbers-and-punctuation"
               />
             )}
@@ -216,7 +209,6 @@ export default function CreateMedicine() {
                   onChangeText={onChange}
                   title="Bula"
                   multiline
-                  placeholder="A administração de NexGard será uma tarefa fácil, pois o tablete mastigável sabor carne é altamente aceito pelos cães, graças a sua alta palatabilidade"
                 />
               )}
             />

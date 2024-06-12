@@ -112,7 +112,6 @@ export default function CreateClient() {
             render={({ field: { onChange } }) => (
               <Input
                 title="Primeiro nome"
-                placeholder="José"
                 errorMessage={errors.firstName?.message}
                 onChangeText={onChange}
               />
@@ -124,7 +123,6 @@ export default function CreateClient() {
             render={({ field: { onChange } }) => (
               <Input
                 title="Último nome"
-                placeholder="Santos"
                 errorMessage={errors.lastName?.message}
                 onChangeText={onChange}
               />
@@ -136,7 +134,6 @@ export default function CreateClient() {
             render={({ field: { onChange } }) => (
               <Input
                 title="Telefone"
-                placeholder="(11)98765-4321"
                 errorMessage={errors.telephone?.message}
                 onChangeText={onChange}
                 keyboardType="numbers-and-punctuation"
@@ -149,7 +146,6 @@ export default function CreateClient() {
             render={({ field: { onChange } }) => (
               <Input
                 title="CPF"
-                placeholder="123.456.789-10"
                 errorMessage={errors.cpf?.message}
                 onChangeText={onChange}
                 keyboardType="numbers-and-punctuation"
@@ -162,7 +158,6 @@ export default function CreateClient() {
             render={({ field: { onChange } }) => (
               <Input
                 title="CEP"
-                placeholder="01001-000"
                 errorMessage={errors.cep?.message}
                 onChangeText={onChange}
                 onEndEditing={(e) => setCep(e.nativeEvent.text)}
@@ -176,7 +171,6 @@ export default function CreateClient() {
             isReadOnly
             errorMessage={isCepCorrect === false ? 'CEP Inválido' : null}
             value={address}
-            placeholder="Praça da Sé"
             keyboardType="numeric"
           />
           <Controller
@@ -185,7 +179,6 @@ export default function CreateClient() {
             render={({ field: { onChange } }) => (
               <Input
                 title="Número da Residência"
-                placeholder="1200"
                 errorMessage={errors.locationNumber?.message}
                 onChangeText={onChange}
                 keyboardType="numeric"
@@ -198,7 +191,6 @@ export default function CreateClient() {
             render={({ field: { onChange } }) => (
               <Input
                 title="Complemento"
-                placeholder="Casa A"
                 errorMessage={errors.complement?.message}
                 onChangeText={onChange}
               />

@@ -159,7 +159,6 @@ export default function UpdateMedicineById() {
                   errorMessage={errors.name?.message}
                   onChangeText={onChange}
                   defaultValue={value}
-                  placeholder="NexGard Spectra"
                   title="Nome"
                 />
               )}
@@ -173,7 +172,6 @@ export default function UpdateMedicineById() {
                   errorMessage={errors.manufacturingDate?.message}
                   onChangeText={onChange}
                   title="Data de Fabricação"
-                  placeholder={formatDateISO(new Date())!}
                   defaultValue={value}
                   keyboardType="numbers-and-punctuation"
                 />
@@ -189,7 +187,6 @@ export default function UpdateMedicineById() {
                   onChangeText={onChange}
                   title="Data de Validade"
                   defaultValue={value}
-                  placeholder={formatDateISO(new Date())!}
                   keyboardType="numbers-and-punctuation"
                 />
               )}
@@ -204,7 +201,6 @@ export default function UpdateMedicineById() {
                   onChangeText={onChange}
                   title="Utilidade"
                   defaultValue={value}
-                  placeholder="Antipulgas, Carrapatos e Vermifugo"
                 />
               )}
             />
@@ -218,7 +214,6 @@ export default function UpdateMedicineById() {
                   onChangeText={onChange}
                   defaultValue={value!}
                   title="Observação"
-                  placeholder="Para cães de 7,6 a 15 Kg"
                   multiline
                 />
               )}
@@ -233,7 +228,6 @@ export default function UpdateMedicineById() {
                   onChangeText={onChange}
                   defaultValue={value.toString()}
                   title="Quantidade"
-                  placeholder="100"
                   keyboardType="number-pad"
                 />
               )}
@@ -248,7 +242,6 @@ export default function UpdateMedicineById() {
                   onChangeText={onChange}
                   title="Data de chegada"
                   defaultValue={value}
-                  placeholder={formatDateISO(new Date())!}
                   keyboardType="numbers-and-punctuation"
                 />
               )}
@@ -264,7 +257,6 @@ export default function UpdateMedicineById() {
                   title="Bula"
                   defaultValue={value}
                   multiline
-                  placeholder="A administração de NexGard será uma tarefa fácil, pois o tablete mastigável sabor carne é altamente aceito pelos cães, graças a sua alta palatabilidade"
                 />
               )}
             />
