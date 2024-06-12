@@ -20,7 +20,10 @@ export default function UpdateEmployeeById() {
     <View className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Editar funcionário" />
 
-      <ScrollView contentContainerStyle={{ paddingVertical: 32 }}>
+      <ScrollView
+        contentContainerStyle={{ paddingVertical: 32 }}
+        showsVerticalScrollIndicator={false}
+      >
         <View className="mb-12" style={{ gap: 16 }}>
           <Input title="Nome" defaultValue={employee.name} />
 

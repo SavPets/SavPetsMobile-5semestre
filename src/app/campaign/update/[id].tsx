@@ -101,16 +101,17 @@ export default function UpdateCampaignById() {
   if (isError) return <Redirect href="/campaign/" />
 
   return (
-    <KeyboardAwareScrollView
-      contentContainerStyle={{ flexGrow: 1 }}
-      keyboardShouldPersistTaps="handled"
-    >
-      <View className="mx-5 mt-16 flex-1">
-        <ReturnHeader title="Editar Campanha" />
+    <View className="mx-5 mt-16 flex-1">
+      <ReturnHeader title="Editar Campanha" />
 
-        {isLoading ? (
-          <Loading />
-        ) : (
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <KeyboardAwareScrollView
+          contentContainerStyle={{ flexGrow: 1 }}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+        >
           <Animated.View entering={FadeInUp} className="py-8">
             <View className="mb-12" style={{ gap: 16 }}>
               <Controller
@@ -207,8 +208,8 @@ export default function UpdateCampaignById() {
               <Button.Title>Salvar alterações</Button.Title>
             </Button.Root>
           </Animated.View>
-        )}
-      </View>
-    </KeyboardAwareScrollView>
+        </KeyboardAwareScrollView>
+      )}
+    </View>
   )
 }

@@ -9,7 +9,7 @@ import { Feather } from '@expo/vector-icons'
 import { Link, Redirect, useLocalSearchParams, useRouter } from 'expo-router'
 import { useToast } from 'native-base'
 import { useEffect, useState } from 'react'
-import { View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import Animated, { FadeInUp } from 'react-native-reanimated'
 import colors from 'tailwindcss/colors'
 
@@ -64,41 +64,54 @@ export default function DepartamentById() {
         <Loading />
       ) : (
         <>
-          <Animated.View entering={FadeInUp} className="py-8">
-            <View className="mb-12" style={{ gap: 16 }}>
-              <DetailItem title="NOME" value={departament.name} />
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: 50 }}
+          >
+            <Animated.View entering={FadeInUp} className="py-8">
+              <View className="mb-12" style={{ gap: 16 }}>
+                <DetailItem title="NOME" value={departament.name} />
 
-              <DetailItem title="INICIAIS" value={departament.initials} />
+                <DetailItem title="INICIAIS" value={departament.initials} />
 
-              <DetailItem
-                title="DATA DE CRIAÇÃO"
-                value={departament.createdAt}
-              />
-            </View>
+                <DetailItem
+                  title="DATA DE CRIAÇÃO"
+                  value={departament.createdAt}
+                />
+              </View>
 
-            <View>
-              <Link href={`/employee/departament/update/${id}`} asChild>
-                <Button.Root style={{ gap: 12 }} className="mb-3">
+              <View>
+                <Link href={`/employee/departament/update/${id}`} asChild>
+                  <Button.Root style={{ gap: 12 }} className="mb-3">
+                    <Button.Icon>
+                      <Feather
+                        name="edit"
+                        size={18}
+                        color={colors.slate[950]}
+                      />
+                    </Button.Icon>
+                    <Button.Title>Editar departamento</Button.Title>
+                  </Button.Root>
+                </Link>
+
+                <Button.Root
+                  variant="outline-delete"
+                  onPress={() => setIsModalVisible(true)}
+                >
                   <Button.Icon>
-                    <Feather name="edit" size={18} color={colors.slate[950]} />
+                    <Feather
+                      name="trash-2"
+                      size={18}
+                      color={colors.rose[400]}
+                    />
                   </Button.Icon>
-                  <Button.Title>Editar departamento</Button.Title>
+                  <Button.Title className="text-rose-400">
+                    Excluir departamento
+                  </Button.Title>
                 </Button.Root>
-              </Link>
-
-              <Button.Root
-                variant="outline-delete"
-                onPress={() => setIsModalVisible(true)}
-              >
-                <Button.Icon>
-                  <Feather name="trash-2" size={18} color={colors.rose[400]} />
-                </Button.Icon>
-                <Button.Title className="text-rose-400">
-                  Excluir departamento
-                </Button.Title>
-              </Button.Root>
-            </View>
-          </Animated.View>
+              </View>
+            </Animated.View>
+          </ScrollView>
 
           <DeleteModal
             itemName={departament.name}

@@ -19,7 +19,10 @@ export default function EmployeeById() {
     <View className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Funcionário" />
 
-      <ScrollView contentContainerStyle={{ paddingVertical: 32 }}>
+      <ScrollView
+        contentContainerStyle={{ paddingVertical: 32 }}
+        showsVerticalScrollIndicator={false}
+      >
         <View className="mb-12 gap-4">
           <View className="gap-0.5">
             <Text className="text-base font-semibold uppercase leading-short text-slate-300">

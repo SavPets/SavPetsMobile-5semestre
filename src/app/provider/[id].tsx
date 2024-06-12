@@ -8,7 +8,7 @@ import { Feather } from '@expo/vector-icons'
 import { Link, Redirect, useLocalSearchParams, useRouter } from 'expo-router'
 import { useToast } from 'native-base'
 import { useEffect, useState } from 'react'
-import { Text, View } from 'react-native'
+import { ScrollView, Text, View } from 'react-native'
 import Animated, { FadeInUp } from 'react-native-reanimated'
 import colors from 'tailwindcss/colors'
 
@@ -63,68 +63,81 @@ export default function ProviderByID() {
         <Loading />
       ) : (
         <>
-          <Animated.View entering={FadeInUp} className="py-8">
-            <View className="mb-12 gap-4">
-              <View className="gap-0.5">
-                <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-                  Razão Social
-                </Text>
-                <Text className="font-body text-base leading-relaxed text-slate-100">
-                  {provider?.name}
-                </Text>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{ paddingBottom: 50 }}
+          >
+            <Animated.View entering={FadeInUp} className="py-8">
+              <View className="mb-12 gap-4">
+                <View className="gap-0.5">
+                  <Text className="text-base font-semibold uppercase leading-short text-slate-300">
+                    Razão Social
+                  </Text>
+                  <Text className="font-body text-base leading-relaxed text-slate-100">
+                    {provider?.name}
+                  </Text>
+                </View>
+
+                <View className="gap-0.5">
+                  <Text className="text-base font-semibold uppercase leading-short text-slate-300">
+                    CNPJ
+                  </Text>
+                  <Text className="font-body text-base leading-relaxed text-slate-100">
+                    {provider?.cnpj}
+                  </Text>
+                </View>
+
+                <View className="gap-0.5">
+                  <Text className="text-base font-semibold uppercase leading-short text-slate-300">
+                    CEP
+                  </Text>
+                  <Text className="font-body text-base leading-relaxed text-slate-100">
+                    {provider?.cep}
+                  </Text>
+                </View>
+
+                <View className="gap-0.5">
+                  <Text className="text-base font-semibold uppercase leading-short text-slate-300">
+                    Endereço Completo
+                  </Text>
+                  <Text className="font-body text-base leading-relaxed text-slate-100">
+                    {`${provider?.address}, ${provider.locationNumber} ${provider.complement ? ` - ${provider.complement}` : ''}`}
+                  </Text>
+                </View>
               </View>
 
-              <View className="gap-0.5">
-                <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-                  CNPJ
-                </Text>
-                <Text className="font-body text-base leading-relaxed text-slate-100">
-                  {provider?.cnpj}
-                </Text>
-              </View>
+              <View style={{ gap: 12 }}>
+                <Link href={`/provider/update/${id}`} asChild>
+                  <Button.Root>
+                    <Button.Icon>
+                      <Feather
+                        name="edit"
+                        size={18}
+                        color={colors.slate[950]}
+                      />
+                    </Button.Icon>
+                    <Button.Title>Editar Fornecedor</Button.Title>
+                  </Button.Root>
+                </Link>
 
-              <View className="gap-0.5">
-                <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-                  CEP
-                </Text>
-                <Text className="font-body text-base leading-relaxed text-slate-100">
-                  {provider?.cep}
-                </Text>
-              </View>
-
-              <View className="gap-0.5">
-                <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-                  Endereço Completo
-                </Text>
-                <Text className="font-body text-base leading-relaxed text-slate-100">
-                  {`${provider?.address}, ${provider.locationNumber} ${provider.complement ? ` - ${provider.complement}` : ''}`}
-                </Text>
-              </View>
-            </View>
-
-            <View style={{ gap: 12 }}>
-              <Link href={`/provider/update/${id}`} asChild>
-                <Button.Root>
+                <Button.Root
+                  variant="outline-delete"
+                  onPress={() => setIsModalVisible(true)}
+                >
                   <Button.Icon>
-                    <Feather name="edit" size={18} color={colors.slate[950]} />
+                    <Feather
+                      name="trash-2"
+                      size={18}
+                      color={colors.rose[400]}
+                    />
                   </Button.Icon>
-                  <Button.Title>Editar Fornecedor</Button.Title>
+                  <Button.Title className="text-rose-400">
+                    Excluir Fornecedor
+                  </Button.Title>
                 </Button.Root>
-              </Link>
-
-              <Button.Root
-                variant="outline-delete"
-                onPress={() => setIsModalVisible(true)}
-              >
-                <Button.Icon>
-                  <Feather name="trash-2" size={18} color={colors.rose[400]} />
-                </Button.Icon>
-                <Button.Title className="text-rose-400">
-                  Excluir Fornecedor
-                </Button.Title>
-              </Button.Root>
-            </View>
-          </Animated.View>
+              </View>
+            </Animated.View>
+          </ScrollView>
 
           <DeleteModal
             itemName={provider.name}

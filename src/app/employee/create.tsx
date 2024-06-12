@@ -31,7 +31,10 @@ export default function CreateEmployee() {
   return (
     <View className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Cadastrar funcionário" />
-      <ScrollView contentContainerStyle={{ paddingVertical: 32 }}>
+      <ScrollView
+        contentContainerStyle={{ paddingVertical: 32 }}
+        showsVerticalScrollIndicator={false}
+      >
         <View className="mb-12" style={{ gap: 16 }}>
           <Input title="Nome" />
 

@@ -16,7 +16,10 @@ export default function UpdateAdoptionById() {
   return (
     <Animated.View entering={FadeInUp} className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Editar adoção" />
-      <ScrollView contentContainerStyle={{ paddingVertical: 32 }}>
+      <ScrollView
+        contentContainerStyle={{ paddingVertical: 32 }}
+        showsVerticalScrollIndicator={false}
+      >
         <View className="mb-12" style={{ gap: 16 }}>
           <Input title="Funcionário" defaultValue={adoption.employee} />
           <Input title="Cliente" defaultValue={adoption.client} />

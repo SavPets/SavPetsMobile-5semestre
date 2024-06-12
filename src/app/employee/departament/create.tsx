@@ -1,5 +1,5 @@
 import { ReturnHeader } from '@/src/components/return-header'
-import { View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import * as Button from '@/src/components/button'
 import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
@@ -65,43 +65,48 @@ export default function CreateDepartament() {
     <View className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Novo departamento" />
 
-      <Animated.View entering={FadeInUp} className="py-8">
-        <View className="mb-12" style={{ gap: 16 }}>
-          <Controller
-            control={control}
-            name="name"
-            render={({ field: { onChange } }) => (
-              <Input
-                title="Nome"
-                errorMessage={errors.name?.message}
-                onChangeText={onChange}
-              />
-            )}
-          />
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 50 }}
+      >
+        <Animated.View entering={FadeInUp} className="py-8">
+          <View className="mb-12" style={{ gap: 16 }}>
+            <Controller
+              control={control}
+              name="name"
+              render={({ field: { onChange } }) => (
+                <Input
+                  title="Nome"
+                  errorMessage={errors.name?.message}
+                  onChangeText={onChange}
+                />
+              )}
+            />
 
-          <Controller
-            control={control}
-            name="initials"
-            render={({ field: { onChange } }) => (
-              <Input
-                title="Iniciais"
-                errorMessage={errors.initials?.message}
-                onChangeText={onChange}
-              />
-            )}
-          />
-        </View>
+            <Controller
+              control={control}
+              name="initials"
+              render={({ field: { onChange } }) => (
+                <Input
+                  title="Iniciais"
+                  errorMessage={errors.initials?.message}
+                  onChangeText={onChange}
+                />
+              )}
+            />
+          </View>
 
-        <Button.Root
-          disabled={isSubmitting || isPending}
-          onPress={handleSubmit(handleCreateDepartament)}
-        >
-          <Button.Icon>
-            <Feather name="plus-square" size={18} color={colors.slate[950]} />
-          </Button.Icon>
-          <Button.Title>Cadastrar departamento</Button.Title>
-        </Button.Root>
-      </Animated.View>
+          <Button.Root
+            disabled={isSubmitting || isPending}
+            onPress={handleSubmit(handleCreateDepartament)}
+          >
+            <Button.Icon>
+              <Feather name="plus-square" size={18} color={colors.slate[950]} />
+            </Button.Icon>
+            <Button.Title>Cadastrar departamento</Button.Title>
+          </Button.Root>
+        </Animated.View>
+      </ScrollView>
     </View>
   )
 }

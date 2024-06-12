@@ -28,6 +28,7 @@ export default function AdoptionById() {
         <Animated.ScrollView
           entering={FadeInUp}
           contentContainerStyle={{ paddingVertical: 32 }}
+          showsVerticalScrollIndicator={false}
         >
           <View className="mb-12 gap-4">
             <View className="gap-0.5">

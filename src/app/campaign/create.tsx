@@ -62,13 +62,14 @@ export default function CreateCampaign() {
   }, [isSuccess, requestError, toast, router])
 
   return (
-    <KeyboardAwareScrollView
-      contentContainerStyle={{ flexGrow: 1 }}
-      keyboardShouldPersistTaps="handled"
-    >
-      <View className="mx-5 mt-16 flex-1">
-        <ReturnHeader title="Nova Campanha" />
+    <View className="mx-5 mt-16 flex-1">
+      <ReturnHeader title="Nova Campanha" />
 
+      <KeyboardAwareScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+      >
         <Animated.View entering={FadeInUp} className="py-8">
           <View className="mb-12" style={{ gap: 16 }}>
             <Controller
@@ -155,7 +156,7 @@ export default function CreateCampaign() {
             <Button.Title>Cadastrar Campanha</Button.Title>
           </Button.Root>
         </Animated.View>
-      </View>
-    </KeyboardAwareScrollView>
+      </KeyboardAwareScrollView>
+    </View>
   )
 }

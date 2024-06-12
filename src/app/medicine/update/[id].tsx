@@ -148,6 +148,7 @@ export default function UpdateMedicineById() {
         <Animated.ScrollView
           entering={FadeInUp}
           contentContainerStyle={{ paddingVertical: 32 }}
+          showsVerticalScrollIndicator={false}
         >
           <View className="mb-12" style={{ gap: 16 }}>
             <Controller
