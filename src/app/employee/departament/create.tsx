@@ -15,6 +15,8 @@ import { useRouter } from 'expo-router'
 import { useEffect } from 'react'
 import { useToast } from 'native-base'
 import Animated, { FadeInUp } from 'react-native-reanimated'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 
 export default function CreateDepartament() {
   const router = useRouter()
@@ -65,9 +67,10 @@ export default function CreateDepartament() {
     <View className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Novo departamento" />
 
-      <ScrollView
+      <KeyboardAwareScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 50 }}
+        keyboardShouldPersistTaps="handled"
       >
         <Animated.View entering={FadeInUp} className="py-8">
           <View className="mb-12" style={{ gap: 16 }}>
@@ -106,7 +109,7 @@ export default function CreateDepartament() {
             <Button.Title>Cadastrar departamento</Button.Title>
           </Button.Root>
         </Animated.View>
-      </ScrollView>
-    </View>
+        </KeyboardAwareScrollView>
+        </View>
   )
 }

@@ -5,6 +5,8 @@ import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
 import { Input } from '@/src/components/input'
 import ButtonSelect from '@/src/components/button-select'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 
 export const OccupationOptions = [
   { label: 'Desenvolvedor', value: 'Desenlvedor' },
@@ -31,9 +33,10 @@ export default function CreateEmployee() {
   return (
     <View className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Cadastrar funcionário" />
-      <ScrollView
-        contentContainerStyle={{ paddingVertical: 32 }}
+      <KeyboardAwareScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
         showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
       >
         <View className="mb-12" style={{ gap: 16 }}>
           <Input title="Nome" />
@@ -69,7 +72,7 @@ export default function CreateEmployee() {
           </Button.Icon>
           <Button.Title>Salvar alterações</Button.Title>
         </Button.Root>
-      </ScrollView>
+        </KeyboardAwareScrollView>
     </View>
   )
 }

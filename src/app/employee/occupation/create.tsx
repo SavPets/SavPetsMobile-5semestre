@@ -15,6 +15,8 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useEffect } from 'react'
 import Animated, { FadeInUp } from 'react-native-reanimated'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 
 export default function CreateOccupation() {
   const router = useRouter()
@@ -65,9 +67,10 @@ export default function CreateOccupation() {
     <View className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Novo cargo" />
 
-      <ScrollView
+      <KeyboardAwareScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 50 }}
+        keyboardShouldPersistTaps="handled"
       >
         <Animated.View entering={FadeInUp} className="py-8">
           <View className="mb-12" style={{ gap: 16 }}>
@@ -108,7 +111,7 @@ export default function CreateOccupation() {
             <Button.Title>Cadastrar cargo</Button.Title>
           </Button.Root>
         </Animated.View>
-      </ScrollView>
+        </KeyboardAwareScrollView>
     </View>
   )
 }

@@ -7,6 +7,8 @@ import { Redirect, useLocalSearchParams } from 'expo-router'
 import { ADOPTIONS } from '@/src/utils/data/adoptions'
 import { Input } from '@/src/components/input'
 import Animated, { FadeInUp } from 'react-native-reanimated'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 
 export default function UpdateAdoptionById() {
   const { id } = useLocalSearchParams()
@@ -16,9 +18,10 @@ export default function UpdateAdoptionById() {
   return (
     <Animated.View entering={FadeInUp} className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Editar adoção" />
-      <ScrollView
-        contentContainerStyle={{ paddingVertical: 32 }}
+      <KeyboardAwareScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
         showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
       >
         <View className="mb-12" style={{ gap: 16 }}>
           <Input title="Funcionário" defaultValue={adoption.employee} />
@@ -38,7 +41,7 @@ export default function UpdateAdoptionById() {
           </Button.Icon>
           <Button.Title>Salvar alterações</Button.Title>
         </Button.Root>
-      </ScrollView>
-    </Animated.View>
+        </KeyboardAwareScrollView>
+        </Animated.View>
   )
 }

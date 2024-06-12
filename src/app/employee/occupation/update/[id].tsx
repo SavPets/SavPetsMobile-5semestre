@@ -17,6 +17,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { usePUTOccupation } from '@/src/hooks/employee/occupation/usePUTOccupation'
 import { useEffect } from 'react'
 import Animated, { FadeInUp } from 'react-native-reanimated'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 
 export default function UpdateOccupationById() {
   const { id } = useLocalSearchParams()
@@ -89,10 +91,11 @@ export default function UpdateOccupationById() {
       {isLoading ? (
         <Loading />
       ) : (
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 50 }}
-        >
+        <KeyboardAwareScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+      >
           <Animated.View entering={FadeInUp} className="py-8">
             <View className="mb-12" style={{ gap: 16 }}>
               <Controller
@@ -138,7 +141,7 @@ export default function UpdateOccupationById() {
               <Button.Title>Salvar alterações</Button.Title>
             </Button.Root>
           </Animated.View>
-        </ScrollView>
+        </KeyboardAwareScrollView>
       )}
     </View>
   )

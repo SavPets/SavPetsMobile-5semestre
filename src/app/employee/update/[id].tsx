@@ -8,6 +8,8 @@ import { EMPLOYEES } from '@/src/utils/data/employees'
 import { Input } from '@/src/components/input'
 import ButtonSelect from '@/src/components/button-select'
 import { DepartamentOptions, OccupationOptions } from '../create'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 
 export default function UpdateEmployeeById() {
   const { id } = useLocalSearchParams()
@@ -20,9 +22,10 @@ export default function UpdateEmployeeById() {
     <View className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Editar funcionário" />
 
-      <ScrollView
-        contentContainerStyle={{ paddingVertical: 32 }}
+      <KeyboardAwareScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
         showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
       >
         <View className="mb-12" style={{ gap: 16 }}>
           <Input title="Nome" defaultValue={employee.name} />
@@ -70,7 +73,7 @@ export default function UpdateEmployeeById() {
           </Button.Icon>
           <Button.Title>Salvar alterações</Button.Title>
         </Button.Root>
-      </ScrollView>
+        </KeyboardAwareScrollView>
     </View>
   )
 }
