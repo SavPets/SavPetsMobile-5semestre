@@ -17,3 +17,12 @@ export const animalCategorySchema = y.object({
 })
 
 export type AnimalCategorySchema = y.InferType<typeof animalCategorySchema>
+
+export type AnimalCategoryDTO = AnimalCategorySchema & {
+  id: string
+  gender: string
+  race: string
+  size: string
+  coatColor: string
+  createdAt: string
+}

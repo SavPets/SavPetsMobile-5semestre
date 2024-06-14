@@ -20,7 +20,7 @@ export const animalReportSchema = yup.object({
 
 export type AnimalReportSchema = yup.InferType<typeof animalReportSchema>
 
-export interface AnimalReportDTO {
+export type AnimalReportDTO = AnimalReportSchema & {
   id: string
   animalName: string
   medicine: string
