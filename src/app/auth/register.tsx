@@ -15,18 +15,12 @@ import { Controller, useForm } from 'react-hook-form'
 import { useEffect } from 'react'
 
 import LogoImg from '@/src/assets/logo.svg'
-import { saveUserSession } from '@/src/storages/auth'
 
 export default function Register() {
   const router = useRouter()
   const toast = useToast()
 
-  const {
-    // mutate,
-    data: requestError,
-    isPending,
-    isSuccess,
-  } = useRegister()
+  const { mutate, data: requestError, isPending, isSuccess } = useRegister()
 
   const {
     control,
@@ -37,25 +31,7 @@ export default function Register() {
   })
 
   function handleRegisterUser(newUser: NewUserCredentialsSchema) {
-    console.log(newUser)
-
-    const exampleUser = {
-      name: 'Mateus',
-      surname: 'Silva',
-      email: 'mateus@email.com',
-    }
-
-    saveUserSession(exampleUser)
-
-    toast.show({
-      title: 'Cadastro realizado com sucesso',
-      placement: 'top',
-      textAlign: 'center',
-      bg: 'success.600',
-    })
-
-    return router.navigate('/employee/')
-    // mutate(newUser)
+    mutate(newUser)
   }
 
   useEffect(() => {
@@ -68,17 +44,19 @@ export default function Register() {
         textAlign: 'center',
         bg: 'rose.400',
       })
-    } else {
-      toast.show({
-        title: 'Cadastro realizado com sucesso',
-        placement: 'top',
-        textAlign: 'center',
-        bg: 'success.600',
-      })
+
+      return router.navigate('/auth/register')
     }
 
+    toast.show({
+      title: 'Cadastro realizado com sucesso',
+      placement: 'top',
+      textAlign: 'center',
+      bg: 'success.600',
+    })
+
     return router.navigate('/employee/')
-  }, [isSuccess, requestError, toast, router])
+  }, [isSuccess, requestError])
 
   return (
     <View className="mx-5 flex-1 pt-32">

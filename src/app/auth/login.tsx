@@ -15,18 +15,12 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useEffect } from 'react'
 
 import LogoImg from '@/src/assets/logo.svg'
-import { saveUserSession } from '@/src/storages/auth'
 
 export default function Login() {
   const router = useRouter()
   const toast = useToast()
 
-  const {
-    // mutate,
-    data: requestError,
-    isPending,
-    isSuccess,
-  } = useLogin()
+  const { mutate, data: requestError, isPending, isSuccess } = useLogin()
 
   const {
     control,
@@ -37,26 +31,7 @@ export default function Login() {
   })
 
   function handleSignIn(userCredentials: UserCredentialsSchema) {
-    console.log(userCredentials)
-
-    const exampleUser = {
-      name: 'Mateus',
-      surname: 'Silva',
-      email: 'mateus@email.com',
-    }
-
-    saveUserSession(exampleUser)
-
-    toast.show({
-      title: 'Autenticação realizada com sucesso',
-      placement: 'top',
-      textAlign: 'center',
-      bg: 'success.600',
-    })
-
-    return router.navigate('/employee/')
-
-    // mutate(userCredentials)
+    mutate(userCredentials)
   }
 
   useEffect(() => {
@@ -69,17 +44,19 @@ export default function Login() {
         textAlign: 'center',
         bg: 'rose.400',
       })
-    } else {
-      toast.show({
-        title: 'Autenticação realizada com sucesso',
-        placement: 'top',
-        textAlign: 'center',
-        bg: 'success.600',
-      })
+
+      return router.navigate('/auth/login')
     }
 
+    toast.show({
+      title: 'Autenticação realizada com sucesso',
+      placement: 'top',
+      textAlign: 'center',
+      bg: 'success.600',
+    })
+
     return router.navigate('/employee/')
-  }, [isSuccess, requestError, toast, router])
+  }, [isSuccess, requestError])
 
   return (
     <View className="mx-5 flex-1 pt-32">

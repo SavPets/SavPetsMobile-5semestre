@@ -9,19 +9,19 @@ import { Controller, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useEffect } from 'react'
 import { useToast } from 'native-base'
-
-import LogoImg from '@/src/assets/logo.svg'
 import {
   UpdatedUserCredentialsSchema,
   updatedUserCredentialsSchema,
 } from '@/src/schemas/authSchema'
+
+import LogoImg from '@/src/assets/logo.svg'
 
 export default function ChangePassword() {
   const router = useRouter()
   const toast = useToast()
 
   const {
-    // mutate,
+    mutate,
     data: requestError,
     isPending,
     isSuccess,
@@ -38,17 +38,7 @@ export default function ChangePassword() {
   function handleChangePassword(
     updatedCredentials: UpdatedUserCredentialsSchema,
   ) {
-    console.log(updatedCredentials)
-
-    toast.show({
-      title: 'Senha alterada com sucesso',
-      placement: 'top',
-      textAlign: 'center',
-      bg: 'success.600',
-    })
-
-    return router.navigate('/auth/login')
-    // mutate(updatedCredentials)
+    mutate(updatedCredentials)
   }
 
   useEffect(() => {
@@ -61,17 +51,19 @@ export default function ChangePassword() {
         textAlign: 'center',
         bg: 'rose.400',
       })
-    } else {
-      toast.show({
-        title: 'Senha alterada com sucesso',
-        placement: 'top',
-        textAlign: 'center',
-        bg: 'success.600',
-      })
+
+      return router.navigate('/auth/change-password')
     }
 
+    toast.show({
+      title: 'Senha alterada com sucesso',
+      placement: 'top',
+      textAlign: 'center',
+      bg: 'success.600',
+    })
+
     return router.navigate('/auth/login')
-  }, [isSuccess, requestError, toast, router])
+  }, [isSuccess, requestError])
 
   return (
     <View className="mx-5 flex-1 pt-32">
