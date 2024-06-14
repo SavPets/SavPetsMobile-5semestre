@@ -83,4 +83,4 @@ const ButtonSelect: FC<ButtonSelectProps> = ({
   )
 }
 
-export default ButtonSelect
+export { ButtonSelect }

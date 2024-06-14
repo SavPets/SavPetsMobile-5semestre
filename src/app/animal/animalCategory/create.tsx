@@ -5,7 +5,7 @@ import * as Button from '@/src/components/button'
 import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
 import { Input } from '@/src/components/input'
-import ButtonSelect from '@/src/components/button-select'
+import { ButtonSelect } from '@/src/components/button-select'
 import { Controller, useForm } from 'react-hook-form'
 import {
   AnimalCategorySchema,

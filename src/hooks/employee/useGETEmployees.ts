@@ -10,7 +10,7 @@ async function fetchEmployess() {
 
 export function useGETEmployess() {
   const query = useQuery<EmployeeDTO[]>({
-    queryKey: ['employessList'],
+    queryKey: ['employeesList'],
 
     queryFn: async () => await fetchEmployess(),
     refetchInterval: 1000 * 60 * 5, // 5 minutes in milliseconds

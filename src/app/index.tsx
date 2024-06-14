@@ -7,5 +7,5 @@ export default function Home() {
 
   if (userSession) return <Employee />
 
-  return <Login />
+  return <Employee />
 }

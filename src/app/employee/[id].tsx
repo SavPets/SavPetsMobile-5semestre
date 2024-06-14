@@ -1,129 +1,134 @@
 import * as Button from '@/src/components/button'
+import { DeleteModal } from '@/src/components/delete-modal'
+import { DetailItem } from '@/src/components/detail-item'
+import { Loading } from '@/src/components/loading'
 import { ReturnHeader } from '@/src/components/return-header'
-import { EMPLOYEES } from '@/src/utils/data/employees'
+import { useDELETEEmployee } from '@/src/hooks/employee/useDELETEemployee'
+import { useGETEmployeeById } from '@/src/hooks/employee/useGETEmployeeById'
 import { Feather } from '@expo/vector-icons'
-import { Link, Redirect, useLocalSearchParams } from 'expo-router'
-import { ScrollView, Text, View } from 'react-native'
+import { Link, Redirect, useLocalSearchParams, useRouter } from 'expo-router'
+import { useToast } from 'native-base'
+import { useEffect, useState } from 'react'
+import { ScrollView, View } from 'react-native'
+import Animated, { FadeInUp } from 'react-native-reanimated'
 import colors from 'tailwindcss/colors'
 
 export default function EmployeeById() {
   const { id } = useLocalSearchParams()
+  const router = useRouter()
+  const toast = useToast()
 
-  const employee = EMPLOYEES.find((item) => item.id === id)
+  const [isModalVisible, setIsModalVisible] = useState(false)
 
-  if (!employee) return <Redirect href="/employee/" />
+  const {
+    data: employee,
+    isError,
+    isLoading,
+  } = useGETEmployeeById(id.toString())
 
-  const fullAdress = `${employee.address}, ${employee.locationNumber} ${employee.complement ? `- ${employee.complement}` : ''}`
+  const { mutate, data: requestError, isSuccess } = useDELETEEmployee()
+
+  function onDeleteEmployee() {
+    mutate(id.toString())
+  }
+
+  useEffect(() => {
+    if (!isSuccess) return
+
+    if (requestError) {
+      toast.show({
+        title: requestError,
+        placement: 'top',
+        textAlign: 'center',
+        bgColor: 'rose.400',
+      })
+    } else {
+      toast.show({
+        title: 'Funcionário deletado com sucesso',
+        placement: 'top',
+        textAlign: 'center',
+        bgColor: 'success.600',
+      })
+    }
+
+    return router.navigate('/employee/')
+  }, [isSuccess, requestError])
+
+  if (isError) return <Redirect href="/employee/" />
+
+  const fullAdress = `${employee?.address}, ${employee?.locationNumber}${employee?.complement ? ` - ${employee.complement}` : ''} - ${employee?.cep}`
 
   return (
     <View className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Funcionário" />
 
-      <ScrollView
-        contentContainerStyle={{ paddingVertical: 32 }}
-        showsVerticalScrollIndicator={false}
-      >
-        <View className="mb-12 gap-4">
-          <View className="gap-0.5">
-            <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-              Código do Funcionário
-            </Text>
-            <Text className="font-body text-base leading-relaxed text-slate-100">
-              {employee.id}
-            </Text>
-          </View>
+      {isLoading || !employee ? (
+        <Loading />
+      ) : (
+        <>
+          <ScrollView
+            contentContainerStyle={{ paddingVertical: 32 }}
+            showsVerticalScrollIndicator={false}
+          >
+            <Animated.View className="mb-12 gap-4" entering={FadeInUp}>
+              <View className="mb-12" style={{ gap: 16 }}>
+                <DetailItem
+                  title="NOME"
+                  value={`${employee.name} ${employee.surname}`}
+                />
+                <DetailItem title="E-MAIL" value={employee.email} />
+                <DetailItem title="CPF" value={employee.cpf} />
+                <DetailItem title="CEP" value={employee.cep} />
+                <DetailItem title="ENDEREÇO" value={fullAdress} />
+                <DetailItem
+                  title="NÚMERO DA CONTA"
+                  value={employee.accountNumber}
+                />
+                <DetailItem title="DEPARTAMENTO" value={employee.departament} />
+                <DetailItem title="OCUPAÇÃO" value={employee.occupation} />
+              </View>
 
-          <View className="gap-0.5">
-            <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-              Nome Completo
-            </Text>
-            <Text className="font-body text-base leading-relaxed text-slate-100">
-              {employee.name} {employee.surname}
-            </Text>
-          </View>
+              <View style={{ gap: 12 }}>
+                <Link href={`/employee/update/${id}`} asChild>
+                  <Button.Root>
+                    <Button.Icon>
+                      <Feather
+                        name="edit"
+                        size={18}
+                        color={colors.slate[950]}
+                      />
+                    </Button.Icon>
+                    <Button.Title>Editar Funcionário</Button.Title>
+                  </Button.Root>
+                </Link>
 
-          <View className="gap-0.5">
-            <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-              E-mail
-            </Text>
-            <Text className="font-body text-base leading-relaxed text-slate-100">
-              {employee.email}
-            </Text>
-          </View>
+                <Button.Root
+                  variant="outline-delete"
+                  onPress={() => setIsModalVisible(true)}
+                >
+                  <Button.Icon>
+                    <Feather
+                      name="trash-2"
+                      size={18}
+                      color={colors.rose[400]}
+                    />
+                  </Button.Icon>
+                  <Button.Title className="text-rose-400">
+                    Excluir Funcionário
+                  </Button.Title>
+                </Button.Root>
+              </View>
+            </Animated.View>
+          </ScrollView>
 
-          <View className="gap-0.5">
-            <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-              CPF
-            </Text>
-            <Text className="font-body text-base leading-relaxed text-slate-100">
-              {employee.cpf}
-            </Text>
-          </View>
-
-          <View className="gap-0.5">
-            <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-              CEP
-            </Text>
-            <Text className="font-body text-base leading-relaxed text-slate-100">
-              {employee.cep}
-            </Text>
-          </View>
-
-          <View className="gap-0.5">
-            <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-              Endereço Completo
-            </Text>
-            <Text className="font-body text-base leading-relaxed text-slate-100">
-              {fullAdress}
-            </Text>
-          </View>
-
-          <View className="gap-0.5">
-            <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-              Número da Conta
-            </Text>
-            <Text className="font-body text-base leading-relaxed text-slate-100">
-              {employee.accountNumber}
-            </Text>
-          </View>
-
-          <View className="gap-0.5">
-            <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-              Departamento
-            </Text>
-            <Text className="font-body text-base leading-relaxed text-slate-100">
-              {employee.departament}
-            </Text>
-          </View>
-
-          <View className="gap-0.5">
-            <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-              Ocupação
-            </Text>
-            <Text className="font-body text-base leading-relaxed text-slate-100">
-              {employee.occupation}
-            </Text>
-          </View>
-        </View>
-
-        <View style={{ gap: 12 }}>
-          <Link href={`/employee/update/${id}`} asChild>
-            <Button.Root>
-              <Button.Icon>
-                <Feather name="edit" size={18} color={colors.slate[950]} />
-              </Button.Icon>
-              <Button.Title>Editar Funcionário</Button.Title>
-            </Button.Root>
-          </Link>
-
-          <Button.Root variant="delete">
-            <Button.Icon>
-              <Feather name="trash-2" size={18} color={colors.slate[950]} />
-            </Button.Icon>
-            <Button.Title>Excluir Funcionário</Button.Title>
-          </Button.Root>
-        </View>
-      </ScrollView>
+          <DeleteModal
+            itemName={`${employee.name} ${employee.surname}`}
+            isVisible={isModalVisible}
+            onClose={() => setIsModalVisible(false)}
+            onDelete={onDeleteEmployee}
+          />
+        </>
+      )}
     </View>
   )
 }
