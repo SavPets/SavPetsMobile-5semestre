@@ -3,7 +3,8 @@
   "rules": {
     "camelcase": "off",
     "@typescript-eslint/no-var-requires": "off",
-    "react/display-name": "off"
+    "react/display-name": "off",
+    "react-hooks/exhaustive-deps": 0
   },
   "plugins": ["testing-library"]
 }

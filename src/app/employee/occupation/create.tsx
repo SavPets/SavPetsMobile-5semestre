@@ -1,5 +1,5 @@
 import { ReturnHeader } from '@/src/components/return-header'
-import { ScrollView, View } from 'react-native'
+import { View } from 'react-native'
 import * as Button from '@/src/components/button'
 import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
@@ -16,7 +16,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useEffect } from 'react'
 import Animated, { FadeInUp } from 'react-native-reanimated'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
 
 export default function CreateOccupation() {
   const router = useRouter()
@@ -61,7 +60,7 @@ export default function CreateOccupation() {
     }
 
     return router.navigate('/employee/occupation/')
-  }, [isSuccess, requestError, toast, router])
+  }, [isSuccess, requestError])
 
   return (
     <View className="mx-5 mt-16 flex-1">
@@ -111,7 +110,7 @@ export default function CreateOccupation() {
             <Button.Title>Cadastrar cargo</Button.Title>
           </Button.Root>
         </Animated.View>
-        </KeyboardAwareScrollView>
+      </KeyboardAwareScrollView>
     </View>
   )
 }

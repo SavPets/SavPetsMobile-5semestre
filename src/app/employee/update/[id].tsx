@@ -1,5 +1,5 @@
 import { ReturnHeader } from '@/src/components/return-header'
-import { ScrollView, View } from 'react-native'
+import { View } from 'react-native'
 import * as Button from '@/src/components/button'
 import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
@@ -9,7 +9,6 @@ import { Input } from '@/src/components/input'
 import ButtonSelect from '@/src/components/button-select'
 import { DepartamentOptions, OccupationOptions } from '../create'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
 
 export default function UpdateEmployeeById() {
   const { id } = useLocalSearchParams()
@@ -73,7 +72,7 @@ export default function UpdateEmployeeById() {
           </Button.Icon>
           <Button.Title>Salvar alterações</Button.Title>
         </Button.Root>
-        </KeyboardAwareScrollView>
+      </KeyboardAwareScrollView>
     </View>
   )
 }

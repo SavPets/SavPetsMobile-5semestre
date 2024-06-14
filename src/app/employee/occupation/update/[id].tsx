@@ -1,5 +1,5 @@
 import { ReturnHeader } from '@/src/components/return-header'
-import { ScrollView, View } from 'react-native'
+import { View } from 'react-native'
 import * as Button from '@/src/components/button'
 import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
@@ -18,7 +18,6 @@ import { usePUTOccupation } from '@/src/hooks/employee/occupation/usePUTOccupati
 import { useEffect } from 'react'
 import Animated, { FadeInUp } from 'react-native-reanimated'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
 
 export default function UpdateOccupationById() {
   const { id } = useLocalSearchParams()
@@ -80,7 +79,7 @@ export default function UpdateOccupationById() {
     }
 
     return router.navigate('/employee/occupation/')
-  }, [isSuccess, requestError, toast, router])
+  }, [isSuccess, requestError])
 
   if (isError) return <Redirect href="/employee/occupation/" />
 
@@ -92,10 +91,10 @@ export default function UpdateOccupationById() {
         <Loading />
       ) : (
         <KeyboardAwareScrollView
-        contentContainerStyle={{ flexGrow: 1 }}
-        showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
-      >
+          contentContainerStyle={{ flexGrow: 1 }}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+        >
           <Animated.View entering={FadeInUp} className="py-8">
             <View className="mb-12" style={{ gap: 16 }}>
               <Controller

@@ -78,7 +78,7 @@ export default function CreateClient() {
     }
 
     return router.navigate('/client/')
-  }, [isSuccess, requestError, toast, router])
+  }, [isSuccess, requestError])
 
   useEffect(() => {
     ;(async () => {

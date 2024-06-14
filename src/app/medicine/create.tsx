@@ -69,7 +69,7 @@ export default function CreateMedicine() {
     }
 
     return router.navigate('/medicine/')
-  }, [isSuccess, requestError, toast, router])
+  }, [isSuccess, requestError])
 
   useEffect(() => {
     if (!isLoading) {

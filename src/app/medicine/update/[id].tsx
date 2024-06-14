@@ -134,7 +134,7 @@ export default function UpdateMedicineById() {
     }
 
     return router.navigate('/medicine/')
-  }, [isSuccess, requestError, toast, router])
+  }, [isSuccess, requestError])
 
   if (isError) return <Redirect href="/medicine/" />
 

@@ -1,5 +1,5 @@
 import { ReturnHeader } from '@/src/components/return-header'
-import { ScrollView, View } from 'react-native'
+import { View } from 'react-native'
 import * as Button from '@/src/components/button'
 import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
@@ -18,7 +18,6 @@ import { useEffect } from 'react'
 import { useToast } from 'native-base'
 import Animated, { FadeInUp } from 'react-native-reanimated'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
 
 export default function UpdateDepartamentById() {
   const { id } = useLocalSearchParams()
@@ -79,7 +78,7 @@ export default function UpdateDepartamentById() {
     }
 
     return router.navigate('/employee/departament/')
-  }, [isSuccess, requestError, toast, router])
+  }, [isSuccess, requestError])
 
   if (isError) return <Redirect href="/employee/departament/" />
 
@@ -91,10 +90,10 @@ export default function UpdateDepartamentById() {
         <Loading />
       ) : (
         <KeyboardAwareScrollView
-        contentContainerStyle={{ flexGrow: 1 }}
-        showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
-      >
+          contentContainerStyle={{ flexGrow: 1 }}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+        >
           <Animated.View entering={FadeInUp} className="py-8">
             <View className="mb-12" style={{ gap: 16 }}>
               <Controller
@@ -138,7 +137,7 @@ export default function UpdateDepartamentById() {
               <Button.Title>Salvar alterações</Button.Title>
             </Button.Root>
           </Animated.View>
-          </KeyboardAwareScrollView>
+        </KeyboardAwareScrollView>
       )}
     </View>
   )

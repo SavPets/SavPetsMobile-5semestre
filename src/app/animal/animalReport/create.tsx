@@ -122,7 +122,7 @@ export default function CreateAnimalReport() {
     }
 
     return router.navigate('/animal/animalReport/')
-  }, [isSuccess, requestError, toast, router])
+  }, [isSuccess, requestError])
 
   return (
     <View className="mx-5 mt-16 flex-1">

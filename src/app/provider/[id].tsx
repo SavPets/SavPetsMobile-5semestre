@@ -51,7 +51,7 @@ export default function ProviderByID() {
     }
 
     return router.navigate('/provider/')
-  }, [isSuccess, requestError, toast, router])
+  }, [isSuccess, requestError])
 
   if (isError) return <Redirect href="/provider/" />
 

@@ -131,7 +131,7 @@ export default function CreateAdoption() {
     }
 
     return router.navigate('/adoption/')
-  }, [isSuccess, requestError, toast, router])
+  }, [isSuccess, requestError])
 
   return (
     <View className="mx-5 mt-16 flex-1">

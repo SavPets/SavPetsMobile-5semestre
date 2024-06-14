@@ -96,7 +96,7 @@ export default function UpdateCampaignById() {
     }
 
     return router.navigate('/campaign/')
-  }, [isSuccess, requestError, toast, router])
+  }, [isSuccess, requestError])
 
   if (isError) return <Redirect href="/campaign/" />
 

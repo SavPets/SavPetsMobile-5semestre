@@ -47,7 +47,7 @@ export default function MedicineByID() {
     }
 
     return router.navigate('/medicine/')
-  }, [isSuccess, requestError, toast, router])
+  }, [isSuccess, requestError])
 
   function onDeleteMedicine() {
     mutate(id.toString())

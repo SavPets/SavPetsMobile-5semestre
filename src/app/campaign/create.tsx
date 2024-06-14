@@ -59,7 +59,7 @@ export default function CreateCampaign() {
     }
 
     return router.navigate('/campaign/')
-  }, [isSuccess, requestError, toast, router])
+  }, [isSuccess, requestError])
 
   return (
     <View className="mx-5 mt-16 flex-1">

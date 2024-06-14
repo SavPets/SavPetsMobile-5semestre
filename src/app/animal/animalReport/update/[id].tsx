@@ -126,7 +126,7 @@ export default function UpdateAnimalReportById() {
     }
 
     return router.navigate('/animal/animalReport/')
-  }, [isSuccess, requestError, toast, router])
+  }, [isSuccess, requestError])
 
   if (isError) return <Redirect href="/animal/animalReport/" />
 

@@ -111,7 +111,7 @@ export default function UpdateProviderByID() {
     }
 
     return router.navigate('/provider/')
-  }, [isSuccess, requestError, toast, router])
+  }, [isSuccess, requestError])
 
   useEffect(() => {
     ;(async () => {

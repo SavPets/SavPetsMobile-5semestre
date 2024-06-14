@@ -47,7 +47,7 @@ export default function ClientById() {
     }
 
     return router.navigate('/client/')
-  }, [isSuccess, requestError, toast, router])
+  }, [isSuccess, requestError])
 
   if (isError) return <Redirect href="/client/" />
 

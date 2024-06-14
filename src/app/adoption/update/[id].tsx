@@ -1,5 +1,5 @@
 import { ReturnHeader } from '@/src/components/return-header'
-import { ScrollView, View } from 'react-native'
+import { View } from 'react-native'
 import * as Button from '@/src/components/button'
 import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
@@ -8,7 +8,6 @@ import { ADOPTIONS } from '@/src/utils/data/adoptions'
 import { Input } from '@/src/components/input'
 import Animated, { FadeInUp } from 'react-native-reanimated'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
 
 export default function UpdateAdoptionById() {
   const { id } = useLocalSearchParams()
@@ -41,7 +40,7 @@ export default function UpdateAdoptionById() {
           </Button.Icon>
           <Button.Title>Salvar alterações</Button.Title>
         </Button.Root>
-        </KeyboardAwareScrollView>
-        </Animated.View>
+      </KeyboardAwareScrollView>
+    </Animated.View>
   )
 }

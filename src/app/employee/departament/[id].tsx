@@ -52,7 +52,7 @@ export default function DepartamentById() {
     }
 
     return router.navigate('/employee/departament/')
-  }, [isSuccess, requestError, toast, router])
+  }, [isSuccess, requestError])
 
   if (isError) return <Redirect href="/employee/departament/" />
 

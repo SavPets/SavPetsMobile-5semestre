@@ -132,7 +132,7 @@ export default function UpdateClientById() {
     }
 
     return router.navigate('/client/')
-  }, [isSuccess, requestError, toast, router])
+  }, [isSuccess, requestError])
 
   if (isError) return <Redirect href="/client/" />
 

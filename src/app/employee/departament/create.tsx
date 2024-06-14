@@ -1,5 +1,5 @@
 import { ReturnHeader } from '@/src/components/return-header'
-import { ScrollView, View } from 'react-native'
+import { View } from 'react-native'
 import * as Button from '@/src/components/button'
 import { Feather } from '@expo/vector-icons'
 import colors from 'tailwindcss/colors'
@@ -16,7 +16,6 @@ import { useEffect } from 'react'
 import { useToast } from 'native-base'
 import Animated, { FadeInUp } from 'react-native-reanimated'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
 
 export default function CreateDepartament() {
   const router = useRouter()
@@ -61,7 +60,7 @@ export default function CreateDepartament() {
     }
 
     return router.navigate('/employee/departament/')
-  }, [isSuccess, requestError, toast, router])
+  }, [isSuccess, requestError])
 
   return (
     <View className="mx-5 mt-16 flex-1">
@@ -109,7 +108,7 @@ export default function CreateDepartament() {
             <Button.Title>Cadastrar departamento</Button.Title>
           </Button.Root>
         </Animated.View>
-        </KeyboardAwareScrollView>
-        </View>
+      </KeyboardAwareScrollView>
+    </View>
   )
 }

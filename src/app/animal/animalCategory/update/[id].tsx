@@ -96,7 +96,7 @@ export default function UpdateAnimalCategoryById() {
     }
 
     return router.navigate('/animal/animalCategory/')
-  }, [isSuccess, requestError, toast, router])
+  }, [isSuccess, requestError])
 
   if (isError) return <Redirect href="/animal/animalCategory/" />
 
