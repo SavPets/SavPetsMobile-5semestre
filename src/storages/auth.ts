@@ -1,4 +1,4 @@
-import { storage } from '../lib/mmkv'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export interface UserSessionProps {
   name: string
@@ -10,8 +10,8 @@ export interface UserSessionProps {
 
 const STORAGE_AUTH_KEY = '@savpets:auth_user'
 
-export function getUserSession() {
-  const storedUserSession = storage.getString(STORAGE_AUTH_KEY)
+export async function getUserSession() {
+  const storedUserSession = await AsyncStorage.getItem(STORAGE_AUTH_KEY)
 
   const userSession: UserSessionProps | null = storedUserSession
     ? JSON.parse(storedUserSession)
@@ -20,10 +20,10 @@ export function getUserSession() {
   return userSession
 }
 
-export function saveUserSession(userSession: UserSessionProps) {
-  storage.set(STORAGE_AUTH_KEY, JSON.stringify(userSession))
+export async function saveUserSession(userSession: UserSessionProps) {
+  await AsyncStorage.setItem(STORAGE_AUTH_KEY, JSON.stringify(userSession))
 }
 
-export function deleteUserSession() {
-  storage.delete(STORAGE_AUTH_KEY)
+export async function deleteUserSession() {
+  await AsyncStorage.removeItem(STORAGE_AUTH_KEY)
 }

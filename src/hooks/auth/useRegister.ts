@@ -8,7 +8,7 @@ async function registerUser(newUser: NewUserCredentialsSchema) {
   try {
     const { data } = await api.post('/criar-cadastro', newUser)
 
-    saveUserSession(data)
+    await saveUserSession(data)
   } catch (error) {
     if (error instanceof AxiosError) return error.response?.data
   }

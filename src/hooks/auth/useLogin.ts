@@ -8,7 +8,7 @@ async function login(userCredentials: UserCredentialsSchema) {
   try {
     const { data } = await api.post('/login', userCredentials)
 
-    saveUserSession(data)
+    await saveUserSession(data)
   } catch (error) {
     if (error instanceof AxiosError) return error.response?.data
   }

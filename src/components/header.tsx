@@ -3,7 +3,8 @@ import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { NavigationMenu } from './navigation-menu'
 import { MenuContext } from '../contexts/menu-context'
 import { useContextSelector } from 'use-context-selector'
-import { getUserSession } from '../storages/auth'
+import { UserSessionProps, getUserSession } from '../storages/auth'
+import { useEffect, useState } from 'react'
 
 import userProfilerImage from '@/src/assets/user-profile.png'
 
@@ -13,10 +14,20 @@ export function Header() {
     (context) => context,
   )
 
-  const userSession = getUserSession()
+  const [userSession, setUserSession] = useState<UserSessionProps | null>(null)
+
   const userName = userSession
     ? `${userSession.name} ${userSession.surname}`
     : 'Olá, Bem Vindo!'
+
+  async function fetchSession() {
+    const userSession = await getUserSession()
+    setUserSession(userSession)
+  }
+
+  useEffect(() => {
+    fetchSession()
+  }, [])
 
   return (
     <View className="mt-16">

@@ -5,9 +5,14 @@ import { Feather } from '@expo/vector-icons'
 import Animated, { FadeInUp, FadeOutUp } from 'react-native-reanimated'
 import { MenuContext } from '../contexts/menu-context'
 import { useContextSelector } from 'use-context-selector'
-import { deleteUserSession, getUserSession } from '../storages/auth'
+import {
+  UserSessionProps,
+  deleteUserSession,
+  getUserSession,
+} from '../storages/auth'
 import { useToast } from 'native-base'
 import { filterNavSectionsByOccupation } from '../utils/filterNavSectionsByOccupation'
+import { useEffect, useState } from 'react'
 
 interface NavigationMenuProps {
   isOpen: boolean
@@ -22,15 +27,15 @@ export function NavigationMenu({ isOpen }: NavigationMenuProps) {
     (context) => context.handleChangeMenuVisibility,
   )
 
-  const userSession = getUserSession()
+  const [userSession, setUserSession] = useState<UserSessionProps | null>(null)
 
   const filteredSectionsByRole = filterNavSectionsByOccupation(
     userSession?.occupation,
   )
 
-  function handleNavigateToScreen(href: string) {
+  async function handleNavigateToScreen(href: string) {
     if (href === '/auth/login') {
-      deleteUserSession()
+      await deleteUserSession()
       handleChangeMenuVisibility()
 
       toast.show({
@@ -46,6 +51,15 @@ export function NavigationMenu({ isOpen }: NavigationMenuProps) {
     handleChangeMenuVisibility()
     return router.navigate(href)
   }
+
+  async function fetchSession() {
+    const userSession = await getUserSession()
+    setUserSession(userSession)
+  }
+
+  useEffect(() => {
+    fetchSession()
+  }, [])
 
   return (
     <Animated.View
