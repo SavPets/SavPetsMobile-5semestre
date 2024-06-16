@@ -55,7 +55,7 @@ export default function Login() {
       bg: 'success.600',
     })
 
-    return router.navigate('/employee/')
+    return router.navigate('/welcome')
   }, [isSuccess, requestError])
 
   return (

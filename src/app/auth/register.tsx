@@ -55,7 +55,7 @@ export default function Register() {
       bg: 'success.600',
     })
 
-    return router.navigate('/employee/')
+    return router.navigate('/welcome')
   }, [isSuccess, requestError])
 
   return (

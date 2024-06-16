@@ -1,10 +1,11 @@
 import { Feather } from '@expo/vector-icons'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
-import userProfilerImage from '@/src/assets/user-profile.png'
 import { NavigationMenu } from './navigation-menu'
 import { MenuContext } from '../contexts/menu-context'
 import { useContextSelector } from 'use-context-selector'
 import { getUserSession } from '../storages/auth'
+
+import userProfilerImage from '@/src/assets/user-profile.png'
 
 export function Header() {
   const { isOpenMenu, handleChangeMenuVisibility } = useContextSelector(
@@ -19,7 +20,7 @@ export function Header() {
 
   return (
     <View className="mt-16">
-      <View className=" flex-row items-center justify-between bg-slate-900 px-6">
+      <View className="flex-row items-center justify-between bg-slate-900 px-6">
         <View className="mr-5 flex-row items-center">
           <Image alt="Imagem de perfil do usuário" source={userProfilerImage} />
           <Text className="ml-1 pl-4 text-lg font-bold leading-short text-white">
@@ -28,6 +29,7 @@ export function Header() {
         </View>
 
         <TouchableOpacity
+          className="h-12 w-12 items-center justify-center"
           onPress={handleChangeMenuVisibility}
           activeOpacity={0.8}
         >

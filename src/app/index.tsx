@@ -1,11 +1,11 @@
 import { getUserSession } from '../storages/auth'
 import Login from './auth/login'
-import Employee from './employee'
+import Welcome from './welcome'
 
 export default function Home() {
   const userSession = getUserSession()
 
-  if (userSession) return <Employee />
+  if (userSession) return <Welcome />
 
-  return <Employee />
+  return <Login />
 }

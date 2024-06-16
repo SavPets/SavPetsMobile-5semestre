@@ -1,13 +1,13 @@
 import { useRouter } from 'expo-router'
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
-import { NAVIGATION_SECTIONS } from '../utils/navigationSections'
 import colors from 'tailwindcss/colors'
 import { Feather } from '@expo/vector-icons'
 import Animated, { FadeInUp, FadeOutUp } from 'react-native-reanimated'
 import { MenuContext } from '../contexts/menu-context'
 import { useContextSelector } from 'use-context-selector'
-import { deleteUserSession } from '../storages/auth'
+import { deleteUserSession, getUserSession } from '../storages/auth'
 import { useToast } from 'native-base'
+import { filterNavSectionsByOccupation } from '../utils/filterNavSectionsByOccupation'
 
 interface NavigationMenuProps {
   isOpen: boolean
@@ -20,6 +20,12 @@ export function NavigationMenu({ isOpen }: NavigationMenuProps) {
   const handleChangeMenuVisibility = useContextSelector(
     MenuContext,
     (context) => context.handleChangeMenuVisibility,
+  )
+
+  const userSession = getUserSession()
+
+  const filteredSectionsByRole = filterNavSectionsByOccupation(
+    userSession?.occupation,
   )
 
   function handleNavigateToScreen(href: string) {
@@ -48,9 +54,9 @@ export function NavigationMenu({ isOpen }: NavigationMenuProps) {
       className={`${!isOpen && 'h-0'} absolute top-[76px] z-10 mx-5 mt-8 rounded-lg bg-slate-800 px-5`}
     >
       <ScrollView showsVerticalScrollIndicator={false}>
-        {NAVIGATION_SECTIONS.map((section) => (
+        {filteredSectionsByRole.map((section) => (
           <View key={section.title}>
-            <Text className="my-5 text-sm font-semibold uppercase leading-short text-slate-300">
+            <Text className="my-5 w-screen text-sm font-semibold uppercase leading-short text-slate-300">
               {section.title}
             </Text>
 

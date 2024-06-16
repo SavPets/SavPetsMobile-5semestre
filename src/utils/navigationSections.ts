@@ -1,7 +1,7 @@
 import { Href } from 'expo-router'
 import { Feather } from '@expo/vector-icons'
 
-interface NavigationSections {
+export interface NavigationSections {
   title: string
   data: {
     icon: keyof typeof Feather.glyphMap
