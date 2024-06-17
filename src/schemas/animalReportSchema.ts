@@ -11,9 +11,10 @@ export const animalReportSchema = yup.object({
     .string()
     .required('A data de chegada do animal é obrigatória')
     .matches(
-      /\d{4}-\d{2}-\d{2}/,
-      'A data de chegada precisa estar no formato correto. Por favor, use YYYY-MM-DD',
+      /\d{2}\/\d{2}\/\d{4}/,
+      'A data de chegada precisa estar no formato correto. Por favor, use DD/MM/YYYY',
     ),
+
   local: yup
     .string()
     .required('O local onde o animal foi encontrado é obrigatório')

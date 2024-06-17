@@ -21,6 +21,7 @@ import {
 
 import { useGETAnimalCategories } from '@/src/hooks/animal/animalCategory/useGETAnimalCategories'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { TextInputMask } from 'react-native-masked-text'
 
 export default function CreateAnimalReport() {
   const router = useRouter()
@@ -155,14 +156,23 @@ export default function CreateAnimalReport() {
             <Controller
               control={control}
               name="arrivalDate"
-              render={({ field: { onChange } }) => (
-                <Input
-                  title="Data de chegada"
-                  errorMessage={errors.arrivalDate?.message}
+              render={({ field: { onChange, value } }) => (
+                <TextInputMask
+                  type={'datetime'}
+                  options={{
+                    format: 'DD/MM/YYYY',
+                  }}
+                  value={value}
                   onChangeText={onChange}
+                  customTextInput={Input}
+                  customTextInputProps={{
+                    title: 'Data de chegada',
+                    errorMessage: errors.arrivalDate?.message,
+                  }}
                 />
               )}
             />
+
             <Controller
               control={control}
               name="medicine"
