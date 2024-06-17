@@ -1,5 +1,6 @@
 import * as Button from '@/src/components/button'
 import { DeleteModal } from '@/src/components/delete-modal'
+import { DetailItem } from '@/src/components/detail-item'
 import { Loading } from '@/src/components/loading'
 import { ReturnHeader } from '@/src/components/return-header'
 import { useDELETEClient } from '@/src/hooks/client/useDELETEClient'
@@ -65,49 +66,17 @@ export default function ClientById() {
             contentContainerStyle={{ paddingVertical: 32 }}
             showsVerticalScrollIndicator={false}
           >
-            <View className="mb-12 gap-4">
-              <View className="gap-0.5">
-                <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-                  PRIMEIRO NOME
-                </Text>
-                <Text className="font-body text-base leading-relaxed text-slate-100">
-                  {client.firstName}
-                </Text>
-              </View>
-              <View className="gap-0.5">
-                <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-                  ÚLTIMO NOME
-                </Text>
-                <Text className="font-body text-base leading-relaxed text-slate-100">
-                  {client.lastName}
-                </Text>
-              </View>
+            <View className="mb-12" style={{ gap: 16 }}>
+              <DetailItem title="PRIMEIRO NOME" value={client.firstName} />
+              <DetailItem title="ÚLTIMO NOME" value={client.lastName} />
               {client.telephone && (
-                <View className="gap-0.5">
-                  <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-                    TELEFONE
-                  </Text>
-                  <Text className="font-body text-base leading-relaxed text-slate-100">
-                    {client.telephone}
-                  </Text>
-                </View>
+                <DetailItem title="TELEFONE" value={client.telephone} />
               )}
-              <View className="gap-0.5">
-                <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-                  CPF
-                </Text>
-                <Text className="font-body text-base leading-relaxed text-slate-100">
-                  {client.cpf}
-                </Text>
-              </View>
-              <View className="gap-0.5">
-                <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-                  Endereço Completo
-                </Text>
-                <Text className="font-body text-base leading-relaxed text-slate-100">
-                  {fullAdress} - {client.cep}
-                </Text>
-              </View>
+              <DetailItem title="CPF" value={client.cpf} />
+              <DetailItem
+                title="ENDEREÇO COMPLETO"
+                value={`${fullAdress} - ${client.cep}`}
+              />
             </View>
             <View style={{ gap: 12 }}>
               <Link href={`/client/update/${id}`} asChild>

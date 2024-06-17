@@ -23,7 +23,6 @@ export default function UpdateProviderByID() {
   const [isCepCorrect, setIsCepCorrect] = useState<boolean | undefined>(
     undefined,
   )
-  const [isReadyOnly, setIsReadyOnly] = useState(true)
 
   const { id } = useLocalSearchParams()
   const router = useRouter()
@@ -70,12 +69,6 @@ export default function UpdateProviderByID() {
       locationNumber === provider?.locationNumber &&
       complement === provider?.complement
     ) {
-      toast.show({
-        title: 'Altere os dados para atualizar',
-        placement: 'top',
-        textAlign: 'center',
-        bg: 'rose.400',
-      })
       return
     }
 
@@ -121,15 +114,8 @@ export default function UpdateProviderByID() {
           .then(({ data }) => {
             if (data.erro) {
               setIsCepCorrect(false)
-              setIsReadyOnly(true)
-              setAddress('')
-              console.log(data)
-            } else if (data.logradouro === '') {
-              setIsReadyOnly(false)
-              setIsCepCorrect(true)
               setAddress('')
             } else {
-              setIsReadyOnly(true)
               setAddress(data.logradouro)
               setIsCepCorrect(true)
             }
@@ -138,10 +124,6 @@ export default function UpdateProviderByID() {
             setAddress('')
             setIsCepCorrect(false)
           })
-      } else {
-        setAddress('')
-        setIsCepCorrect(false)
-        setIsReadyOnly(true)
       }
     })()
   }, [cep])
@@ -215,7 +197,7 @@ export default function UpdateProviderByID() {
                   title="Endereço"
                   defaultValue={value}
                   value={address}
-                  isReadOnly={isReadyOnly}
+                  isReadOnly
                   errorMessage={!isCepCorrect ? 'O CEP está incorreto' : null}
                   onChangeText={onChange}
                 />

@@ -7,7 +7,6 @@ import colors from 'tailwindcss/colors'
 import { useGETProviders } from '@/src/hooks/provider/useGETProviders'
 import { Header } from '@/src/components/header'
 import { Loading } from '@/src/components/loading'
-import { formatDate } from '@/src/utils/formatDate'
 import Animated, { SlideInLeft } from 'react-native-reanimated'
 import { MenuContext } from '@/src/contexts/menu-context'
 import { useContextSelector } from 'use-context-selector'
@@ -56,9 +55,6 @@ export default function Provider() {
                   <View className="mb-0.5 flex-row items-center justify-between">
                     <Text className="text-base font-semibold leading-short text-slate-100">
                       {item.name}
-                    </Text>
-                    <Text className="font-body text-sm leading-short text-slate-100">
-                      {formatDate(item.createdAt)}
                     </Text>
                   </View>
 

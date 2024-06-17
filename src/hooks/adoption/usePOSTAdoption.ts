@@ -1,11 +1,11 @@
 import { api } from '@/src/lib/axios'
-import { MedicineSchema } from '@/src/schemas/medicineSchema'
+import { AdoptionSchema } from '@/src/schemas/adoptionSchema'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 
-async function createAdoption(newMedicine: MedicineSchema) {
+async function createAdoption(newAdoption: AdoptionSchema) {
   try {
-    await api.post('/medicamentos', newMedicine)
+    await api.post('/adocao', newAdoption)
   } catch (error) {
     if (error instanceof AxiosError) return error.response?.data
   }

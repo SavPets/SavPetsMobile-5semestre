@@ -7,7 +7,13 @@ export const animalReportSchema = yup.object({
     .min(4, 'O nome precisa conter no mínimo 3 caracteres'),
   medicine: yup.string().required('A situação de saúde é obrigatória'),
   animalCategory: yup.string().required('A categoria do animal é obrigatório'),
-  arrivalDate: yup.date().required('A data de chegada do animal é obrigatória'),
+  arrivalDate: yup
+    .string()
+    .required('A data de chegada do animal é obrigatória')
+    .matches(
+      /\d{4}-\d{2}-\d{2}/,
+      'A data de chegada precisa estar no formato correto. Por favor, use YYYY-MM-DD',
+    ),
   local: yup
     .string()
     .required('O local onde o animal foi encontrado é obrigatório')

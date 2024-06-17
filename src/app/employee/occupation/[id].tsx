@@ -74,10 +74,12 @@ export default function OccupationById() {
 
                 <DetailItem title="DESCRIÇÃO" value={occupation.description} />
 
-                <DetailItem
-                  title="DATA DE CRIAÇÃO"
-                  value={occupation.createdAt}
-                />
+                {occupation.createdAt && (
+                  <DetailItem
+                    title="DATA DE CRIAÇÃO"
+                    value={occupation.createdAt}
+                  />
+                )}
               </View>
 
               <View>

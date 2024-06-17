@@ -2,7 +2,6 @@ import * as Button from '@/src/components/button'
 import { Loading } from '@/src/components/loading'
 import { ReturnHeader } from '@/src/components/return-header'
 import { useGETAdoptionById } from '@/src/hooks/adoption/useGETAdoptionById'
-import { formatDate } from '@/src/utils/formatDate'
 import { Feather } from '@expo/vector-icons'
 import { Link, Redirect, useLocalSearchParams } from 'expo-router'
 import { Text, View } from 'react-native'
@@ -33,20 +32,13 @@ export default function AdoptionById() {
           <View className="mb-12 gap-4">
             <View className="gap-0.5">
               <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-                NOME DO ANIMAL
-              </Text>
-              <Text className="font-body text-base leading-relaxed text-slate-100">
-                {adoption.animalName}
-              </Text>
-            </View>
-            <View className="gap-0.5">
-              <Text className="text-base font-semibold uppercase leading-short text-slate-300">
                 FUNCIONÁRIO
               </Text>
               <Text className="font-body text-base leading-relaxed text-slate-100">
                 {adoption.employee}
               </Text>
             </View>
+
             <View className="gap-0.5">
               <Text className="text-base font-semibold uppercase leading-short text-slate-300">
                 CLIENTE
@@ -60,7 +52,7 @@ export default function AdoptionById() {
                 DATA DE ADOÇÃO
               </Text>
               <Text className="font-body text-base leading-relaxed text-slate-100">
-                {formatDate(adoption.adoptionDate)}
+                {adoption.adoptionDate}
               </Text>
             </View>
             <View className="gap-0.5">

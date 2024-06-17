@@ -8,7 +8,7 @@ import { ButtonSelect } from '@/src/components/button-select'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useToast } from 'native-base'
 import { useRouter } from 'expo-router'
-import { usePOSTEmployee } from '@/src/hooks/employee/usePOSTEmpoyee'
+import { usePOSTEmployee } from '@/src/hooks/employee/usePOSTEmployee'
 import { EmployeeSchema, employeeSchema } from '@/src/schemas/employeeSchema'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Controller, useForm } from 'react-hook-form'
@@ -247,7 +247,7 @@ export default function CreateEmployee() {
               name="departament"
               render={({ field: { onChange } }) => (
                 <ButtonSelect
-                  value={departamentsOptions[0].value}
+                  value={''}
                   title="Departamento"
                   options={departamentsOptions}
                   onChange={onChange}
@@ -260,7 +260,7 @@ export default function CreateEmployee() {
               name="occupation"
               render={({ field: { onChange } }) => (
                 <ButtonSelect
-                  value={occupationsOptions[0].value}
+                  value={''}
                   title="Ocupação"
                   options={occupationsOptions}
                   onChange={onChange}

@@ -8,8 +8,6 @@ export const providerSchema = yup.object({
   cnpj: yup
     .string()
     .required('O CNPJ é obrigatório')
-    .min(18, 'O CNPJ precisa ter 18 caracteres')
-    .max(18, 'O CNPJ precisa ter 18 caracteres')
     .matches(
       /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/,
       'O CNPJ precisa estar no formato correto (00.000.000/0000-00)',
@@ -17,8 +15,6 @@ export const providerSchema = yup.object({
   cep: yup
     .string()
     .required('O CEP é obrigatório')
-    .min(9, 'O CEP precisa ter 9 caracteres')
-    .max(9, 'O CEP precisa ter 9 caracteres')
     .matches(
       /^\d{5}-\d{3}/,
       'O CEP precisa estar no formato correto (00000-000)',

@@ -5,7 +5,6 @@ import { Link } from 'expo-router'
 import { FlatList, Text, TouchableOpacity, View } from 'react-native'
 import colors from 'tailwindcss/colors'
 import { useGETAdoptions } from '@/src/hooks/adoption/useGETAdoptions'
-import { formatDate } from '@/src/utils/formatDate'
 import { Header } from '@/src/components/header'
 import { Loading } from '@/src/components/loading'
 import Animated, { SlideInLeft } from 'react-native-reanimated'
@@ -57,7 +56,7 @@ export default function Adoption() {
                       {item.animalName}
                     </Text>
                     <Text className="font-body text-sm leading-relaxed text-slate-300">
-                      {formatDate(item.adoptionDate)}
+                      {item.adoptionDate}
                     </Text>
                   </View>
                   <Text className="mb-0.5 font-body text-sm leading-relaxed text-slate-300">

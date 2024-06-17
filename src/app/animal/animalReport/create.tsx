@@ -20,30 +20,7 @@ import {
 } from '@/src/schemas/animalReportSchema'
 
 import { useGETAnimalCategories } from '@/src/hooks/animal/animalCategory/useGETAnimalCategories'
-
-/* export const medicineOptions = [
-  { label: 'Não Medicado', value: 'nao_medicado' },
-  ...MEDICINE.map((item) => ({
-    label: item.name,
-    value: item.name,
-  })),
-]
- 
-export const categoryOptions = useGETAnimalCategory(
-  (
-    item: {
-      name: string
-      race: string
-      gender: string
-      size: string
-      coatColor: string
-    },
-    index,
-  ) => ({
-    label: `${item.name}, ${item.race}, ${item.gender}, ${item.size}, ${item.coatColor}`,
-    value: `${item.name}_${index}`, // Aqui você concatena o nome com o índice para tornar único
-  }),
-) */
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 export default function CreateAnimalReport() {
   const router = useRouter()
@@ -127,101 +104,110 @@ export default function CreateAnimalReport() {
   return (
     <View className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Novo Relatório" />
-
-      <Animated.ScrollView
-        entering={FadeInUp}
-        contentContainerStyle={{ paddingVertical: 32 }}
+      <KeyboardAwareScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
       >
-        <View className="mb-12" style={{ gap: 16 }}>
-          <Controller
-            control={control}
-            name="animalName"
-            render={({ field: { onChange } }) => (
-              <Input
-                title="Nome"
-                errorMessage={errors.animalName?.message}
-                onChangeText={onChange}
-              />
-            )}
-          />
+        <Animated.ScrollView
+          entering={FadeInUp}
+          contentContainerStyle={{ paddingVertical: 32 }}
+        >
+          <View className="mb-12" style={{ gap: 16 }}>
+            <Controller
+              control={control}
+              name="animalName"
+              render={({ field: { onChange } }) => (
+                <Input
+                  title="Nome"
+                  errorMessage={errors.animalName?.message}
+                  onChangeText={onChange}
+                />
+              )}
+            />
 
-          <Controller
-            control={control}
-            name="animalCategory"
-            render={({ field: { onChange } }) => (
-              <Select
-                title={'Categoria'}
-                options={categoryOptions}
-                value={''}
-                errorMessage={errors.animalCategory?.message}
-                onChange={onChange}
-              />
-            )}
-          />
+            <Controller
+              control={control}
+              name="animalCategory"
+              render={({ field: { onChange } }) => (
+                <Select
+                  title={'Categoria'}
+                  options={categoryOptions}
+                  value={''}
+                  errorMessage={errors.animalCategory?.message}
+                  onChange={onChange}
+                />
+              )}
+            />
 
-          <Controller
-            control={control}
-            name="local"
-            render={({ field: { onChange } }) => (
-              <Input
-                title="Local encontrado"
-                errorMessage={errors.local?.message}
-                onChangeText={onChange}
-              />
-            )}
-          />
+            <Controller
+              control={control}
+              name="local"
+              render={({ field: { onChange } }) => (
+                <Input
+                  title="Local encontrado"
+                  errorMessage={errors.local?.message}
+                  onChangeText={onChange}
+                />
+              )}
+            />
 
-          <Controller
-            control={control}
-            name="arrivalDate"
-            render={({ field: { onChange } }) => (
-              <Input
-                title="Data de chegada"
-                errorMessage={errors.arrivalDate?.message}
-                onChangeText={onChange}
-              />
-            )}
-          />
-          <Controller
-            control={control}
-            name="medicine"
-            render={({ field: { onChange } }) => (
-              <Select
-                title={'Medicamento'}
-                options={medicineOptions}
-                value={''}
-                errorMessage={errors.medicine?.message}
-                onChange={onChange}
-              />
-            )}
-          />
+            <Controller
+              control={control}
+              name="arrivalDate"
+              render={({ field: { onChange } }) => (
+                <Input
+                  title="Data de chegada"
+                  errorMessage={errors.arrivalDate?.message}
+                  onChangeText={onChange}
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              name="medicine"
+              render={({ field: { onChange } }) => (
+                <Select
+                  title={'Medicamento'}
+                  options={medicineOptions}
+                  value={''}
+                  errorMessage={errors.medicine?.message}
+                  onChange={onChange}
+                />
+              )}
+            />
 
-          <Controller
-            control={control}
-            name="description"
-            render={({ field: { onChange } }) => (
-              <Input
-                title="Descrição"
-                multiline={true}
-                errorMessage={errors.description?.message}
-                onChangeText={onChange}
-              />
-            )}
-          />
-        </View>
+            <Controller
+              control={control}
+              name="description"
+              render={({ field: { onChange } }) => (
+                <Input
+                  title="Descrição"
+                  multiline={true}
+                  errorMessage={errors.description?.message}
+                  onChangeText={onChange}
+                />
+              )}
+            />
+          </View>
 
-        <View>
-          <Button.Root
-            disabled={isSubmitting || isPending}
-            onPress={handleSubmit(handleCreateAnimalReport)}
-          >
-            <Button.Icon>
-              <Feather name="plus-square" size={18} color={colors.slate[950]} />
-            </Button.Icon>
-            <Button.Title>Cadastrar relatório</Button.Title>
-          </Button.Root>
-        </View>
-      </Animated.ScrollView>
+          <View>
+            <Button.Root
+              disabled={isSubmitting || isPending}
+              onPress={handleSubmit(handleCreateAnimalReport)}
+            >
+              <Button.Icon>
+                <Feather
+                  name="plus-square"
+                  size={18}
+                  color={colors.slate[950]}
+                />
+              </Button.Icon>
+              <Button.Title>Cadastrar relatório</Button.Title>
+            </Button.Root>
+          </View>
+        </Animated.ScrollView>
+      </KeyboardAwareScrollView>
     </View>
   )
 }

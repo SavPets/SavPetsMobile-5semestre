@@ -21,6 +21,10 @@ import { useGETAnimalReports } from '@/src/hooks/animal/animalReport/useGETAnima
 export default function CreateAdoption() {
   const [isLoading, setIsLoading] = useState(true)
 
+  const [employee, setEmployee] = useState<string>('')
+  const [client, setClient] = useState<string>('')
+  const [animalReport, setAnimalReport] = useState<string>('')
+
   const employeeOptions: Option[] = []
   const clientOptions: Option[] = []
   const animalReportOptions: Option[] = []
@@ -61,6 +65,12 @@ export default function CreateAdoption() {
 
       return router.navigate('/adoption/')
     }
+
+    if (employees) setEmployee(`${employees[0].name} ${employees[0].surname}`)
+
+    if (clients) setClient(`${clients[0].firstName} ${clients[0].lastName}`)
+
+    if (animalReports) setAnimalReport(animalReports[0].animalName)
   }, [
     animalReports,
     clients,
@@ -75,7 +85,7 @@ export default function CreateAdoption() {
   employees?.forEach((employee) => {
     const newOption = {
       label: `${employee.name} ${employee.surname}`,
-      value: employee.id,
+      value: `${employee.name} ${employee.surname}`,
     }
 
     employeeOptions.push(newOption)
@@ -84,7 +94,7 @@ export default function CreateAdoption() {
   clients?.forEach((client) => {
     const newOption = {
       label: `${client.firstName} ${client.lastName}`,
-      value: client.id,
+      value: `${client.firstName} ${client.lastName}`,
     }
 
     clientOptions.push(newOption)
@@ -107,8 +117,15 @@ export default function CreateAdoption() {
     resolver: yupResolver(adoptionSchema),
   })
 
-  function handleCreateAdoption({ employee }: AdoptionSchema) {
-    mutate({ employee })
+  function handleCreateAdoption({ adoptionDate, report }: AdoptionSchema) {
+    mutate({
+      employee,
+      client,
+      adoptionDate,
+      animalReport,
+      report,
+      animalName: animalReport,
+    })
   }
 
   useEffect(() => {
@@ -137,7 +154,10 @@ export default function CreateAdoption() {
     <View className="mx-5 mt-16 flex-1">
       <ReturnHeader title="Cadastrar adoção" />
 
-      {isLoading ? (
+      {isLoading ||
+      isLoadingEmployees ||
+      isLoadingAnimalReports ||
+      isLoadingClients ? (
         <Loading />
       ) : (
         <Animated.ScrollView
@@ -149,37 +169,53 @@ export default function CreateAdoption() {
             <Controller
               control={control}
               name="employee"
-              render={() => (
+              render={({ field: { onChange } }) => (
                 <Select
                   options={employeeOptions}
                   title="Funcionário"
-                  value={employeeOptions[0].value}
+                  value={employee}
                   errorMessage={errors.employee?.message}
+                  onValueChange={setEmployee}
+                  onChange={onChange}
                 />
               )}
             />
             <Controller
               control={control}
               name="client"
-              render={() => (
+              render={({ field: { onChange } }) => (
                 <Select
                   options={clientOptions}
                   title="Cliente"
-                  value={clientOptions[0].value}
+                  value={client}
                   errorMessage={errors.client?.message}
+                  onValueChange={setClient}
+                  onChange={onChange}
                 />
               )}
             />
-            <Input title="Data de adoção" />
+            <Controller
+              control={control}
+              name="adoptionDate"
+              render={({ field: { onChange } }) => (
+                <Input
+                  title="Data da adoção"
+                  errorMessage={errors.adoptionDate?.message}
+                  onChangeText={onChange}
+                  py={2}
+                />
+              )}
+            />
             <Controller
               control={control}
               name="animalReport"
-              render={() => (
+              render={({ field: { onChange } }) => (
                 <Select
                   options={animalReportOptions}
                   title="Animal"
-                  value={animalReportOptions[0].value}
+                  value={animalReport}
                   errorMessage={errors.animalReport?.message}
+                  onChange={onChange}
                 />
               )}
             />

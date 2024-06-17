@@ -1,9 +1,17 @@
 import * as yup from 'yup'
 
 export const adoptionSchema = yup.object({
-  employee: yup.string().required('O funcionário precisa ser selecionado'),
-  client: yup.string().required('O cliente precisa ser selecionado'),
-  animalReport: yup.string().required('O animal precisa ser selecionado'),
+  employee: yup.string(),
+  client: yup.string(),
+  animalReport: yup.string(),
+  animalName: yup.string(),
+  adoptionDate: yup
+    .string()
+    .required('A data da adoção é obrigatória')
+    .matches(
+      /\d{4}-\d{2}-\d{2}/,
+      'A data da adoção precisa estar no formato correto. Use YYYY-MM-DD',
+    ),
   report: yup
     .string()
     .required('O relatório é obrigatório')
@@ -12,13 +20,7 @@ export const adoptionSchema = yup.object({
 
 export type AdoptionSchema = yup.InferType<typeof adoptionSchema>
 
-export interface AdoptionDTO {
+export type AdoptionDTO = AdoptionSchema & {
   id: string
-  employee: string
-  client: string
-  animalReport: string
-  animalName: string
-  adoptionDate: Date
-  report: string
   createdAt: string
 }

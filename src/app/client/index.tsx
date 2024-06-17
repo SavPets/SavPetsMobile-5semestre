@@ -7,7 +7,6 @@ import colors from 'tailwindcss/colors'
 import { useGETClients } from '@/src/hooks/client/useGETClients'
 import { Header } from '@/src/components/header'
 import { Loading } from '@/src/components/loading'
-import { formatDate } from '@/src/utils/formatDate'
 import Animated, { SlideInLeft } from 'react-native-reanimated'
 import { MenuContext } from '@/src/contexts/menu-context'
 import { useContextSelector } from 'use-context-selector'
@@ -55,9 +54,6 @@ export default function Client() {
                   <View className="mb-0.5 flex-row items-center justify-between">
                     <Text className="mb-0.5 text-base font-semibold leading-short text-slate-100">
                       {item.firstName} {item.lastName}
-                    </Text>
-                    <Text className="font-body text-sm leading-short text-slate-100">
-                      {formatDate(item.createdAt)}
                     </Text>
                   </View>
                   {item.telephone && (

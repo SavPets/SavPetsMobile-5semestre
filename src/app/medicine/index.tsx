@@ -28,7 +28,7 @@ export default function Medicine() {
     <>
       <Header />
 
-      {isLoading ? (
+      {isLoading || medicine ? (
         <Loading />
       ) : (
         <View
@@ -80,7 +80,7 @@ export default function Medicine() {
             <Link href="/medicine/create" asChild>
               <Button.Root isFloat>
                 <Button.Icon>
-                  <Feather name="plus" size={28} color={colors.slate[950]} />
+                  <Feather name="plus-square" size={28} color={colors.slate[950]} />
                 </Button.Icon>
               </Button.Root>
             </Link>

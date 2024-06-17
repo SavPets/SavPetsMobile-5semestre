@@ -189,7 +189,7 @@ export default function UpdateClientById() {
               name="cpf"
               render={({ field: { onChange, value } }) => (
                 <Input
-                  title="Telefone"
+                  title="CPF"
                   errorMessage={errors.cpf?.message}
                   defaultValue={value}
                   onChangeText={onChange}

@@ -73,8 +73,6 @@ export default function CreateAnimalCategory() {
         textAlign: 'center',
         bgColor: 'success.600',
       })
-      console.log('Categoria criada com sucesso')
-      console.log(requestError)
     } else {
       const errorMessage =
         typeof requestError === 'string'

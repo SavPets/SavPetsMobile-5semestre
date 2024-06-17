@@ -21,7 +21,6 @@ export default function CreateProvider() {
   const [isCepCorrect, setIsCepCorrect] = useState<boolean | undefined>(
     undefined,
   )
-  const [isReadyOnly, setIsReadyOnly] = useState(true)
 
   const router = useRouter()
   const toast = useToast()
@@ -83,13 +82,8 @@ export default function CreateProvider() {
           .then(({ data }) => {
             if (data.erro) {
               setIsCepCorrect(false)
-              setIsReadyOnly(true)
-            } else if (data.logradouro === '') {
-              setIsReadyOnly(false)
-              setIsCepCorrect(true)
               setAddress('')
             } else {
-              setIsReadyOnly(true)
               setAddress(data.logradouro)
               setIsCepCorrect(true)
             }
@@ -98,9 +92,6 @@ export default function CreateProvider() {
             setAddress('')
             setIsCepCorrect(false)
           })
-      } else {
-        setAddress('')
-        setIsReadyOnly(true)
       }
     })()
   }, [cep])
@@ -155,7 +146,7 @@ export default function CreateProvider() {
 
           <Input
             title="Endereço"
-            isReadOnly={isReadyOnly}
+            isReadOnly
             errorMessage={isCepCorrect === false ? 'CEP Inválido' : null}
             value={address}
           />

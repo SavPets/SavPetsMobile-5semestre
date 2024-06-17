@@ -23,7 +23,7 @@ export const clientSchema = yup.object({
     .required('O CPF é obrigatório')
     .matches(
       /\d{3}\.\d{3}\.\d{3}-\d{2}/,
-      'Formato de CEP inválido. Por favor, use 00000-000',
+      'Formato de CEP inválido. Por favor, use 000.000.000-00',
     ),
   cep: yup
     .string()

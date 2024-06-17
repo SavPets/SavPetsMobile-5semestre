@@ -74,7 +74,7 @@ export default function ProviderByID() {
                     Razão Social
                   </Text>
                   <Text className="font-body text-base leading-relaxed text-slate-100">
-                    {provider?.name}
+                    {provider.name}
                   </Text>
                 </View>
 
@@ -83,7 +83,7 @@ export default function ProviderByID() {
                     CNPJ
                   </Text>
                   <Text className="font-body text-base leading-relaxed text-slate-100">
-                    {provider?.cnpj}
+                    {provider.cnpj}
                   </Text>
                 </View>
 
@@ -92,7 +92,7 @@ export default function ProviderByID() {
                     CEP
                   </Text>
                   <Text className="font-body text-base leading-relaxed text-slate-100">
-                    {provider?.cep}
+                    {provider.cep}
                   </Text>
                 </View>
 
@@ -101,7 +101,7 @@ export default function ProviderByID() {
                     Endereço Completo
                   </Text>
                   <Text className="font-body text-base leading-relaxed text-slate-100">
-                    {`${provider?.address}, ${provider.locationNumber} ${provider.complement ? ` - ${provider.complement}` : ''}`}
+                    {`${provider.address}, ${provider.locationNumber}${provider.complement ? ` - ${provider.complement}` : ''}`}
                   </Text>
                 </View>
               </View>

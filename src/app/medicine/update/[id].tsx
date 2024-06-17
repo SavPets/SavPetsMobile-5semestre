@@ -13,10 +13,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Controller, useForm } from 'react-hook-form'
 import { MedicineSchema, medicineSchema } from '@/src/schemas/medicineSchema'
 import { usePUTMedicine } from '@/src/hooks/medicine/usePUTMedicine'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Option, Select } from '@/src/components/select'
 import { useGETProviders } from '@/src/hooks/provider/useGETProviders'
-import { formatDateISO } from '@/src/utils/formatDateISO'
 
 export default function UpdateMedicineById() {
   const { id } = useLocalSearchParams()
@@ -28,14 +27,6 @@ export default function UpdateMedicineById() {
     isError,
     isLoading,
   } = useGETMedicineById(id.toString())
-
-  const [provider, setProvider] = useState<string | undefined>(
-    medicine?.provider,
-  )
-
-  function handleProviderChange(providerValue: string) {
-    setProvider(providerValue)
-  }
 
   const {
     control,
@@ -68,6 +59,7 @@ export default function UpdateMedicineById() {
     amount,
     arrivalDate,
     leaflet,
+    provider,
   }: MedicineSchema) {
     if (
       name === medicine?.name &&
@@ -96,10 +88,6 @@ export default function UpdateMedicineById() {
 
     mutate({ id: id.toString(), updatedMedicine })
   }
-
-  useEffect(() => {
-    console.log(provider)
-  }, [provider])
 
   const providersOptions: Option[] = []
 
@@ -261,11 +249,17 @@ export default function UpdateMedicineById() {
               )}
             />
 
-            <Select
-              title="Fornecedor"
-              value={provider!}
-              options={providersOptions}
-              onValueChange={handleProviderChange}
+            <Controller
+              control={control}
+              name="provider"
+              render={({ field: { onChange, value } }) => (
+                <Select
+                  title="Fornecedor"
+                  value={value!}
+                  options={providersOptions}
+                  onChange={onChange}
+                />
+              )}
             />
           </View>
 

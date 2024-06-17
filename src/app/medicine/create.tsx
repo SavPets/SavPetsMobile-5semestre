@@ -12,19 +12,12 @@ import { usePOSTMedicine } from '@/src/hooks/medicine/usePOSTMedine'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { MedicineSchema, medicineSchema } from '@/src/schemas/medicineSchema'
 import { Controller, useForm } from 'react-hook-form'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Option, Select } from '@/src/components/select'
 import { useGETProviders } from '@/src/hooks/provider/useGETProviders'
 import { Loading } from '@/src/components/loading'
-import { formatDateISO } from '@/src/utils/formatDateISO'
 
 export default function CreateMedicine() {
-  const [provider, setProvider] = useState<string>('')
-
-  function handleProviderChange(providerValue: string) {
-    setProvider(providerValue)
-  }
-
   const router = useRouter()
   const toast = useToast()
 
@@ -45,7 +38,6 @@ export default function CreateMedicine() {
   function handleCreateMedicine(medicine: MedicineSchema) {
     mutate({
       ...medicine,
-      provider,
     })
   }
 
@@ -83,9 +75,6 @@ export default function CreateMedicine() {
   
         return router.navigate('/medicine/')
       }
-
-      if (providers)
-        setProvider(providers[0].name)
     }
   }, [isLoading, providers, router, toast])
 
@@ -213,11 +202,17 @@ export default function CreateMedicine() {
               )}
             />
 
-            <Select
-              title="Fornecedor"
-              value={provider}
-              options={providersOptions}
-              onValueChange={handleProviderChange}
+            <Controller
+              control={control}
+              name="provider"
+              render={({ field: { onChange } }) => (
+                <Select
+                  title="Fornecedor"
+                  value={''}
+                  options={providersOptions}
+                  onChange={onChange}
+                />
+              )}
             />
           </View>
 
