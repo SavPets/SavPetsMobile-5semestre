@@ -64,7 +64,7 @@ export default function AnimalCategory() {
                       </Text>
 
                       <Text className="font-body text-sm leading-short text-slate-100">
-                        {formatDate(item.createdAt)}
+                        {item.createdAt}
                       </Text>
                     </View>
 

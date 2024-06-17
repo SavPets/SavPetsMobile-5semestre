@@ -7,7 +7,6 @@ import { Text } from 'native-base'
 import colors from 'tailwindcss/colors'
 import { Header } from '@/src/components/header'
 import { useGETAnimalReports } from '@/src/hooks/animal/animalReport/useGETAnimalReports'
-import { formatDate } from '@/src/utils/formatDate'
 import { Loading } from '@/src/components/loading'
 import Animated, { SlideInLeft } from 'react-native-reanimated'
 import { MenuContext } from '@/src/contexts/menu-context'
@@ -63,7 +62,7 @@ export default function AnimalReport() {
                       {item.animalName}
                     </Text>
                     <Text className="font-body text-sm leading-short text-slate-100">
-                      {formatDate(item.arrivalDate)}
+                      {item.createdAt}
                     </Text>
                   </View>
 

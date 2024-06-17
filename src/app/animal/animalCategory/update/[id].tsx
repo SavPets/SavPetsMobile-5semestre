@@ -116,7 +116,7 @@ export default function UpdateAnimalCategoryById() {
                 <Input
                   title="Nome"
                   defaultValue={category.name}
-                  // errorMessage={errors.name?.message}
+                  errorMessage={errors.name?.message}
                   onChangeText={onChange}
                 />
               )}
@@ -129,7 +129,7 @@ export default function UpdateAnimalCategoryById() {
                 <Input
                   title="Raça"
                   defaultValue={category.race}
-                  // errorMessage={errors.race?.message}
+                  errorMessage={errors.race?.message}
                   onChangeText={onChange}
                 />
               )}
@@ -142,7 +142,7 @@ export default function UpdateAnimalCategoryById() {
                 <Input
                   title="Cor"
                   defaultValue={category.coatColor}
-                  // errorMessage={errors.coatColor?.message}
+                  errorMessage={errors.coatColor?.message}
                   onChangeText={onChange}
                 />
               )}
@@ -155,7 +155,7 @@ export default function UpdateAnimalCategoryById() {
                 <ButtonSelect
                   title="Gênero"
                   options={GenderOptions}
-                  // errorMessage={errors.gender?.message}
+                  errorMessage={errors.gender?.message}
                   value={category.gender}
                   onChange={onChange}
                 />
@@ -171,7 +171,7 @@ export default function UpdateAnimalCategoryById() {
                   options={SizeOptions}
                   value={category.size}
                   onChange={onChange}
-                  //  errorMessage={errors.size?.message}
+                  errorMessage={errors.size?.message}
                 />
               )}
             />

@@ -11,7 +11,6 @@ import {
   AnimalCategorySchema,
   animalCategorySchema,
 } from '@/src/schemas/animalCategorySchema'
-import { zodResolver } from '@hookform/resolvers/zod'
 import Animated, { FadeInUp } from 'react-native-reanimated'
 import { usePOSTAnimalCategory } from '@/src/hooks/animal/animalCategory/usePOSTAnimalCategory'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -36,10 +35,6 @@ interface RequestError {
 }
 
 export default function CreateAnimalCategory() {
-  // const { register } = useForm<AnimalCategorySchema>({
-  // resolver: zodResolver(animalCategorySchema),
-  //  })
-
   const router = useRouter()
   const toast = useToast()
 
@@ -108,8 +103,8 @@ export default function CreateAnimalCategory() {
             render={({ field: { onChange } }) => (
               <Input
                 title="Nome"
+                errorMessage={errors.name?.message}
                 onChangeText={onChange}
-                // errorMessage={errors.name?.message}
               />
             )}
           />
@@ -121,7 +116,7 @@ export default function CreateAnimalCategory() {
               <Input
                 title="Cor"
                 onChangeText={onChange}
-                // errorMessage={errors.coatColor?.message}
+                errorMessage={errors.coatColor?.message}
               />
             )}
           />
@@ -133,7 +128,7 @@ export default function CreateAnimalCategory() {
               <Input
                 title="Raça"
                 onChangeText={onChange}
-                // errorMessage={errors.race?.message}
+                errorMessage={errors.race?.message}
               />
             )}
           />
@@ -147,7 +142,7 @@ export default function CreateAnimalCategory() {
                 options={GenderOptions}
                 value={''}
                 onChange={onChange}
-                // errorMessage={errors.gender?.message}
+                errorMessage={errors.gender?.message}
               />
             )}
           />
@@ -161,7 +156,7 @@ export default function CreateAnimalCategory() {
                 options={SizeOptions}
                 value={''}
                 onChange={onChange}
-                //  errorMessage={errors.size?.message}
+                errorMessage={errors.size?.message}
               />
             )}
           />
