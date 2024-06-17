@@ -1,7 +1,9 @@
 import * as Button from '@/src/components/button'
+import { DetailItem } from '@/src/components/detail-item'
 import { Loading } from '@/src/components/loading'
 import { ReturnHeader } from '@/src/components/return-header'
 import { useGETAdoptionById } from '@/src/hooks/adoption/useGETAdoptionById'
+import { formatDate } from '@/src/utils/formatDate'
 import { Feather } from '@expo/vector-icons'
 import { Link, Redirect, useLocalSearchParams } from 'expo-router'
 import { Text, View } from 'react-native'
@@ -29,40 +31,16 @@ export default function AdoptionById() {
           contentContainerStyle={{ paddingVertical: 32 }}
           showsVerticalScrollIndicator={false}
         >
-          <View className="mb-12 gap-4">
-            <View className="gap-0.5">
-              <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-                FUNCIONÁRIO
-              </Text>
-              <Text className="font-body text-base leading-relaxed text-slate-100">
-                {adoption.employee}
-              </Text>
-            </View>
+          <View className="mb-12" style={{ gap: 16 }}>
+            <DetailItem title="ANIMAL" value={adoption.animalName} />
 
-            <View className="gap-0.5">
-              <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-                CLIENTE
-              </Text>
-              <Text className="font-body text-base leading-relaxed text-slate-100">
-                {adoption.client}
-              </Text>
-            </View>
-            <View className="gap-0.5">
-              <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-                DATA DE ADOÇÃO
-              </Text>
-              <Text className="font-body text-base leading-relaxed text-slate-100">
-                {adoption.adoptionDate}
-              </Text>
-            </View>
-            <View className="gap-0.5">
-              <Text className="text-base font-semibold uppercase leading-short text-slate-300">
-                RELATÓRIO
-              </Text>
-              <Text className="font-body text-base leading-relaxed text-slate-100">
-                {adoption.report}
-              </Text>
-            </View>
+            <DetailItem title="FUNCIONÁRIO" value={adoption.employee!} />
+
+            <DetailItem title="CLIENTE" value={adoption.client!} />
+
+            <DetailItem title="DATA DE ADOÇÃO" value={formatDate(adoption.adoptionDate)!} />
+
+            <DetailItem title="RELATÓRIO" value={adoption.report} />
           </View>
           <View style={{ gap: 12 }}>
             <Link href={`/adoption/update/${id}`} asChild>

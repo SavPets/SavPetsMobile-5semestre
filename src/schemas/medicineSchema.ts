@@ -1,5 +1,4 @@
 import * as yup from 'yup'
-import { formatDateISO } from '../utils/formatDateISO'
 
 export const medicineSchema = yup.object({
   name: yup
@@ -13,8 +12,7 @@ export const medicineSchema = yup.object({
     .matches(
       /^\d{4}-\d{2}-\d{2}$/,
       'Formato de data inválido. Por favor, use YYYY-MM-DD.',
-    )
-    .default(formatDateISO(new Date())),
+    ),
   expirationDate: yup
     .string()
     .trim()
@@ -22,8 +20,7 @@ export const medicineSchema = yup.object({
     .matches(
       /^\d{4}-\d{2}-\d{2}$/,
       'Formato de data inválido. Por favor, use YYYY-MM-DD.',
-    )
-    .default(formatDateISO(new Date())),
+    ),
   utility: yup.string().required('A utilidade é obrigatória'),
   observation: yup.string().optional().nullable(),
   amount: yup
@@ -39,8 +36,7 @@ export const medicineSchema = yup.object({
     .matches(
       /^\d{4}-\d{2}-\d{2}$/,
       'Formato de data inválido. Por favor, use YYYY-MM-DD.',
-    )
-    .default(formatDateISO(new Date())),
+    ),
   leaflet: yup
     .string()
     .required('A bula é obrigatória')

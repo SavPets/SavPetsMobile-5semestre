@@ -4,7 +4,6 @@ export const adoptionSchema = yup.object({
   employee: yup.string(),
   client: yup.string(),
   animalReport: yup.string(),
-  animalName: yup.string(),
   adoptionDate: yup
     .string()
     .required('A data da adoção é obrigatória')
@@ -22,5 +21,6 @@ export type AdoptionSchema = yup.InferType<typeof adoptionSchema>
 
 export type AdoptionDTO = AdoptionSchema & {
   id: string
+  animalName: string
   createdAt: string
 }

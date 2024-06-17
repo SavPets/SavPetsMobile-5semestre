@@ -20,7 +20,7 @@ type SelectProps = ISelectProps &
     options: Option[]
     value: string | null
     errorMessage?: string | null
-    onChange: (value: string) => void
+    onChange?: (value: string) => void
   }
 
 export function Select({
@@ -38,7 +38,7 @@ export function Select({
 
   const handleValueChange = (newValue: string) => {
     setService(newValue)
-    onChange(newValue)
+    onChange && onChange(newValue)
   }
 
   return (

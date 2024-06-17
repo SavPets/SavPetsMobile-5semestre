@@ -70,7 +70,7 @@ export default function CreateAdoption() {
 
     if (clients) setClient(`${clients[0].firstName} ${clients[0].lastName}`)
 
-    if (animalReports) setAnimalReport(animalReports[0].animalName)
+    if (animalReports) setAnimalReport(animalReports[0].id)
   }, [
     animalReports,
     clients,
@@ -124,7 +124,6 @@ export default function CreateAdoption() {
       adoptionDate,
       animalReport,
       report,
-      animalName: animalReport,
     })
   }
 
@@ -209,13 +208,13 @@ export default function CreateAdoption() {
             <Controller
               control={control}
               name="animalReport"
-              render={({ field: { onChange } }) => (
+              render={() => (
                 <Select
                   options={animalReportOptions}
                   title="Animal"
                   value={animalReport}
                   errorMessage={errors.animalReport?.message}
-                  onChange={onChange}
+                  onValueChange={setAnimalReport}
                 />
               )}
             />

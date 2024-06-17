@@ -10,6 +10,7 @@ import { Loading } from '@/src/components/loading'
 import Animated, { SlideInLeft } from 'react-native-reanimated'
 import { MenuContext } from '@/src/contexts/menu-context'
 import { useContextSelector } from 'use-context-selector'
+import { formatDate } from '@/src/utils/formatDate'
 
 const AnimatedTouchableOpacity =
   Animated.createAnimatedComponent(TouchableOpacity)
@@ -56,17 +57,14 @@ export default function Adoption() {
                       {item.animalName}
                     </Text>
                     <Text className="font-body text-sm leading-relaxed text-slate-300">
-                      {item.adoptionDate}
+                      {formatDate(item.adoptionDate)}
                     </Text>
                   </View>
                   <Text className="mb-0.5 font-body text-sm leading-relaxed text-slate-300">
-                    {item.client}
+                    Ciente: {item.client}
                   </Text>
                   <Text className="mb-0.5 font-body text-sm leading-relaxed text-slate-300">
-                    {item.employee}
-                  </Text>
-                  <Text className="mb-0.5 font-body text-sm leading-relaxed text-slate-300">
-                    {item.employee}
+                    Funcionário: {item.employee}
                   </Text>
                 </AnimatedTouchableOpacity>
               </Link>
