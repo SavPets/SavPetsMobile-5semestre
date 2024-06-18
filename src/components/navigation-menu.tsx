@@ -62,31 +62,35 @@ export function NavigationMenu({ isOpen }: NavigationMenuProps) {
   }, [])
 
   return (
-    <Animated.View
-      entering={FadeInUp}
-      exiting={FadeOutUp}
-      className={`${!isOpen && 'h-0'} absolute top-[76px] z-10 mx-5 mt-8 rounded-lg bg-slate-800 px-5`}
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={isOpen && { paddingBottom: 100 }}
+      className={`${isOpen && 'mt-8'}`}
     >
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <Animated.View
+        entering={FadeInUp}
+        exiting={FadeOutUp}
+        className={`${!isOpen && 'h-0'} mx-5 rounded-lg bg-slate-800 px-5`}
+      >
         {filteredSectionsByRole.map((section) => (
-          <View key={section.title}>
+          <View key={section?.title}>
             <Text className="my-5 w-screen text-sm font-semibold uppercase leading-short text-slate-300">
-              {section.title}
+              {section?.title}
             </Text>
 
             <View className="flex-row flex-wrap justify-between">
-              {section.data.map((navLink) => (
+              {section?.data.map((navLink) => (
                 <TouchableOpacity
-                  key={navLink.text}
-                  onPress={() => handleNavigateToScreen(navLink.href)}
+                  key={navLink?.text}
+                  onPress={() => handleNavigateToScreen(String(navLink?.href))}
                   activeOpacity={0.8}
-                  className="mb-8 w-1/2 flex-row gap-3"
+                  className="mb-8 mr-3 w-1/2 flex-row gap-3 truncate"
                 >
                   <View>
                     <Feather
-                      name={navLink.icon}
+                      name={navLink?.icon}
                       color={
-                        navLink.icon === 'power'
+                        navLink?.icon === 'power'
                           ? colors.rose[400]
                           : colors.white
                       }
@@ -95,16 +99,16 @@ export function NavigationMenu({ isOpen }: NavigationMenuProps) {
                   </View>
 
                   <Text
-                    className={`${navLink.text === 'Sair' ? 'text-rose-400' : 'text-slate-100'} font-body text-base leading-short`}
+                    className={`${navLink?.text === 'Sair' ? 'text-rose-400' : 'text-slate-100'} font-body text-base leading-short`}
                   >
-                    {navLink.text}
+                    {navLink?.text}
                   </Text>
                 </TouchableOpacity>
               ))}
             </View>
           </View>
         ))}
-      </ScrollView>
-    </Animated.View>
+      </Animated.View>
+    </ScrollView>
   )
 }

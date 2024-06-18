@@ -11,7 +11,7 @@ export function filterNavSectionsByOccupation(
     return filteredSections
   }
 
-  const filteredSections = NAVIGATION_SECTIONS.filter((section) => {
+  const sectionsByOccupation = NAVIGATION_SECTIONS.map((section) => {
     if (section.title === 'CONTA') return section
 
     switch (occupation) {
@@ -35,33 +35,39 @@ export function filterNavSectionsByOccupation(
             ],
           }
 
-        break
+        return null
 
       case 'Veterinário':
-        if (section.title === 'ANIMAIS')
+        if (section.title === 'ANIMAIS') {
+          const filteredData = section.data.filter(
+            (navItem) => navItem.text !== 'Campanhas',
+          )
+
           return {
             title: section.title,
-            data: section.data.filter(
-              (navItem) => navItem.text !== 'Campanhas',
-            ),
+            data: filteredData,
           }
+        }
 
-        if (section.title === 'FORNECEDORES')
+        if (section.title === 'FORNECEDORES') {
           return {
             title: section.title,
             data: [
               section.data.find((navItem) => navItem.text === 'Medicamentos'),
             ],
           }
+        }
 
-        break
+        return null
 
       default:
         return null
     }
-
-    return []
   })
+
+  const filteredSections = sectionsByOccupation.filter(
+    (section) => section !== null,
+  )
 
   return filteredSections
 }
