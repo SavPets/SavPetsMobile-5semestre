@@ -65,6 +65,7 @@ export default function ClientById() {
             entering={FadeInUp}
             contentContainerStyle={{ paddingBottom: 100 }}
             showsVerticalScrollIndicator={false}
+            className="py-8"
           >
             <View className="mb-12" style={{ gap: 16 }}>
               <DetailItem title="PRIMEIRO NOME" value={client.firstName} />

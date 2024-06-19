@@ -21,11 +21,7 @@ export default function UpdateCampaignById() {
   const router = useRouter()
   const toast = useToast()
 
-  const {
-    data: campaign,
-    isError,
-    isLoading,
-  } = useGETCampaignById(String(id))
+  const { data: campaign, isError, isLoading } = useGETCampaignById(String(id))
 
   const {
     control,

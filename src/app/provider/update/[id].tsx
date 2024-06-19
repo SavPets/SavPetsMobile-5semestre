@@ -28,11 +28,7 @@ export default function UpdateProviderByID() {
   const router = useRouter()
   const toast = useToast()
 
-  const {
-    data: provider,
-    isLoading,
-    isError,
-  } = useGETProviderById(String(id))
+  const { data: provider, isLoading, isError } = useGETProviderById(String(id))
 
   const {
     control,
@@ -147,6 +143,7 @@ export default function UpdateProviderByID() {
           entering={FadeInUp}
           contentContainerStyle={{ paddingBottom: 100 }}
           showsVerticalScrollIndicator={false}
+          className="py-8"
         >
           <View className="mb-12" style={{ gap: 16 }}>
             <Controller

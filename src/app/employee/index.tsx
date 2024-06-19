@@ -1,9 +1,6 @@
-import * as Button from '@/src/components/button'
 import { ListEmpty } from '@/src/components/list-empty'
-import { Feather } from '@expo/vector-icons'
 import { Link } from 'expo-router'
 import { FlatList, Text, TouchableOpacity, View } from 'react-native'
-import colors from 'tailwindcss/colors'
 import { Header } from '@/src/components/header'
 import { MenuContext } from '@/src/contexts/menu-context'
 import { useContextSelector } from 'use-context-selector'
@@ -70,16 +67,6 @@ export default function Employee() {
             ListEmptyComponent={ListEmpty}
             className="my-8"
           />
-
-          <View style={{ position: 'absolute', right: 0, bottom: 80 }}>
-            <Link href="/employee/create" asChild>
-              <Button.Root isFloat>
-                <Button.Icon>
-                  <Feather name="plus" size={28} color={colors.slate[950]} />
-                </Button.Icon>
-              </Button.Root>
-            </Link>
-          </View>
         </View>
       )}
     </>

@@ -147,6 +147,7 @@ export default function UpdateAdoptionById() {
           contentContainerStyle={{ flexGrow: 1, paddingVertical: 32 }}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
+          className="py-8"
         >
           <View className="mb-12" style={{ gap: 16 }}>
             <Controller

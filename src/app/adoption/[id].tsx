@@ -3,7 +3,6 @@ import { DetailItem } from '@/src/components/detail-item'
 import { Loading } from '@/src/components/loading'
 import { ReturnHeader } from '@/src/components/return-header'
 import { useGETAdoptionById } from '@/src/hooks/adoption/useGETAdoptionById'
-import { formatDate } from '@/src/utils/formatDate'
 import { Feather } from '@expo/vector-icons'
 import { Link, Redirect, useLocalSearchParams } from 'expo-router'
 import { View } from 'react-native'
@@ -26,18 +25,16 @@ export default function AdoptionById() {
           entering={FadeInUp}
           contentContainerStyle={{ paddingBottom: 100 }}
           showsVerticalScrollIndicator={false}
+          className="py-8"
         >
-          <View className="mb-12" style={{ gap: 16 }}>
+          <View style={{ gap: 16 }} className="mb-12">
             <DetailItem title="ANIMAL" value={adoption.animalName} />
 
             <DetailItem title="FUNCIONÁRIO" value={adoption.employee!} />
 
             <DetailItem title="CLIENTE" value={adoption.client!} />
 
-            <DetailItem
-              title="DATA DE ADOÇÃO"
-              value={formatDate(adoption.adoptionDate)!}
-            />
+            <DetailItem title="DATA DE ADOÇÃO" value={adoption.adoptionDate} />
 
             <DetailItem title="RELATÓRIO" value={adoption.report} />
           </View>

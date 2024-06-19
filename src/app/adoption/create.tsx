@@ -163,8 +163,9 @@ export default function CreateAdoption() {
           entering={FadeInUp}
           contentContainerStyle={{ paddingBottom: 100 }}
           showsVerticalScrollIndicator={false}
+          className="py-8"
         >
-          <View className="mb-12" style={{ gap: 16 }}>
+          <View style={{ gap: 16 }} className="mb-12">
             <Controller
               control={control}
               name="employee"
@@ -233,6 +234,7 @@ export default function CreateAdoption() {
               )}
             />
           </View>
+
           <Button.Root
             disabled={isSubmitting || isPending}
             onPress={handleSubmit(handleCreateAdoption)}

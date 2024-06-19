@@ -140,6 +140,7 @@ export default function UpdateAnimalReportById() {
         <Animated.ScrollView
           entering={FadeInUp}
           contentContainerStyle={{ paddingBottom: 100 }}
+          className="py-8"
         >
           <View className="mb-12" style={{ gap: 16 }}>
             <Controller
