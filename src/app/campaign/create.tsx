@@ -13,6 +13,7 @@ import { useEffect } from 'react'
 import { useToast } from 'native-base'
 import Animated, { FadeInUp } from 'react-native-reanimated'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+// import { TextInputMask } from 'react-native-masked-text'
 
 export default function CreateCampaign() {
   const router = useRouter()
@@ -95,6 +96,26 @@ export default function CreateCampaign() {
                 />
               )}
             />
+
+            {/* <Controller
+              control={control}
+              name="date"
+              render={({ field: { onChange, value } }) => (
+                <TextInputMask
+                  type={'datetime'}
+                  options={{
+                    format: 'DD/MM/YYYY',
+                  }}
+                  value={value}
+                  onChangeText={onChange}
+                  customTextInput={Input}
+                  customTextInputProps={{
+                    title: 'Data',
+                    errorMessage: errors.date?.message,
+                  }}
+                />
+              )}
+            /> */}
 
             <Controller
               control={control}

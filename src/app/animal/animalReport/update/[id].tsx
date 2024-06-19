@@ -20,6 +20,7 @@ import {
   AnimalReportSchema,
   animalReportSchema,
 } from '@/src/schemas/animalReportSchema'
+import { TextInputMask } from 'react-native-masked-text'
 
 export default function UpdateAnimalReportById() {
   const { id } = useLocalSearchParams()
@@ -189,12 +190,18 @@ export default function UpdateAnimalReportById() {
               control={control}
               name="arrivalDate"
               render={({ field: { onChange } }) => (
-                <Input
-                  title="Data de chegada"
-                  defaultValue={report.arrivalDate.toString()}
-                  // defaultValue={value}
-                  errorMessage={errors.arrivalDate?.message}
+                <TextInputMask
+                  type={'datetime'}
+                  options={{
+                    format: 'DD/MM/YYYY',
+                  }}
+                  value={report.arrivalDate.toString()}
                   onChangeText={onChange}
+                  customTextInput={Input}
+                  customTextInputProps={{
+                    title: 'Data de chegada',
+                    errorMessage: errors.arrivalDate?.message,
+                  }}
                 />
               )}
             />

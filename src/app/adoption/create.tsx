@@ -17,6 +17,7 @@ import { Loading } from '@/src/components/loading'
 import { Option, Select } from '@/src/components/select'
 import { useGETClients } from '@/src/hooks/client/useGETClients'
 import { useGETAnimalReports } from '@/src/hooks/animal/animalReport/useGETAnimalReports'
+import { TextInputMask } from 'react-native-masked-text'
 
 export default function CreateAdoption() {
   const [isLoading, setIsLoading] = useState(true)
@@ -194,18 +195,27 @@ export default function CreateAdoption() {
                 />
               )}
             />
+
             <Controller
               control={control}
               name="adoptionDate"
-              render={({ field: { onChange } }) => (
-                <Input
-                  title="Data da adoção"
-                  errorMessage={errors.adoptionDate?.message}
+              render={({ field: { onChange, value } }) => (
+                <TextInputMask
+                  type={'datetime'}
+                  options={{
+                    format: 'DD/MM/YYYY',
+                  }}
+                  value={value}
                   onChangeText={onChange}
-                  py={2}
+                  customTextInput={Input}
+                  customTextInputProps={{
+                    title: 'Data de adoção',
+                    errorMessage: errors.adoptionDate?.message,
+                  }}
                 />
               )}
             />
+
             <Controller
               control={control}
               name="animalReport"

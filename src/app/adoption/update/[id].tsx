@@ -19,6 +19,7 @@ import { useGETAnimalReports } from '@/src/hooks/animal/animalReport/useGETAnima
 import { useGETClients } from '@/src/hooks/client/useGETClients'
 import { useGETEmployess } from '@/src/hooks/employee/useGETEmployees'
 import { useEffect } from 'react'
+import { TextInputMask } from 'react-native-masked-text'
 
 export default function UpdateAdoptionById() {
   const { id } = useLocalSearchParams()
@@ -127,7 +128,7 @@ export default function UpdateAdoptionById() {
       report,
     } as AdoptionSchema
 
-    console.log({ id: String(id), updatedAdoption })
+    mutate({ id: String(id), updatedAdoption })
   }
 
   if (isError) return <Redirect href="/adoption/" />
@@ -153,11 +154,11 @@ export default function UpdateAdoptionById() {
             <Controller
               control={control}
               name="employee"
-              render={({ field: { onChange, value } }) => (
+              render={({ field: { onChange } }) => (
                 <Select
                   options={employeeOptions}
                   title="Funcionário"
-                  value={value}
+                  value={adoption.employee}
                   errorMessage={errors.employee?.message}
                   onChange={onChange}
                 />
@@ -171,23 +172,32 @@ export default function UpdateAdoptionById() {
                   options={clientOptions}
                   title="Cliente"
                   onChange={onChange}
-                  value={value}
+                  value={adoption.client}
                   errorMessage={errors.client?.message}
                 />
               )}
             />
+
             <Controller
               control={control}
               name="adoptionDate"
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  title="Data da adoção"
-                  errorMessage={errors.adoptionDate?.message}
+              render={({ field: { onChange } }) => (
+                <TextInputMask
+                  type={'datetime'}
+                  options={{
+                    format: 'DD/MM/YYYY',
+                  }}
+                  value={adoption.adoptionDate}
                   onChangeText={onChange}
-                  defaultValue={value}
+                  customTextInput={Input}
+                  customTextInputProps={{
+                    title: 'Data de adoção',
+                    errorMessage: errors.adoptionDate?.message,
+                  }}
                 />
               )}
             />
+
             <Controller
               control={control}
               name="animalReport"
@@ -196,7 +206,7 @@ export default function UpdateAdoptionById() {
                   options={animalReportOptions}
                   title="Animal"
                   onChange={onChange}
-                  value={value}
+                  value={adoption.animalReport}
                   errorMessage={errors.animalReport?.message}
                 />
               )}

@@ -15,6 +15,7 @@ import { useEffect } from 'react'
 import { Option, Select } from '@/src/components/select'
 import { useGETProviders } from '@/src/hooks/provider/useGETProviders'
 import { Loading } from '@/src/components/loading'
+// import { TextInputMask } from 'react-native-masked-text'
 
 export default function CreateMedicine() {
   const router = useRouter()
@@ -138,6 +139,26 @@ export default function CreateMedicine() {
               )}
             />
 
+            {/* <Controller
+              control={control}
+              name="expirationDate"
+              render={({ field: { onChange, value } }) => (
+                <TextInputMask
+                  type={'datetime'}
+                  options={{
+                    format: 'DD/MM/YYYY',
+                  }}
+                  value={value}
+                  onChangeText={onChange}
+                  customTextInput={Input}
+                  customTextInputProps={{
+                    title: 'Data de Validade',
+                    errorMessage: errors.expirationDate?.message,
+                  }}
+                />
+              )}
+            /> */}
+
             <Controller
               control={control}
               name="utility"
@@ -189,6 +210,26 @@ export default function CreateMedicine() {
                 />
               )}
             />
+
+            {/*  <Controller
+              control={control}
+              name="arrivalDate"
+              render={({ field: { onChange, value } }) => (
+                <TextInputMask
+                  type={'datetime'}
+                  options={{
+                    format: 'DD/MM/YYYY',
+                  }}
+                  value={value}
+                  onChangeText={onChange}
+                  customTextInput={Input}
+                  customTextInputProps={{
+                    title: 'Data de chegada',
+                    errorMessage: errors.arrivalDate?.message,
+                  }}
+                />
+              )}
+            /> */}
 
             <Controller
               control={control}

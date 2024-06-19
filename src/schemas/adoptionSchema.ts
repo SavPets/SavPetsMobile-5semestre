@@ -8,8 +8,8 @@ export const adoptionSchema = yup.object({
     .string()
     .required('A data da adoção é obrigatória')
     .matches(
-      /\d{4}-\d{2}-\d{2}/,
-      'A data da adoção precisa estar no formato correto. Use YYYY-MM-DD',
+      /\d{2}\/\d{2}\/\d{4}/,
+      'A data da adoção precisa estar no formato correto. Use DD-MM-YYYY',
     ),
   report: yup
     .string()

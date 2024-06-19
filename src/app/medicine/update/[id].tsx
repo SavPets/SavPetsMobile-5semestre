@@ -16,6 +16,7 @@ import { usePUTMedicine } from '@/src/hooks/medicine/usePUTMedicine'
 import { useEffect } from 'react'
 import { Option, Select } from '@/src/components/select'
 import { useGETProviders } from '@/src/hooks/provider/useGETProviders'
+// import { TextInputMask } from 'react-native-masked-text'
 
 export default function UpdateMedicineById() {
   const { id } = useLocalSearchParams()
@@ -176,6 +177,25 @@ export default function UpdateMedicineById() {
                 />
               )}
             />
+            {/* <Controller
+              control={control}
+              name="expirationDate"
+              render={({ field: { onChange } }) => (
+                <TextInputMask
+                  type={'datetime'}
+                  options={{
+                    format: 'DD/MM/YYYY',
+                  }}
+                  value={medicine?.expirationDate.toString()}
+                  onChangeText={onChange}
+                  customTextInput={Input}
+                  customTextInputProps={{
+                    title: 'Data de Validade',
+                    errorMessage: errors.expirationDate?.message,
+                  }}
+                />
+              )}
+            /> */}
 
             <Controller
               control={control}
@@ -232,6 +252,26 @@ export default function UpdateMedicineById() {
                 />
               )}
             />
+
+            {/* <Controller
+              control={control}
+              name="arrivalDate"
+              render={({ field: { onChange } }) => (
+                <TextInputMask
+                  type={'datetime'}
+                  options={{
+                    format: 'DD/MM/YYYY',
+                  }}
+                  value={medicine?.arrivalDate.toString()}
+                  onChangeText={onChange}
+                  customTextInput={Input}
+                  customTextInputProps={{
+                    title: 'Data de Validade',
+                    errorMessage: errors.arrivalDate?.message,
+                  }}
+                />
+              )}
+            /> */}
 
             <Controller
               control={control}
