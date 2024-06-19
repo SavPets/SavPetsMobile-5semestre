@@ -1,11 +1,9 @@
-/* eslint-disable prettier/prettier */
 import * as Button from '@/src/components/button'
 import { Header } from '@/src/components/header'
 import { ListEmpty } from '@/src/components/list-empty'
 import { Loading } from '@/src/components/loading'
 import { MenuContext } from '@/src/contexts/menu-context'
 import { useGETMedicines } from '@/src/hooks/medicine/useGETMedicines'
-import { formatDate } from '@/src/utils/formatDate'
 import { Feather } from '@expo/vector-icons'
 import { Link } from 'expo-router'
 import { FlatList, Text, TouchableOpacity, View } from 'react-native'
@@ -21,19 +19,19 @@ export default function Medicine() {
     MenuContext,
     (context) => context.isOpenMenu,
   )
-  
-  const { data: medicine, medicineCount, isLoading } = useGETMedicines()
+
+  const { data: medicineList, medicineCount, isLoading } = useGETMedicines()
 
   return (
     <>
       <Header />
 
-      {isLoading || medicine ? (
+      {isLoading ? (
         <Loading />
       ) : (
         <View
           style={isOpenMenu && { display: 'none' }}
-          className="mx-5 mt-12 flex-1"
+          className="mx-5 mt-8 flex-1"
         >
           <View className="flex-row items-center justify-between">
             <Text className="text-lg font-semibold leading-short text-white">
@@ -45,7 +43,7 @@ export default function Medicine() {
           </View>
 
           <FlatList
-            data={medicine}
+            data={medicineList}
             keyExtractor={(item) => item.id}
             renderItem={({ item, index }) => (
               <Link href={`/medicine/${item.id}`} asChild>
@@ -59,7 +57,7 @@ export default function Medicine() {
                       {item.name}
                     </Text>
                     <Text className="font-body text-sm leading-short text-slate-100">
-                      {formatDate(item.manufacturingDate)}
+                      {item.createdAt.toString()}
                     </Text>
                   </View>
                   <Text className="font-body text-sm leading-relaxed text-slate-300">
@@ -80,7 +78,7 @@ export default function Medicine() {
             <Link href="/medicine/create" asChild>
               <Button.Root isFloat>
                 <Button.Icon>
-                  <Feather name="plus-square" size={28} color={colors.slate[950]} />
+                  <Feather name="plus" size={28} color={colors.slate[950]} />
                 </Button.Icon>
               </Button.Root>
             </Link>

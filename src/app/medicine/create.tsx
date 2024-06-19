@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { ReturnHeader } from '@/src/components/return-header'
 import { View } from 'react-native'
 import * as Button from '@/src/components/button'
@@ -72,7 +71,7 @@ export default function CreateMedicine() {
           textAlign: 'center',
           bg: 'rose.400',
         })
-  
+
         return router.navigate('/medicine/')
       }
     }
@@ -96,7 +95,7 @@ export default function CreateMedicine() {
       ) : (
         <Animated.ScrollView
           entering={FadeInUp}
-          contentContainerStyle={{ paddingVertical: 32 }}
+          contentContainerStyle={{ paddingBottom: 100 }}
           showsVerticalScrollIndicator={false}
         >
           <View className="mb-12" style={{ gap: 16 }}>
@@ -159,6 +158,7 @@ export default function CreateMedicine() {
                   onChangeText={onChange}
                   title="Observação"
                   multiline
+                  textAlignVertical="top"
                 />
               )}
             />
@@ -180,14 +180,14 @@ export default function CreateMedicine() {
               control={control}
               name="arrivalDate"
               render={({ field: { onChange } }) => (
-              <Input
-              errorMessage={errors.arrivalDate?.message}
-              onChangeText={onChange}
-              title="Data de chegada"
-              keyboardType="numbers-and-punctuation"
-              />
-            )}
-          />
+                <Input
+                  errorMessage={errors.arrivalDate?.message}
+                  onChangeText={onChange}
+                  title="Data de chegada"
+                  keyboardType="numbers-and-punctuation"
+                />
+              )}
+            />
 
             <Controller
               control={control}
@@ -198,6 +198,7 @@ export default function CreateMedicine() {
                   onChangeText={onChange}
                   title="Bula"
                   multiline
+                  textAlignVertical="top"
                 />
               )}
             />

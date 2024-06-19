@@ -4,6 +4,7 @@ import { Loading } from '@/src/components/loading'
 import { ReturnHeader } from '@/src/components/return-header'
 import { useDELETEMedicine } from '@/src/hooks/medicine/useDELETEMedicine'
 import { useGETMedicineById } from '@/src/hooks/medicine/useGETMedicineById'
+import { formatDate } from '@/src/utils/formatDate'
 import { Feather } from '@expo/vector-icons'
 import { Link, Redirect, useLocalSearchParams, useRouter } from 'expo-router'
 import { useToast } from 'native-base'
@@ -19,11 +20,7 @@ export default function MedicineByID() {
 
   const [isModalVisible, setIsModalVisible] = useState(false)
 
-  const {
-    data: medicine,
-    isError,
-    isLoading,
-  } = useGETMedicineById(id.toString())
+  const { data: medicine, isError, isLoading } = useGETMedicineById(String(id))
 
   const { mutate, data: requestError, isSuccess } = useDELETEMedicine()
 
@@ -50,7 +47,7 @@ export default function MedicineByID() {
   }, [isSuccess, requestError])
 
   function onDeleteMedicine() {
-    mutate(id.toString())
+    mutate(String(id))
   }
 
   if (isError) return <Redirect href="/medicine/" />
@@ -65,10 +62,10 @@ export default function MedicineByID() {
         <>
           <Animated.ScrollView
             entering={FadeInUp}
-            contentContainerStyle={{ paddingVertical: 32 }}
+            contentContainerStyle={{ paddingBottom: 100 }}
             showsVerticalScrollIndicator={false}
           >
-            <View className="mb-12 gap-4">
+            <View className="gap-4 py-8">
               <View className="gap-0.5">
                 <Text className="text-base font-semibold uppercase leading-short text-slate-300">
                   Nome
@@ -83,7 +80,7 @@ export default function MedicineByID() {
                   Data fabricação
                 </Text>
                 <Text className="font-body text-base leading-relaxed text-slate-100">
-                  {medicine.manufacturingDate}
+                  {formatDate(medicine.manufacturingDate)}
                 </Text>
               </View>
 
@@ -92,7 +89,7 @@ export default function MedicineByID() {
                   Data de validade
                 </Text>
                 <Text className="font-body text-base leading-relaxed text-slate-100">
-                  {medicine.expirationDate}
+                  {formatDate(medicine.expirationDate)}
                 </Text>
               </View>
 
@@ -137,7 +134,7 @@ export default function MedicineByID() {
                   Data de chegada
                 </Text>
                 <Text className="font-body text-base leading-relaxed text-slate-100">
-                  {medicine.arrivalDate}
+                  {formatDate(medicine.arrivalDate)}
                 </Text>
               </View>
 
@@ -151,9 +148,9 @@ export default function MedicineByID() {
               </View>
             </View>
 
-            <View style={{ gap: 12 }}>
+            <View>
               <Link href={`/medicine/update/${id}`} asChild>
-                <Button.Root>
+                <Button.Root style={{ gap: 12 }} className="mb-3">
                   <Button.Icon>
                     <Feather name="edit" size={18} color={colors.slate[950]} />
                   </Button.Icon>

@@ -22,11 +22,7 @@ export default function UpdateMedicineById() {
   const router = useRouter()
   const toast = useToast()
 
-  const {
-    data: medicine,
-    isError,
-    isLoading,
-  } = useGETMedicineById(id.toString())
+  const { data: medicine, isError, isLoading } = useGETMedicineById(String(id))
 
   const {
     control,
@@ -86,7 +82,7 @@ export default function UpdateMedicineById() {
       provider,
     } as MedicineSchema
 
-    mutate({ id: id.toString(), updatedMedicine })
+    mutate({ id: String(id), updatedMedicine })
   }
 
   const providersOptions: Option[] = []
@@ -135,7 +131,7 @@ export default function UpdateMedicineById() {
       ) : (
         <Animated.ScrollView
           entering={FadeInUp}
-          contentContainerStyle={{ paddingVertical: 32 }}
+          contentContainerStyle={{ paddingBottom: 100 }}
           showsVerticalScrollIndicator={false}
         >
           <View className="mb-12" style={{ gap: 16 }}>
@@ -203,6 +199,7 @@ export default function UpdateMedicineById() {
                   defaultValue={value!}
                   title="Observação"
                   multiline
+                  textAlignVertical="top"
                 />
               )}
             />
@@ -245,6 +242,7 @@ export default function UpdateMedicineById() {
                   title="Bula"
                   defaultValue={value}
                   multiline
+                  textAlignVertical="top"
                 />
               )}
             />
