@@ -138,7 +138,7 @@ export default function CreateEmployee() {
 
   return (
     <View className="mx-5 mt-16 flex-1">
-      <ReturnHeader title="Cadastrar funcionário" />
+      <ReturnHeader title="Novo funcionário" />
 
       {isLoadingDepartaments || isLoadingOccupations ? (
         <Loading />

@@ -29,7 +29,7 @@ export default function UpdateClientById() {
   const router = useRouter()
   const toast = useToast()
 
-  const { data: client, isLoading, isError } = useGETClientById(id.toString())
+  const { data: client, isLoading, isError } = useGETClientById(String(id))
 
   const {
     control,
@@ -85,7 +85,7 @@ export default function UpdateClientById() {
       complement,
     } as ClientSchema
 
-    mutate({ id: id.toString(), updatedClient })
+    mutate({ id: String(id), updatedClient })
   }
 
   useEffect(() => {
@@ -144,7 +144,7 @@ export default function UpdateClientById() {
       ) : (
         <Animated.ScrollView
           entering={FadeInUp}
-          contentContainerStyle={{ paddingVertical: 32 }}
+          contentContainerStyle={{ paddingBottom: 100 }}
           showsVerticalScrollIndicator={false}
         >
           <View className="mb-12" style={{ gap: 16 }}>

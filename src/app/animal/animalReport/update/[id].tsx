@@ -50,7 +50,7 @@ export default function UpdateAnimalReportById() {
     data: report,
     isLoading,
     isError,
-  } = useGETAnimalReportById(id.toString())
+  } = useGETAnimalReportById(String(id))
 
   const {
     control,
@@ -103,7 +103,7 @@ export default function UpdateAnimalReportById() {
       local,
     }
 
-    mutate({ id: id.toString(), updatedAnimalReport })
+    mutate({ id: String(id), updatedAnimalReport })
   }
 
   useEffect(() => {
@@ -139,7 +139,7 @@ export default function UpdateAnimalReportById() {
       ) : (
         <Animated.ScrollView
           entering={FadeInUp}
-          contentContainerStyle={{ paddingVertical: 32 }}
+          contentContainerStyle={{ paddingBottom: 100 }}
         >
           <View className="mb-12" style={{ gap: 16 }}>
             <Controller
@@ -220,6 +220,7 @@ export default function UpdateAnimalReportById() {
                 <Input
                   title="Descrição"
                   multiline={true}
+                  textAlignVertical="top"
                   defaultValue={report.description}
                   // defaultValue={value}
                   errorMessage={errors.description?.message}

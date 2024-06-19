@@ -68,7 +68,7 @@ export default function Login() {
 
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 50 }}
+        contentContainerStyle={{ paddingBottom: 100 }}
       >
         <View>
           <View className="mb-12" style={{ gap: 16 }}>

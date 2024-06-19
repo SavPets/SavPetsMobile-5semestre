@@ -19,16 +19,12 @@ export default function ProviderByID() {
 
   const [isModalVisible, setIsModalVisible] = useState(false)
 
-  const {
-    data: provider,
-    isLoading,
-    isError,
-  } = useGETProviderById(id.toString())
+  const { data: provider, isLoading, isError } = useGETProviderById(String(id))
 
   const { mutate, data: requestError, isSuccess } = useDELETEProvider()
 
   function onDeleteProvider() {
-    mutate(id.toString())
+    mutate(String(id))
   }
 
   useEffect(() => {
@@ -65,7 +61,7 @@ export default function ProviderByID() {
         <>
           <ScrollView
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingBottom: 50 }}
+            contentContainerStyle={{ paddingBottom: 100 }}
           >
             <Animated.View entering={FadeInUp} className="py-8">
               <View className="mb-12 gap-4">
@@ -106,9 +102,9 @@ export default function ProviderByID() {
                 </View>
               </View>
 
-              <View style={{ gap: 12 }}>
+              <View>
                 <Link href={`/provider/update/${id}`} asChild>
-                  <Button.Root>
+                  <Button.Root style={{ gap: 12 }} className="mb-3">
                     <Button.Icon>
                       <Feather
                         name="edit"

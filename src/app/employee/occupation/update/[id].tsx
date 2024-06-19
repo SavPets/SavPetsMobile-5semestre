@@ -28,7 +28,7 @@ export default function UpdateOccupationById() {
     data: occupation,
     isError,
     isLoading,
-  } = useGETOccupationById(id.toString())
+  } = useGETOccupationById(String(id))
 
   const {
     control,
@@ -56,7 +56,7 @@ export default function UpdateOccupationById() {
 
     const updatedOccupation = { name, description }
 
-    mutate({ id: id.toString(), updatedOccupation })
+    mutate({ id: String(id), updatedOccupation })
   }
 
   useEffect(() => {

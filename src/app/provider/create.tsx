@@ -102,10 +102,10 @@ export default function CreateProvider() {
 
       <Animated.ScrollView
         entering={FadeInUp}
-        contentContainerStyle={{ paddingVertical: 32 }}
+        contentContainerStyle={{ paddingBottom: 100 }}
         showsVerticalScrollIndicator={false}
       >
-        <View className="mb-12" style={{ gap: 16 }}>
+        <View className="py-8" style={{ gap: 16 }}>
           <Controller
             control={control}
             name="name"

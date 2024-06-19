@@ -20,16 +20,12 @@ export default function CampaignByID() {
 
   const [isModalVisible, setIsModalVisible] = useState(false)
 
-  const {
-    data: campaign,
-    isError,
-    isLoading,
-  } = useGETCampaignById(id.toString())
+  const { data: campaign, isError, isLoading } = useGETCampaignById(String(id))
 
   const { mutate, data: requestError, isSuccess } = useDELETECampaign()
 
   function onDeleteCampaign() {
-    mutate(id.toString())
+    mutate(String(id))
   }
 
   useEffect(() => {
@@ -66,7 +62,7 @@ export default function CampaignByID() {
         <>
           <ScrollView
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingBottom: 50 }}
+            contentContainerStyle={{ paddingBottom: 100 }}
           >
             <Animated.View entering={FadeInUp} className="py-8">
               <View className="mb-12" style={{ gap: 16 }}>

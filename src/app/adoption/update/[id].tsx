@@ -35,11 +35,7 @@ export default function UpdateAdoptionById() {
   const { data: animalReports, isLoading: isLoadingAnimalReports } =
     useGETAnimalReports()
 
-  const {
-    data: adoption,
-    isLoading,
-    isError,
-  } = useGETAdoptionById(id.toString())
+  const { data: adoption, isLoading, isError } = useGETAdoptionById(String(id))
 
   const {
     control,
@@ -131,7 +127,7 @@ export default function UpdateAdoptionById() {
       report,
     } as AdoptionSchema
 
-    console.log({ id: id.toString(), updatedAdoption })
+    console.log({ id: String(id), updatedAdoption })
   }
 
   if (isError) return <Redirect href="/adoption/" />
@@ -213,6 +209,7 @@ export default function UpdateAdoptionById() {
                   errorMessage={errors.report?.message}
                   onChangeText={onChange}
                   multiline
+                  textAlignVertical="top"
                   defaultValue={value}
                   numberOfLines={4}
                 />

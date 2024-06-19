@@ -151,7 +151,7 @@ export default function CreateAdoption() {
 
   return (
     <View className="mx-5 mt-16 flex-1">
-      <ReturnHeader title="Cadastrar adoção" />
+      <ReturnHeader title="Nova adoção" />
 
       {isLoading ||
       isLoadingEmployees ||
@@ -161,7 +161,7 @@ export default function CreateAdoption() {
       ) : (
         <Animated.ScrollView
           entering={FadeInUp}
-          contentContainerStyle={{ paddingVertical: 32 }}
+          contentContainerStyle={{ paddingBottom: 100 }}
           showsVerticalScrollIndicator={false}
         >
           <View className="mb-12" style={{ gap: 16 }}>
@@ -227,6 +227,7 @@ export default function CreateAdoption() {
                   errorMessage={errors.report?.message}
                   onChangeText={onChange}
                   multiline
+                  textAlignVertical="top"
                   numberOfLines={4}
                 />
               )}

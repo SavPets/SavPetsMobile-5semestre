@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as Button from '@/src/components/button'
 import { ListEmpty } from '@/src/components/list-empty'
 import { Loading } from '@/src/components/loading'
@@ -10,7 +9,6 @@ import colors from 'tailwindcss/colors'
 import { Header } from '@/src/components/header'
 import Animated, { SlideInLeft } from 'react-native-reanimated'
 import { MenuContext } from '@/src/contexts/menu-context'
-import { formatDate } from '@/src/utils/formatDate'
 import { useContextSelector } from 'use-context-selector'
 
 const AnimatedTouchableOpacity =

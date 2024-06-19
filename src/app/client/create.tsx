@@ -102,7 +102,7 @@ export default function CreateClient() {
       <ReturnHeader title="Novo cliente" />
       <Animated.ScrollView
         entering={FadeInUp}
-        contentContainerStyle={{ paddingVertical: 32 }}
+        contentContainerStyle={{ paddingBottom: 100 }}
         showsVerticalScrollIndicator={false}
       >
         <View className="mb-12" style={{ gap: 16 }}>

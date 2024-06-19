@@ -32,7 +32,7 @@ export default function UpdateProviderByID() {
     data: provider,
     isLoading,
     isError,
-  } = useGETProviderById(id.toString())
+  } = useGETProviderById(String(id))
 
   const {
     control,
@@ -81,7 +81,7 @@ export default function UpdateProviderByID() {
       complement,
     }
 
-    mutate({ id: id.toString(), updatedProvider })
+    mutate({ id: String(id), updatedProvider })
   }
 
   useEffect(() => {
@@ -145,7 +145,7 @@ export default function UpdateProviderByID() {
       ) : (
         <Animated.ScrollView
           entering={FadeInUp}
-          contentContainerStyle={{ paddingVertical: 32 }}
+          contentContainerStyle={{ paddingBottom: 100 }}
           showsVerticalScrollIndicator={false}
         >
           <View className="mb-12" style={{ gap: 16 }}>

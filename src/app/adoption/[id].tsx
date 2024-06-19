@@ -6,17 +6,13 @@ import { useGETAdoptionById } from '@/src/hooks/adoption/useGETAdoptionById'
 import { formatDate } from '@/src/utils/formatDate'
 import { Feather } from '@expo/vector-icons'
 import { Link, Redirect, useLocalSearchParams } from 'expo-router'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 import Animated, { FadeInUp } from 'react-native-reanimated'
 import colors from 'tailwindcss/colors'
 
 export default function AdoptionById() {
   const { id } = useLocalSearchParams()
-  const {
-    data: adoption,
-    isError,
-    isLoading,
-  } = useGETAdoptionById(id.toString())
+  const { data: adoption, isError, isLoading } = useGETAdoptionById(String(id))
 
   if (isError) return <Redirect href="/adoption/" />
 
@@ -28,7 +24,7 @@ export default function AdoptionById() {
       ) : (
         <Animated.ScrollView
           entering={FadeInUp}
-          contentContainerStyle={{ paddingVertical: 32 }}
+          contentContainerStyle={{ paddingBottom: 100 }}
           showsVerticalScrollIndicator={false}
         >
           <View className="mb-12" style={{ gap: 16 }}>
@@ -38,7 +34,10 @@ export default function AdoptionById() {
 
             <DetailItem title="CLIENTE" value={adoption.client!} />
 
-            <DetailItem title="DATA DE ADOÇÃO" value={formatDate(adoption.adoptionDate)!} />
+            <DetailItem
+              title="DATA DE ADOÇÃO"
+              value={formatDate(adoption.adoptionDate)!}
+            />
 
             <DetailItem title="RELATÓRIO" value={adoption.report} />
           </View>

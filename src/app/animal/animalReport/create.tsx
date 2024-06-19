@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ReturnHeader } from '@/src/components/return-header'
-import { View, ScrollView } from 'react-native'
+import { View } from 'react-native'
 import { Input } from '@/src/components/input'
 import { Select } from '@/src/components/select'
 import * as Button from '@/src/components/button'
@@ -42,7 +41,7 @@ export default function CreateAnimalReport() {
   const animalCategories = useGETAnimalCategories()
 
   const categoryOptions =
-    animalCategories.query.data?.map((category, index) => ({
+    animalCategories.query.data?.map((category) => ({
       label: `${category.name} - ${category.race} - ${category.gender} - ${category.size} - ${category.coatColor}`,
       value: `${category.name} - ${category.race} - ${category.gender} - ${category.size} - ${category.coatColor}`,
     })) || []
@@ -112,7 +111,7 @@ export default function CreateAnimalReport() {
       >
         <Animated.ScrollView
           entering={FadeInUp}
-          contentContainerStyle={{ paddingVertical: 32 }}
+          contentContainerStyle={{ paddingBottom: 100 }}
         >
           <View className="mb-12" style={{ gap: 16 }}>
             <Controller
@@ -194,6 +193,7 @@ export default function CreateAnimalReport() {
                 <Input
                   title="Descrição"
                   multiline={true}
+                  textAlignVertical="top"
                   errorMessage={errors.description?.message}
                   onChangeText={onChange}
                 />

@@ -28,7 +28,7 @@ export default function UpdateDepartamentById() {
     data: departament,
     isError,
     isLoading,
-  } = useGETDepartamentById(id.toString())
+  } = useGETDepartamentById(String(id))
 
   const {
     control,
@@ -55,7 +55,7 @@ export default function UpdateDepartamentById() {
 
     const updatedDepartament = { name, initials }
 
-    mutate({ id: id.toString(), updatedDepartament })
+    mutate({ id: String(id), updatedDepartament })
   }
 
   useEffect(() => {

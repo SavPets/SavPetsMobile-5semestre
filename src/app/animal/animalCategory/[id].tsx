@@ -22,14 +22,14 @@ export default function AnimalCategoryById() {
     data: category,
     isLoading,
     isError,
-  } = useGETAnimalCategory(id.toString())
+  } = useGETAnimalCategory(String(id))
 
   const [isModalVisible, setIsModalVisible] = useState(false)
 
   const { mutate, data: requestError, isSuccess } = useDELETEAnimalCategory()
 
   function onDeleteCategory() {
-    mutate(id.toString())
+    mutate(String(id))
   }
 
   useEffect(() => {

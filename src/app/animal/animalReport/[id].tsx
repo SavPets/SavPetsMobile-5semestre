@@ -16,7 +16,7 @@ export default function AnimalReportById() {
     data: report,
     isError,
     isLoading,
-  } = useGETAnimalReportById(id.toString())
+  } = useGETAnimalReportById(String(id))
 
   if (isError) return <Redirect href="/animal/animalReport/" />
 

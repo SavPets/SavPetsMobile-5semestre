@@ -20,16 +20,12 @@ export default function EmployeeById() {
 
   const [isModalVisible, setIsModalVisible] = useState(false)
 
-  const {
-    data: employee,
-    isError,
-    isLoading,
-  } = useGETEmployeeById(id.toString())
+  const { data: employee, isError, isLoading } = useGETEmployeeById(String(id))
 
   const { mutate, data: requestError, isSuccess } = useDELETEEmployee()
 
   function onDeleteEmployee() {
-    mutate(id.toString())
+    mutate(String(id))
   }
 
   useEffect(() => {
@@ -67,7 +63,7 @@ export default function EmployeeById() {
       ) : (
         <>
           <ScrollView
-            contentContainerStyle={{ paddingVertical: 32 }}
+            contentContainerStyle={{ paddingBottom: 100 }}
             showsVerticalScrollIndicator={false}
           >
             <Animated.View className="mb-12 gap-4" entering={FadeInUp}>

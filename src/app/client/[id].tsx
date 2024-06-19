@@ -9,7 +9,7 @@ import { Feather } from '@expo/vector-icons'
 import { Link, Redirect, useLocalSearchParams, useRouter } from 'expo-router'
 import { useToast } from 'native-base'
 import { useEffect, useState } from 'react'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 import Animated, { FadeInUp } from 'react-native-reanimated'
 import colors from 'tailwindcss/colors'
 
@@ -20,12 +20,12 @@ export default function ClientById() {
 
   const [isModalVisible, setIsModalVisible] = useState(false)
 
-  const { data: client, isLoading, isError } = useGETClientById(id.toString())
+  const { data: client, isLoading, isError } = useGETClientById(String(id))
 
   const { mutate, data: requestError, isSuccess } = useDELETEClient()
 
   function onDeleteClient() {
-    mutate(id.toString())
+    mutate(String(id))
   }
 
   useEffect(() => {
@@ -63,7 +63,7 @@ export default function ClientById() {
         <>
           <Animated.ScrollView
             entering={FadeInUp}
-            contentContainerStyle={{ paddingVertical: 32 }}
+            contentContainerStyle={{ paddingBottom: 100 }}
             showsVerticalScrollIndicator={false}
           >
             <View className="mb-12" style={{ gap: 16 }}>
@@ -78,9 +78,9 @@ export default function ClientById() {
                 value={`${fullAdress} - ${client.cep}`}
               />
             </View>
-            <View style={{ gap: 12 }}>
+            <View>
               <Link href={`/client/update/${id}`} asChild>
-                <Button.Root>
+                <Button.Root style={{ gap: 12 }} className="mb-3">
                   <Button.Icon>
                     <Feather name="edit" size={18} color={colors.slate[950]} />
                   </Button.Icon>

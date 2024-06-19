@@ -25,7 +25,7 @@ export default function UpdateCampaignById() {
     data: campaign,
     isError,
     isLoading,
-  } = useGETCampaignById(id.toString())
+  } = useGETCampaignById(String(id))
 
   const {
     control,
@@ -73,7 +73,7 @@ export default function UpdateCampaignById() {
       description,
     }
 
-    mutate({ id: id.toString(), updatedCampaign })
+    mutate({ id: String(id), updatedCampaign })
   }
 
   useEffect(() => {
@@ -189,6 +189,7 @@ export default function UpdateCampaignById() {
                     errorMessage={errors.description?.message}
                     onChangeText={onChange}
                     multiline={true}
+                    textAlignVertical="top"
                   />
                 )}
               />

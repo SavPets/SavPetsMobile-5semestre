@@ -24,12 +24,12 @@ export default function DepartamentById() {
     data: departament,
     isError,
     isLoading,
-  } = useGETDepartamentById(id.toString())
+  } = useGETDepartamentById(String(id))
 
   const { mutate, data: requestError, isSuccess } = useDELETEDepartament()
 
   function onDeleteDepartament() {
-    mutate(id.toString())
+    mutate(String(id))
   }
 
   useEffect(() => {
@@ -66,7 +66,7 @@ export default function DepartamentById() {
         <>
           <ScrollView
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingBottom: 50 }}
+            contentContainerStyle={{ paddingBottom: 100 }}
           >
             <Animated.View entering={FadeInUp} className="py-8">
               <View className="mb-12" style={{ gap: 16 }}>

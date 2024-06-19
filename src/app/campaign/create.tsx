@@ -141,6 +141,7 @@ export default function CreateCampaign() {
                   errorMessage={errors.description?.message}
                   onChangeText={onChange}
                   multiline={true}
+                  textAlignVertical="top"
                 />
               )}
             />

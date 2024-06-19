@@ -24,12 +24,12 @@ export default function OccupationById() {
     data: occupation,
     isError,
     isLoading,
-  } = useGETOccupationById(id.toString())
+  } = useGETOccupationById(String(id))
 
   const { mutate, data: requestError, isSuccess } = useDELETEOccupation()
 
   function onDeleteOccupation() {
-    mutate(id.toString())
+    mutate(String(id))
   }
 
   useEffect(() => {
@@ -66,7 +66,7 @@ export default function OccupationById() {
         <>
           <ScrollView
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingBottom: 50 }}
+            contentContainerStyle={{ paddingBottom: 100 }}
           >
             <Animated.View entering={FadeInUp} className="py-8">
               <View className="mb-12" style={{ gap: 16 }}>

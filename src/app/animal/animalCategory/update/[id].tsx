@@ -29,12 +29,11 @@ export default function UpdateAnimalCategoryById() {
     data: category,
     isLoading,
     isError,
-  } = useGETAnimalCategory(id.toString())
+  } = useGETAnimalCategory(String(id))
 
   const {
     control,
     handleSubmit,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     formState: { errors, isSubmitting },
   } = useForm<AnimalCategorySchema>({
     resolver: yupResolver(animalCategorySchema),
@@ -73,7 +72,7 @@ export default function UpdateAnimalCategoryById() {
 
     const updatedAnimalCategory = { name, race, gender, size, coatColor }
 
-    mutate({ id: id.toString(), updatedAnimalCategory })
+    mutate({ id: String(id), updatedAnimalCategory })
   }
 
   useEffect(() => {

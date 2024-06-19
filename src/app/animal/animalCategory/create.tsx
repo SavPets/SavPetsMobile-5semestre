@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ReturnHeader } from '@/src/components/return-header'
 import { View } from 'react-native'
 import * as Button from '@/src/components/button'
@@ -28,11 +27,6 @@ export const SizeOptions = [
   { label: 'Médio', value: 'medio' },
   { label: 'Pequeno', value: 'pequeno' },
 ]
-
-// Definindo explicitamente o tipo de `requestError`
-interface RequestError {
-  message?: string
-}
 
 export default function CreateAnimalCategory() {
   const router = useRouter()

@@ -36,7 +36,7 @@ export default function UpdateEmployeeById() {
     data: employee,
     isError,
     isLoading,
-  } = useGETEmployeeById(id.toString())
+  } = useGETEmployeeById(String(id))
 
   const { data: departaments, isLoading: isLoadingDepartaments } =
     useGETDepartaments()
@@ -101,7 +101,7 @@ export default function UpdateEmployeeById() {
       occupation,
     }
 
-    if (isCepCorrect) mutate({ id: id.toString(), updatedEmployee })
+    if (isCepCorrect) mutate({ id: String(id), updatedEmployee })
   }
 
   useEffect(() => {
